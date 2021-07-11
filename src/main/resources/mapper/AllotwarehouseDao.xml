@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.AllotwarehouseDao">
+
+    <resultMap type="com.cy.psi.entity.Allotwarehouse" id="AllotwarehouseMap">
+        <id property="channelid" column="channelid" jdbcType="INTEGER"/>
+        <result property="serialNumber" column="serial_number" jdbcType="VARCHAR"/>
+        <result property="documentationDate" column="documentation_date" jdbcType="TIMESTAMP"/>
+        <result property="documentmaker" column="documentMaker" jdbcType="VARCHAR"/>
+        <result property="operator" column="operator" jdbcType="VARCHAR"/>
+        <result property="auditor" column="auditor" jdbcType="VARCHAR"/>
+        <result property="auditData" column="audit_data" jdbcType="TIMESTAMP"/>
+        <result property="auditSign" column="audit_sign" jdbcType="VARCHAR"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <association property="basedepot" javaType="com.cy.psi.entity.BaseDepot">
+            <id property="depotId" column="depot_id" jdbcType="INTEGER"/>
+            <result property="depotName" column="depot_name" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <!--连查询调拨单 -->
+    <select id="selectAllotwarehouse" resultMap="AllotwarehouseMap">
+     select * from cypsi.Allotwarehouse a
+      left join cypsi.base_depot b on a.depot_id=b.depot_id
+      where a.TimeLiness=0
+      order by a.depot_id
+    </select>
+    <!--高级查询-->
+    <select id="selectBylikeAllotwarehouse" resultMap="AllotwarehouseMap">
+        select * from cypsi.Allotwarehouse a
+        left join cypsi.base_depot b on a.depot_id=b.depot_id
+        <where>
+            <if test="serialNumber!=null || serialNumber!=''">
+                and a.serial_number like concat('%',#{serialNumber},'%')
+            </if>
+            <if test="documentmaker!=null and documentmaker!=''">
+                and a.documentMaker like concat('%',#{documentmaker},'%')
+            </if>
+            <if test="depotName!=null || depotName!=''">
+                and b.depot_name like concat('%',#{depotName},'%')
+            </if>
+        </where>
+        and a.TimeLiness = 0
+        order by e.depot_id
+    </select>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from cypsi.Allotwarehouse where channelid = #{channelid}
+    </delete>
+
+</mapper>
+

@@ -1,0 +1,14 @@
+###
+#调拨表查询
+GET http://localhost:8089/cypsi/selectAllotwarehouse
+Accept: application/json
+
+###
+#盘点表查询
+GET http://localhost:8089/cypsi/selectCheckwarehouse
+Accept: application/json
+
+###
+
+
+###
