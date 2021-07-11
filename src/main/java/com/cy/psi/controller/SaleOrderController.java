@@ -9,6 +9,7 @@ import com.cy.psi.service.InventoryService;
 import com.cy.psi.service.SaleOrderDetailsService;
 import com.cy.psi.service.SaleOrderService;
 import com.cy.psi.vo.AjaxResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ import java.util.List;
 public class SaleOrderController {
     @Resource
     private SaleOrderDetailsService saleOrderDetailsService;
-    @Resource
+    @Autowired
     private InventoryService inventoryService;
     @Resource
     private SaleOrderService saleOrderService;

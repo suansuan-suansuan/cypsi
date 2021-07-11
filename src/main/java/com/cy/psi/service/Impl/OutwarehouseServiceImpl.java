@@ -1,8 +1,7 @@
 package com.cy.psi.service.Impl;
 
-import com.cy.psi.entity.Allotwarehouse;
+import com.cy.psi.dao.SaleDeliveryDao;
 import com.cy.psi.entity.SaleDelivery;
-import com.cy.psi.dao.OutwarehouseDao;
 import com.cy.psi.service.OutwarehouseService;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,7 @@ import java.util.List;
 @Service("saleDeliveryService")
 public class OutwarehouseServiceImpl implements OutwarehouseService {
     @Resource
-    private OutwarehouseDao saleDeliveryDao;
+    private SaleDeliveryDao saleDeliveryDao;
 
     /**
      分页查询所有

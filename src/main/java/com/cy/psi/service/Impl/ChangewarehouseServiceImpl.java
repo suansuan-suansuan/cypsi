@@ -1,8 +1,7 @@
 package com.cy.psi.service.Impl;
 
-import com.cy.psi.entity.Allotwarehouse;
+import com.cy.psi.dao.InventoryDao;
 import com.cy.psi.entity.Inventory;
-import com.cy.psi.dao.ChangewarehouseDao;
 import com.cy.psi.service.ChangewarehouseService;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,7 @@ import java.util.List;
 @Service("inventoryService")
 public class ChangewarehouseServiceImpl implements ChangewarehouseService {
     @Resource
-    private ChangewarehouseDao inventoryDao;
+    private InventoryDao inventoryDao;
     /**
      分页查询所有
      */

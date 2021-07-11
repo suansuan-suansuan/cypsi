@@ -3,9 +3,6 @@ package com.cy.psi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * @author 酸酸
- */
 @SpringBootApplication
 public class PsiApplication {
 

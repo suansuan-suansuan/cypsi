@@ -164,4 +164,28 @@
       </set>
       where (select b.product_number from base_product b where b.product_id=i.product_id) = #{productId} and i.depot_name = #{depotName}
     </update>
+  <!--连查询调拨单 -->
+  <select id="selectChangewarehouse" resultMap="BaseResultMap">
+    select * from cypsi.inventory
+
+  </select>
+  <!--高级查询-->
+  <select id="selectBylikeChangewarehouse" resultMap="BaseResultMap">
+    select * from cypsi.inventory
+    <where>
+      <if test="serialNumber!=null || serialNumber!=''">
+        and a.serial_number like concat('%',#{serialNumber},'%')
+      </if>
+      <if test="documentmaker!=null and documentmaker!=''">
+        and a.documentMaker like concat('%',#{documentmaker},'%')
+      </if>
+      <if test="depotName!=null || depotName!=''">
+        and b.depot_name like concat('%',#{depotName},'%')
+      </if>
+    </where>
+  </select>
+  <!--通过主键删除-->
+  <delete id="deleteById">
+    delete from cypsi.inventory where inventory_id = #{inventoryId}
+  </delete>
 </mapper>
