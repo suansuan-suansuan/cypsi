@@ -1,11 +1,16 @@
 package com.cy.psi.entity;
 
+<<<<<<< HEAD
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
+=======
+>>>>>>> 79946d1d9ee56b396258ae87820857a92f408961
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.io.Serializable;
 
 /**
  * base_dept
@@ -19,12 +24,12 @@ public class BaseDept implements Serializable {
     /**
      * 部门id
      */
-    private String deptId;
+    private Integer deptId;
 
     /**
      * 父级id
      */
-    private String parentId;
+    private Integer parentId;
 
     /**
      * 部门名称
