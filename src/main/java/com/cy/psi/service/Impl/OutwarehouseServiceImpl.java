@@ -14,7 +14,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-07-11 14:16:38
  */
-@Service("saleDeliveryService")
+//@Service("saleDeliveryService")
 public class OutwarehouseServiceImpl implements OutwarehouseService {
     @Resource
     private SaleDeliveryDao saleDeliveryDao;

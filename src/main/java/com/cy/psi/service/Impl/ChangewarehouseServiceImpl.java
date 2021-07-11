@@ -14,7 +14,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-07-11 15:23:36
  */
-@Service("inventoryService")
+//@Service("inventoryService")
 public class ChangewarehouseServiceImpl implements ChangewarehouseService {
     @Resource
     private InventoryDao inventoryDao;
