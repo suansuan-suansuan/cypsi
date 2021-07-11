@@ -5,6 +5,9 @@ import com.cy.psi.exception.CustomErrorType;
 import lombok.Data;
 
 
+/**
+ * @author ASUS
+ */
 @Data
 public class AjaxResponse {
 
