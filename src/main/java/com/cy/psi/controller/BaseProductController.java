@@ -21,6 +21,12 @@ public class BaseProductController {
     @Resource
     private BaseProductService baseProductService;
 
+    /**
+     * 分页查询产品数据
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/SelectAll")
     public PageInfo<BaseProduct> baseProductPageInfo(@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize){
         PageHelper.startPage(pageNum,pageSize);
