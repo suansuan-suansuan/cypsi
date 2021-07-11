@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.BaseDepotDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.BaseDepot">
+    <id column="depot_id" jdbcType="VARCHAR" property="depotId" />
+    <result column="depot_name" jdbcType="VARCHAR" property="depotName" />
+    <result column="u_id" jdbcType="VARCHAR" property="uId" />
+    <result column="ontact_number" jdbcType="VARCHAR" property="ontactNumber" />
+    <result column="depot_address" jdbcType="VARCHAR" property="depotAddress" />
+    <result column="default_warehouse" jdbcType="INTEGER" property="defaultWarehouse" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    depot_id, depot_name, u_id, ontact_number, depot_address, default_warehouse, remarks, 
+    `state`
+  </sql>
+
+  <!--查询所有仓库-->
+  <select id="selectAll" parameterType="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from base_depot
+    order by depot_id desc
+  </select>
+
+  <!--根据仓库id查询数据-->
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_depot
+    where depot_id = #{depotId,jdbcType=VARCHAR}
+  </select>
+
+  <!--根据仓库id删除数据  -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from base_depot
+    where depot_id = #{depotId,jdbcType=VARCHAR}
+  </delete>
+
+  <!--新增仓库数据  -->
+  <insert id="insert" keyColumn="depot_id" keyProperty="depotId" parameterType="com.cy.psi.entity.BaseDepot" useGeneratedKeys="true">
+    insert into base_depot (depot_name, u_id, ontact_number, 
+      depot_address, default_warehouse, remarks, 
+      `state`)
+    values (#{depotName,jdbcType=VARCHAR}, #{uId,jdbcType=VARCHAR}, #{ontactNumber,jdbcType=VARCHAR}, 
+      #{depotAddress,jdbcType=VARCHAR}, #{defaultWarehouse,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER})
+  </insert>
+
+
+  <insert id="insertSelective" keyColumn="depot_id" keyProperty="depotId" parameterType="com.cy.psi.entity.BaseDepot" useGeneratedKeys="true">
+    insert into base_depot
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="depotName != null">
+        depot_name,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="ontactNumber != null">
+        ontact_number,
+      </if>
+      <if test="depotAddress != null">
+        depot_address,
+      </if>
+      <if test="defaultWarehouse != null">
+        default_warehouse,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="depotName != null">
+        #{depotName,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="ontactNumber != null">
+        #{ontactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="depotAddress != null">
+        #{depotAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultWarehouse != null">
+        #{defaultWarehouse,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <!--修改仓库数据-->
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.BaseDepot">
+    update base_depot
+    <set>
+      <if test="depotName != null">
+        depot_name = #{depotName,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="ontactNumber != null">
+        ontact_number = #{ontactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="depotAddress != null">
+        depot_address = #{depotAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultWarehouse != null">
+        default_warehouse = #{defaultWarehouse,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where depot_id = #{depotId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.BaseDepot">
+    update base_depot
+    set depot_name = #{depotName,jdbcType=VARCHAR},
+      u_id = #{uId,jdbcType=VARCHAR},
+      ontact_number = #{ontactNumber,jdbcType=VARCHAR},
+      depot_address = #{depotAddress,jdbcType=VARCHAR},
+      default_warehouse = #{defaultWarehouse,jdbcType=INTEGER},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=INTEGER}
+    where depot_id = #{depotId,jdbcType=VARCHAR}
+  </update>
+</mapper>
