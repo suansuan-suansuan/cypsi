@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.BaseVendorDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.BaseVendor">
+    <id column="vendor_id" jdbcType="VARCHAR" property="vendorId" />
+    <result column="vendor_number" jdbcType="VARCHAR" property="vendorNumber" />
+    <result column="vendor_name" jdbcType="VARCHAR" property="vendorName" />
+    <result column="fund_account" jdbcType="VARCHAR" property="fundAccount" />
+    <result column="u_id" jdbcType="VARCHAR" property="uId" />
+    <result column="accounts_payable" jdbcType="DECIMAL" property="accountsPayable" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+    <result column="contact_address" jdbcType="VARCHAR" property="contactAddress" />
+    <result column="contact_number" jdbcType="VARCHAR" property="contactNumber" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    vendor_id, vendor_number, vendor_name, fund_account, u_id, accounts_payable, contact_name, 
+    contact_address, contact_number, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_vendor
+    where vendor_id = #{vendorId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from base_vendor
+    where vendor_id = #{vendorId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="vendor_id" keyProperty="vendorId" parameterType="com.cy.psi.entity.BaseVendor" useGeneratedKeys="true">
+    insert into base_vendor (vendor_number, vendor_name, fund_account, 
+      u_id, accounts_payable, contact_name, 
+      contact_address, contact_number, remarks
+      )
+    values (#{vendorNumber,jdbcType=VARCHAR}, #{vendorName,jdbcType=VARCHAR}, #{fundAccount,jdbcType=VARCHAR}, 
+      #{uId,jdbcType=VARCHAR}, #{accountsPayable,jdbcType=DECIMAL}, #{contactName,jdbcType=VARCHAR}, 
+      #{contactAddress,jdbcType=VARCHAR}, #{contactNumber,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="vendor_id" keyProperty="vendorId" parameterType="com.cy.psi.entity.BaseVendor" useGeneratedKeys="true">
+    insert into base_vendor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="vendorNumber != null">
+        vendor_number,
+      </if>
+      <if test="vendorName != null">
+        vendor_name,
+      </if>
+      <if test="fundAccount != null">
+        fund_account,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="accountsPayable != null">
+        accounts_payable,
+      </if>
+      <if test="contactName != null">
+        contact_name,
+      </if>
+      <if test="contactAddress != null">
+        contact_address,
+      </if>
+      <if test="contactNumber != null">
+        contact_number,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="vendorNumber != null">
+        #{vendorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorName != null">
+        #{vendorName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundAccount != null">
+        #{fundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountsPayable != null">
+        #{accountsPayable,jdbcType=DECIMAL},
+      </if>
+      <if test="contactName != null">
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddress != null">
+        #{contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNumber != null">
+        #{contactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.BaseVendor">
+    update base_vendor
+    <set>
+      <if test="vendorNumber != null">
+        vendor_number = #{vendorNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorName != null">
+        vendor_name = #{vendorName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundAccount != null">
+        fund_account = #{fundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountsPayable != null">
+        accounts_payable = #{accountsPayable,jdbcType=DECIMAL},
+      </if>
+      <if test="contactName != null">
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddress != null">
+        contact_address = #{contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNumber != null">
+        contact_number = #{contactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where vendor_id = #{vendorId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.BaseVendor">
+    update base_vendor
+    set vendor_number = #{vendorNumber,jdbcType=VARCHAR},
+      vendor_name = #{vendorName,jdbcType=VARCHAR},
+      fund_account = #{fundAccount,jdbcType=VARCHAR},
+      u_id = #{uId,jdbcType=VARCHAR},
+      accounts_payable = #{accountsPayable,jdbcType=DECIMAL},
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_address = #{contactAddress,jdbcType=VARCHAR},
+      contact_number = #{contactNumber,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where vendor_id = #{vendorId,jdbcType=VARCHAR}
+  </update>
+</mapper>
