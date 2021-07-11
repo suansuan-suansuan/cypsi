@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.SaleReturnDetailsDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.SaleReturnDetails">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="return_order_id" jdbcType="VARCHAR" property="returnOrderId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="product_num" jdbcType="INTEGER" property="productNum" />
+    <result column="depot" jdbcType="VARCHAR" property="depot" />
+    <result column="sale_unit_price" jdbcType="DECIMAL" property="saleUnitPrice" />
+    <result column="sale_money" jdbcType="DECIMAL" property="saleMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, return_order_id, product_id, product_num, depot, sale_unit_price, sale_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sale_return_details
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sale_return_details
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cy.psi.entity.SaleReturnDetails" useGeneratedKeys="true">
+    insert into sale_return_details (return_order_id, product_id, product_num, 
+      depot, sale_unit_price, sale_money
+      )
+    values (#{returnOrderId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{productNum,jdbcType=INTEGER}, 
+      #{depot,jdbcType=VARCHAR}, #{saleUnitPrice,jdbcType=DECIMAL}, #{saleMoney,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cy.psi.entity.SaleReturnDetails" useGeneratedKeys="true">
+    insert into sale_return_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="returnOrderId != null">
+        return_order_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productNum != null">
+        product_num,
+      </if>
+      <if test="depot != null">
+        depot,
+      </if>
+      <if test="saleUnitPrice != null">
+        sale_unit_price,
+      </if>
+      <if test="saleMoney != null">
+        sale_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="returnOrderId != null">
+        #{returnOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null">
+        #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="depot != null">
+        #{depot,jdbcType=VARCHAR},
+      </if>
+      <if test="saleUnitPrice != null">
+        #{saleUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleMoney != null">
+        #{saleMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.SaleReturnDetails">
+    update sale_return_details
+    <set>
+      <if test="returnOrderId != null">
+        return_order_id = #{returnOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null">
+        product_num = #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="depot != null">
+        depot = #{depot,jdbcType=VARCHAR},
+      </if>
+      <if test="saleUnitPrice != null">
+        sale_unit_price = #{saleUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleMoney != null">
+        sale_money = #{saleMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.SaleReturnDetails">
+    update sale_return_details
+    set return_order_id = #{returnOrderId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      product_num = #{productNum,jdbcType=INTEGER},
+      depot = #{depot,jdbcType=VARCHAR},
+      sale_unit_price = #{saleUnitPrice,jdbcType=DECIMAL},
+      sale_money = #{saleMoney,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

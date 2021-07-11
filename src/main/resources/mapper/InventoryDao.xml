@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.InventoryDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.Inventory">
+    <id column="inventory_id" jdbcType="VARCHAR" property="inventoryId" />
+    <result column="depot_id" jdbcType="VARCHAR" property="depotId" />
+    <result column="depot_name" jdbcType="VARCHAR" property="depotName" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="purchase_unit_price" jdbcType="DECIMAL" property="purchaseUnitPrice" />
+    <result column="purchase_money" jdbcType="DECIMAL" property="purchaseMoney" />
+    <result column="inventory_quantity" jdbcType="INTEGER" property="inventoryQuantity" />
+    <result column="total_cost" jdbcType="VARCHAR" property="totalCost" />
+    <result column="vendor_id" jdbcType="INTEGER" property="vendorId" />
+    <result column="vendor_name" jdbcType="VARCHAR" property="vendorName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    inventory_id, depot_id, depot_name, product_id, product_name, purchase_unit_price, 
+    purchase_money, inventory_quantity, total_cost, vendor_id, vendor_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inventory
+    where inventory_id = #{inventoryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from inventory
+    where inventory_id = #{inventoryId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="inventory_id" keyProperty="inventoryId" parameterType="com.cy.psi.entity.Inventory" useGeneratedKeys="true">
+    insert into inventory (depot_id, depot_name, product_id, 
+      product_name, purchase_unit_price, purchase_money, 
+      inventory_quantity, total_cost, vendor_id, 
+      vendor_name)
+    values (#{depotId,jdbcType=VARCHAR}, #{depotName,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}, 
+      #{productName,jdbcType=VARCHAR}, #{purchaseUnitPrice,jdbcType=DECIMAL}, #{purchaseMoney,jdbcType=DECIMAL}, 
+      #{inventoryQuantity,jdbcType=INTEGER}, #{totalCost,jdbcType=VARCHAR}, #{vendorId,jdbcType=INTEGER}, 
+      #{vendorName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="inventory_id" keyProperty="inventoryId" parameterType="com.cy.psi.entity.Inventory" useGeneratedKeys="true">
+    insert into inventory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="depotId != null">
+        depot_id,
+      </if>
+      <if test="depotName != null">
+        depot_name,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="purchaseUnitPrice != null">
+        purchase_unit_price,
+      </if>
+      <if test="purchaseMoney != null">
+        purchase_money,
+      </if>
+      <if test="inventoryQuantity != null">
+        inventory_quantity,
+      </if>
+      <if test="totalCost != null">
+        total_cost,
+      </if>
+      <if test="vendorId != null">
+        vendor_id,
+      </if>
+      <if test="vendorName != null">
+        vendor_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="depotId != null">
+        #{depotId,jdbcType=VARCHAR},
+      </if>
+      <if test="depotName != null">
+        #{depotName,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseUnitPrice != null">
+        #{purchaseUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaseMoney != null">
+        #{purchaseMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="inventoryQuantity != null">
+        #{inventoryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="totalCost != null">
+        #{totalCost,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorId != null">
+        #{vendorId,jdbcType=INTEGER},
+      </if>
+      <if test="vendorName != null">
+        #{vendorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.Inventory">
+    update inventory
+    <set>
+      <if test="depotId != null">
+        depot_id = #{depotId,jdbcType=VARCHAR},
+      </if>
+      <if test="depotName != null">
+        depot_name = #{depotName,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseUnitPrice != null">
+        purchase_unit_price = #{purchaseUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaseMoney != null">
+        purchase_money = #{purchaseMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="inventoryQuantity != null">
+        inventory_quantity = #{inventoryQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="totalCost != null">
+        total_cost = #{totalCost,jdbcType=VARCHAR},
+      </if>
+      <if test="vendorId != null">
+        vendor_id = #{vendorId,jdbcType=INTEGER},
+      </if>
+      <if test="vendorName != null">
+        vendor_name = #{vendorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where inventory_id = #{inventoryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.Inventory">
+    update inventory
+    set depot_id = #{depotId,jdbcType=VARCHAR},
+      depot_name = #{depotName,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      purchase_unit_price = #{purchaseUnitPrice,jdbcType=DECIMAL},
+      purchase_money = #{purchaseMoney,jdbcType=DECIMAL},
+      inventory_quantity = #{inventoryQuantity,jdbcType=INTEGER},
+      total_cost = #{totalCost,jdbcType=VARCHAR},
+      vendor_id = #{vendorId,jdbcType=INTEGER},
+      vendor_name = #{vendorName,jdbcType=VARCHAR}
+    where inventory_id = #{inventoryId,jdbcType=VARCHAR}
+  </update>
+    <update id="expectReduce">
+      update inventory i
+      <set>
+        <if test="inventoryQuantity != null and inventoryQuantity != ''">
+          i.inventory_quantity=i.inventory_quantity-{productNum}
+        </if>
+      </set>
+      where (select b.product_number from base_product b where b.product_id=i.product_id) = #{productId} and i.depot_name = #{depotName}
+    </update>
+</mapper>

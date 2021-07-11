@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.SaleDeliveryDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.SaleDelivery">
+    <id column="delivery_order_id" jdbcType="VARCHAR" property="deliveryOrderId" />
+    <result column="delivery_order_time" jdbcType="TIMESTAMP" property="deliveryOrderTime" />
+    <result column="customer" jdbcType="VARCHAR" property="customer" />
+    <result column="salesmen" jdbcType="VARCHAR" property="salesmen" />
+    <result column="receivables" jdbcType="DECIMAL" property="receivables" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="approver" jdbcType="VARCHAR" property="approver" />
+    <result column="found_time" jdbcType="TIMESTAMP" property="foundTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="approval_time" jdbcType="TIMESTAMP" property="approvalTime" />
+    <result column="approval_state" jdbcType="INTEGER" property="approvalState" />
+    <result column="delivery_state" jdbcType="INTEGER" property="deliveryState" />
+    <result column="order_state" jdbcType="INTEGER" property="orderState" />
+    <result column="sale_order_Id" jdbcType="VARCHAR" property="saleOrderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    delivery_order_id, delivery_order_time, customer, salesmen, receivables, remarks, 
+    approver, found_time, update_time, approval_time, approval_state, delivery_state, 
+    order_state, sale_order_Id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sale_delivery
+    where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sale_delivery
+    where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="delivery_order_id" keyProperty="deliveryOrderId" parameterType="com.cy.psi.entity.SaleDelivery" useGeneratedKeys="true">
+    insert into sale_delivery (delivery_order_time, customer, salesmen, 
+      receivables, remarks, approver, 
+      found_time, update_time, approval_time, 
+      approval_state, delivery_state, order_state, 
+      sale_order_Id)
+    values (#{deliveryOrderTime,jdbcType=TIMESTAMP}, #{customer,jdbcType=VARCHAR}, #{salesmen,jdbcType=VARCHAR}, 
+      #{receivables,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR}, 
+      #{foundTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{approvalTime,jdbcType=TIMESTAMP}, 
+      #{approvalState,jdbcType=INTEGER}, #{deliveryState,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER}, 
+      #{saleOrderId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="delivery_order_id" keyProperty="deliveryOrderId" parameterType="com.cy.psi.entity.SaleDelivery" useGeneratedKeys="true">
+    insert into sale_delivery
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deliveryOrderTime != null">
+        delivery_order_time,
+      </if>
+      <if test="customer != null">
+        customer,
+      </if>
+      <if test="salesmen != null">
+        salesmen,
+      </if>
+      <if test="receivables != null">
+        receivables,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="approver != null">
+        approver,
+      </if>
+      <if test="foundTime != null">
+        found_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="approvalTime != null">
+        approval_time,
+      </if>
+      <if test="approvalState != null">
+        approval_state,
+      </if>
+      <if test="deliveryState != null">
+        delivery_state,
+      </if>
+      <if test="orderState != null">
+        order_state,
+      </if>
+      <if test="saleOrderId != null">
+        sale_order_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deliveryOrderTime != null">
+        #{deliveryOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customer != null">
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="salesmen != null">
+        #{salesmen,jdbcType=VARCHAR},
+      </if>
+      <if test="receivables != null">
+        #{receivables,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="approver != null">
+        #{approver,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null">
+        #{foundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalTime != null">
+        #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalState != null">
+        #{approvalState,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryState != null">
+        #{deliveryState,jdbcType=INTEGER},
+      </if>
+      <if test="orderState != null">
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="saleOrderId != null">
+        #{saleOrderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.SaleDelivery">
+    update sale_delivery
+    <set>
+      <if test="deliveryOrderTime != null">
+        delivery_order_time = #{deliveryOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customer != null">
+        customer = #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="salesmen != null">
+        salesmen = #{salesmen,jdbcType=VARCHAR},
+      </if>
+      <if test="receivables != null">
+        receivables = #{receivables,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="approver != null">
+        approver = #{approver,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null">
+        found_time = #{foundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalTime != null">
+        approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalState != null">
+        approval_state = #{approvalState,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryState != null">
+        delivery_state = #{deliveryState,jdbcType=INTEGER},
+      </if>
+      <if test="orderState != null">
+        order_state = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="saleOrderId != null">
+        sale_order_Id = #{saleOrderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.SaleDelivery">
+    update sale_delivery
+    set delivery_order_time = #{deliveryOrderTime,jdbcType=TIMESTAMP},
+      customer = #{customer,jdbcType=VARCHAR},
+      salesmen = #{salesmen,jdbcType=VARCHAR},
+      receivables = #{receivables,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      approver = #{approver,jdbcType=VARCHAR},
+      found_time = #{foundTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      approval_state = #{approvalState,jdbcType=INTEGER},
+      delivery_state = #{deliveryState,jdbcType=INTEGER},
+      order_state = #{orderState,jdbcType=INTEGER},
+      sale_order_Id = #{saleOrderId,jdbcType=VARCHAR}
+    where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
+  </update>
+</mapper>
