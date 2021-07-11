@@ -1,14 +1,10 @@
-package com.cy.psi.dao;
+package com.cy.psi.service;
 
 import com.cy.psi.entity.BaseDept;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-@Mapper
-public interface BaseDeptDao {
+public interface BaseDeptService {
     int deleteByPrimaryKey(Integer deptId);
 
     int insert(BaseDept record);
@@ -23,6 +19,6 @@ public interface BaseDeptDao {
 
     List<BaseDept> findAllDept();
 
-    Object findMaxId(int parent);
 
+    Object findMaxId(int parent);
 }
