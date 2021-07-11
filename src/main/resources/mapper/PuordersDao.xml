@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.PuordersDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.Puorders">
+    <id column="Puorders_id" jdbcType="INTEGER" property="puordersId" />
+    <result column="Puorders_name" jdbcType="VARCHAR" property="puordersName" />
+    <result column="Puorders_unit" jdbcType="VARCHAR" property="puordersUnit" />
+    <result column="Puorders_num" jdbcType="INTEGER" property="puordersNum" />
+    <result column="Puorders_Price" jdbcType="DECIMAL" property="puordersPrice" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="Puorder_id" jdbcType="VARCHAR" property="puorderId" />
+    <result column="Warehousing_id" jdbcType="DECIMAL" property="warehousingId" />
+    <result column="delivery_id" jdbcType="VARCHAR" property="deliveryId" />
+    <result column="id_1" jdbcType="VARCHAR" property="id1" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Puorders_id, Puorders_name, Puorders_unit, Puorders_num, Puorders_Price, product_id, 
+    Puorder_id, Warehousing_id, delivery_id, id_1
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Puorders
+    where Puorders_id = #{puordersId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Puorders
+    where Puorders_id = #{puordersId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertPu" keyColumn="Puorders_id" keyProperty="puordersId" parameterType="com.cy.psi.entity.Puorders" useGeneratedKeys="true">
+    insert into Puorders (Puorders_name, Puorders_unit, Puorders_num, 
+      Puorders_Price, product_id, Puorder_id, 
+      Warehousing_id, delivery_id, id_1
+      )
+    values (#{puordersName,jdbcType=VARCHAR}, #{puordersUnit,jdbcType=VARCHAR}, #{puordersNum,jdbcType=INTEGER}, 
+      #{puordersPrice,jdbcType=DECIMAL}, #{productId,jdbcType=VARCHAR}, #{puorderId,jdbcType=VARCHAR}, 
+      #{warehousingId,jdbcType=DECIMAL}, #{deliveryId,jdbcType=VARCHAR}, #{id1,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="Puorders_id" keyProperty="puordersId" parameterType="com.cy.psi.entity.Puorders" useGeneratedKeys="true">
+    insert into Puorders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="puordersName != null">
+        Puorders_name,
+      </if>
+      <if test="puordersUnit != null">
+        Puorders_unit,
+      </if>
+      <if test="puordersNum != null">
+        Puorders_num,
+      </if>
+      <if test="puordersPrice != null">
+        Puorders_Price,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="puorderId != null">
+        Puorder_id,
+      </if>
+      <if test="warehousingId != null">
+        Warehousing_id,
+      </if>
+      <if test="deliveryId != null">
+        delivery_id,
+      </if>
+      <if test="id1 != null">
+        id_1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="puordersName != null">
+        #{puordersName,jdbcType=VARCHAR},
+      </if>
+      <if test="puordersUnit != null">
+        #{puordersUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="puordersNum != null">
+        #{puordersNum,jdbcType=INTEGER},
+      </if>
+      <if test="puordersPrice != null">
+        #{puordersPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="puorderId != null">
+        #{puorderId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehousingId != null">
+        #{warehousingId,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryId != null">
+        #{deliveryId,jdbcType=VARCHAR},
+      </if>
+      <if test="id1 != null">
+        #{id1,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.Puorders">
+    update Puorders
+    <set>
+      <if test="puordersName != null">
+        Puorders_name = #{puordersName,jdbcType=VARCHAR},
+      </if>
+      <if test="puordersUnit != null">
+        Puorders_unit = #{puordersUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="puordersNum != null">
+        Puorders_num = #{puordersNum,jdbcType=INTEGER},
+      </if>
+      <if test="puordersPrice != null">
+        Puorders_Price = #{puordersPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="puorderId != null">
+        Puorder_id = #{puorderId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehousingId != null">
+        Warehousing_id = #{warehousingId,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryId != null">
+        delivery_id = #{deliveryId,jdbcType=VARCHAR},
+      </if>
+      <if test="id1 != null">
+        id_1 = #{id1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Puorders_id = #{puordersId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.Puorders">
+    update Puorders
+    set Puorders_name = #{puordersName,jdbcType=VARCHAR},
+      Puorders_unit = #{puordersUnit,jdbcType=VARCHAR},
+      Puorders_num = #{puordersNum,jdbcType=INTEGER},
+      Puorders_Price = #{puordersPrice,jdbcType=DECIMAL},
+      product_id = #{productId,jdbcType=VARCHAR},
+      Puorder_id = #{puorderId,jdbcType=VARCHAR},
+      Warehousing_id = #{warehousingId,jdbcType=DECIMAL},
+      delivery_id = #{deliveryId,jdbcType=VARCHAR},
+      id_1 = #{id1,jdbcType=VARCHAR}
+    where Puorders_id = #{puordersId,jdbcType=INTEGER}
+  </update>
+</mapper>

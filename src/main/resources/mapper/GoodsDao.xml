@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.GoodsDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.Goods">
+    <id column="Goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="Puorder_Timestamp" jdbcType="TIMESTAMP" property="puorderTimestamp" />
+    <result column="Approval" jdbcType="INTEGER" property="approval" />
+    <result column="Goods_Zt" jdbcType="INTEGER" property="goodsZt" />
+    <result column="AppTime" jdbcType="TIMESTAMP" property="apptime" />
+    <result column="Goods_state" jdbcType="VARCHAR" property="goodsState" />
+    <result column="Explain" jdbcType="VARCHAR" property="explain" />
+    <result column="depot_id" jdbcType="VARCHAR" property="depotId" />
+    <result column="Puorder_id" jdbcType="VARCHAR" property="puorderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Goods_id, Puorder_Timestamp, Approval, Goods_Zt, AppTime, Goods_state, `Explain`, 
+    depot_id, Puorder_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Goods
+    where Goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Goods
+    where Goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Goods_id" keyProperty="goodsId" parameterType="com.cy.psi.entity.Goods" useGeneratedKeys="true">
+    insert into Goods (Puorder_Timestamp, Approval, Goods_Zt, 
+      AppTime, Goods_state, `Explain`, 
+      depot_id, Puorder_id)
+    values (#{puorderTimestamp,jdbcType=TIMESTAMP}, #{approval,jdbcType=INTEGER}, #{goodsZt,jdbcType=INTEGER}, 
+      #{apptime,jdbcType=TIMESTAMP}, #{goodsState,jdbcType=VARCHAR}, #{explain,jdbcType=VARCHAR}, 
+      #{depotId,jdbcType=VARCHAR}, #{puorderId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="Goods_id" keyProperty="goodsId" parameterType="com.cy.psi.entity.Goods" useGeneratedKeys="true">
+    insert into Goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="puorderTimestamp != null">
+        Puorder_Timestamp,
+      </if>
+      <if test="approval != null">
+        Approval,
+      </if>
+      <if test="goodsZt != null">
+        Goods_Zt,
+      </if>
+      <if test="apptime != null">
+        AppTime,
+      </if>
+      <if test="goodsState != null">
+        Goods_state,
+      </if>
+      <if test="explain != null">
+        `Explain`,
+      </if>
+      <if test="depotId != null">
+        depot_id,
+      </if>
+      <if test="puorderId != null">
+        Puorder_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="puorderTimestamp != null">
+        #{puorderTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approval != null">
+        #{approval,jdbcType=INTEGER},
+      </if>
+      <if test="goodsZt != null">
+        #{goodsZt,jdbcType=INTEGER},
+      </if>
+      <if test="apptime != null">
+        #{apptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsState != null">
+        #{goodsState,jdbcType=VARCHAR},
+      </if>
+      <if test="explain != null">
+        #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="depotId != null">
+        #{depotId,jdbcType=VARCHAR},
+      </if>
+      <if test="puorderId != null">
+        #{puorderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.Goods">
+    update Goods
+    <set>
+      <if test="puorderTimestamp != null">
+        Puorder_Timestamp = #{puorderTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approval != null">
+        Approval = #{approval,jdbcType=INTEGER},
+      </if>
+      <if test="goodsZt != null">
+        Goods_Zt = #{goodsZt,jdbcType=INTEGER},
+      </if>
+      <if test="apptime != null">
+        AppTime = #{apptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsState != null">
+        Goods_state = #{goodsState,jdbcType=VARCHAR},
+      </if>
+      <if test="explain != null">
+        `Explain` = #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="depotId != null">
+        depot_id = #{depotId,jdbcType=VARCHAR},
+      </if>
+      <if test="puorderId != null">
+        Puorder_id = #{puorderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.Goods">
+    update Goods
+    set Puorder_Timestamp = #{puorderTimestamp,jdbcType=TIMESTAMP},
+      Approval = #{approval,jdbcType=INTEGER},
+      Goods_Zt = #{goodsZt,jdbcType=INTEGER},
+      AppTime = #{apptime,jdbcType=TIMESTAMP},
+      Goods_state = #{goodsState,jdbcType=VARCHAR},
+      `Explain` = #{explain,jdbcType=VARCHAR},
+      depot_id = #{depotId,jdbcType=VARCHAR},
+      Puorder_id = #{puorderId,jdbcType=VARCHAR}
+    where Goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+
+  <select id="GoselectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Goods
+    order by Goods_id desc
+  </select>
+</mapper>

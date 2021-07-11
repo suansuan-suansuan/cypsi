@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.BaseSettlementTypeDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.BaseSettlementType">
+    <id column="settlement_type_id" jdbcType="INTEGER" property="settlementTypeId" />
+    <result column="settlement_type" jdbcType="VARCHAR" property="settlementType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    settlement_type_id, settlement_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_settlement_type
+    where settlement_type_id = #{settlementTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from base_settlement_type
+    where settlement_type_id = #{settlementTypeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="settlement_type_id" keyProperty="settlementTypeId" parameterType="com.cy.psi.entity.BaseSettlementType" useGeneratedKeys="true">
+    insert into base_settlement_type (settlement_type)
+    values (#{settlementType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="settlement_type_id" keyProperty="settlementTypeId" parameterType="com.cy.psi.entity.BaseSettlementType" useGeneratedKeys="true">
+    insert into base_settlement_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="settlementType != null">
+        settlement_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="settlementType != null">
+        #{settlementType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.BaseSettlementType">
+    update base_settlement_type
+    <set>
+      <if test="settlementType != null">
+        settlement_type = #{settlementType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where settlement_type_id = #{settlementTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.BaseSettlementType">
+    update base_settlement_type
+    set settlement_type = #{settlementType,jdbcType=VARCHAR}
+    where settlement_type_id = #{settlementTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

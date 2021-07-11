@@ -1,0 +1,2 @@
+GET http://localhost:8089/cypsi/test/GoselectAll?currentPage=1&pagesize=3&total=0
+Accept: application/json
