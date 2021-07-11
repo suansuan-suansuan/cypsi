@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("baseDepot")
 public class BaseDepotController {
-    
+
     @Resource
     private BaseDepotService baseDepotService;
 

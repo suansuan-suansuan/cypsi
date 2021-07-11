@@ -7,12 +7,11 @@
     <result column="u_id" jdbcType="VARCHAR" property="uId" />
     <result column="ontact_number" jdbcType="VARCHAR" property="ontactNumber" />
     <result column="depot_address" jdbcType="VARCHAR" property="depotAddress" />
-    <result column="default_warehouse" jdbcType="INTEGER" property="defaultWarehouse" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="state" jdbcType="INTEGER" property="state" />
   </resultMap>
   <sql id="Base_Column_List">
-    depot_id, depot_name, u_id, ontact_number, depot_address, default_warehouse, remarks, 
+    depot_id, depot_name, u_id, ontact_number, depot_address, remarks,
     `state`
   </sql>
 
@@ -41,10 +40,10 @@
   <!--新增仓库数据  -->
   <insert id="insert" keyColumn="depot_id" keyProperty="depotId" parameterType="com.cy.psi.entity.BaseDepot" useGeneratedKeys="true">
     insert into base_depot (depot_name, u_id, ontact_number, 
-      depot_address, default_warehouse, remarks, 
+      depot_address, remarks,
       `state`)
     values (#{depotName,jdbcType=VARCHAR}, #{uId,jdbcType=VARCHAR}, #{ontactNumber,jdbcType=VARCHAR}, 
-      #{depotAddress,jdbcType=VARCHAR}, #{defaultWarehouse,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, 
+      #{depotAddress,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR},
       #{state,jdbcType=INTEGER})
   </insert>
 
@@ -63,9 +62,6 @@
       </if>
       <if test="depotAddress != null">
         depot_address,
-      </if>
-      <if test="defaultWarehouse != null">
-        default_warehouse,
       </if>
       <if test="remarks != null">
         remarks,
@@ -86,9 +82,6 @@
       </if>
       <if test="depotAddress != null">
         #{depotAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="defaultWarehouse != null">
-        #{defaultWarehouse,jdbcType=INTEGER},
       </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
@@ -115,9 +108,6 @@
       <if test="depotAddress != null">
         depot_address = #{depotAddress,jdbcType=VARCHAR},
       </if>
-      <if test="defaultWarehouse != null">
-        default_warehouse = #{defaultWarehouse,jdbcType=INTEGER},
-      </if>
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
@@ -134,7 +124,6 @@
       u_id = #{uId,jdbcType=VARCHAR},
       ontact_number = #{ontactNumber,jdbcType=VARCHAR},
       depot_address = #{depotAddress,jdbcType=VARCHAR},
-      default_warehouse = #{defaultWarehouse,jdbcType=INTEGER},
       remarks = #{remarks,jdbcType=VARCHAR},
       `state` = #{state,jdbcType=INTEGER}
     where depot_id = #{depotId,jdbcType=VARCHAR}
