@@ -28,14 +28,10 @@ public class CheckwarehouseServiceImpl implements CheckwarehouseService {
         return checkwarehouseDao.selectCheckwarehouse();
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param checkid 主键
-     * @return 是否成功
-     */
+    //修改   删除
     @Override
-    public boolean deleteById(Integer checkid) {
-        return this.checkwarehouseDao.deleteById(checkid) > 0;
+    public Integer DelCheckwarehouse( Integer timeLiness,Integer checkid){
+        return checkwarehouseDao.DelCheckwarehouse(timeLiness,checkid);
     }
+
 }

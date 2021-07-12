@@ -20,7 +20,7 @@ public class OutwarehouseServiceImpl implements OutwarehouseService {
     private SaleDeliveryDao saleDeliveryDao;
 
     /**
-     分页查询所有
+     * 分页查询所有
      */
     @Override
     public List<SaleDelivery> selectOutwarehouse() {
@@ -28,27 +28,24 @@ public class OutwarehouseServiceImpl implements OutwarehouseService {
     }
 
     /**
-     高级查询
+     * 高级查询
      */
     @Override
     public List<SaleDelivery> selectBylikeOutwarehouse(String Starttime, String Endtime, String salesmen, String remarks) {
-        return saleDeliveryDao.selectBylikeOutwarehouse(Starttime,Endtime,salesmen,remarks);
+        return saleDeliveryDao.selectBylikeOutwarehouse(Starttime, Endtime, salesmen, remarks);
     }
 
     //审核   出库单
     @Override
-    public Integer OutwarehouseAudit( Integer approvalState,String approvalTime,String deliveryOrderId){
-        return saleDeliveryDao.OutwarehouseAudit(approvalState,approvalTime,deliveryOrderId);
+    public Integer OutwarehouseAudit(Integer deliveryState, String deliveryOrderId) {
+        return saleDeliveryDao.OutwarehouseAudit(deliveryState, deliveryOrderId);
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param deliveryOrderId 主键
-     * @return 是否成功
-     */
+    //修改   删除
     @Override
-    public boolean deleteById(String deliveryOrderId) {
-        return this.saleDeliveryDao.deleteById(deliveryOrderId) > 0;
+    public Integer DelOutwarehouse( Integer timeLiness,String deliveryOrderId){
+        return saleDeliveryDao.DelOutwarehouse(timeLiness,deliveryOrderId);
     }
+
+
 }

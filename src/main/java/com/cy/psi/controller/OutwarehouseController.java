@@ -4,6 +4,7 @@ import com.cy.psi.entity.Allotwarehouse;
 import com.cy.psi.entity.SaleDelivery;
 import com.cy.psi.service.OutwarehouseService;
 import com.cy.psi.vo.OutwarehouseAuditVo;
+import com.cy.psi.vo.OutwarehouseVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,7 @@ public class OutwarehouseController {
         return classtypeVoPageInfo;
     }
 
-    //     高级分页查询调拨单
+    //     高级分页查询出库单
     @GetMapping("/selectBylikeOutwarehouse")
     public PageInfo<SaleDelivery> selectBylikeOutwarehouse(@RequestParam("currentPage") int currentPage,
                                                                @RequestParam("pagesize") int pagesize,
@@ -57,17 +58,19 @@ public class OutwarehouseController {
     //    审核    出库单
     @PutMapping("/OutwarehouseAudit")
     public Integer OutwarehouseAudit(@RequestBody OutwarehouseAuditVo vo){
-        log.info("approvalTime:"+vo.getApprovalTime());
-        log.info("approvalState:"+vo.getApprovalState());
+        log.info("deliveryState:"+vo.getDeliveryState());
         log.info("deliveryOrderId:"+vo.getDeliveryOrderId());
         log.debug("修改想去");
-        return saleDeliveryService.OutwarehouseAudit(vo.getApprovalState(),vo.getApprovalTime(),vo.getDeliveryOrderId());
+        return saleDeliveryService.OutwarehouseAudit(vo.getDeliveryState(),vo.getDeliveryOrderId());
     }
-    @DeleteMapping("/delOutwarehouse")
-    public String delOutwarehouse(@PathVariable("deliveryOrderId") String deliveryOrderId){
-        log.debug("开始删除！");
-        log.debug(String.valueOf(deliveryOrderId));
-        saleDeliveryService.deleteById(deliveryOrderId);
-        return "删除成功!";
+
+
+    //    逻辑删除
+    @PutMapping("/DelOutwarehouse")
+    public Integer DelOutwarehouse(@RequestBody OutwarehouseVo vo){
+        log.info("deliveryOrderId:"+vo.getDeliveryOrderId());
+        log.info("timeLiness:"+vo.getTimeLiness());
+        log.debug("修改想去");
+        return saleDeliveryService.DelOutwarehouse(vo.getTimeLiness(),vo.getDeliveryOrderId());
     }
 }

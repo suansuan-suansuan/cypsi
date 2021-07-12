@@ -16,17 +16,18 @@
         <result property="productId" column="product_id" jdbcType="INTEGER"/>
     </resultMap>
 
-    <!--查询出库表 -->
+    <!--查询盘点表 -->
     <select id="selectCheckwarehouse" resultMap="CheckwarehouseMap">
      select * from cypsi.Checkwarehouse
       where TimeLiness=0
       order by checkid
     </select>
 
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from cypsi.Checkwarehouse where checkid = #{checkid}
-    </delete>
+    <!--逻辑删除 -->
+    <update id="DelCheckwarehouse" parameterType="com.cy.psi.entity.Checkwarehouse">
+        update cypsi.Checkwarehouse set TimeLiness=#{timeLiness} where checkid=#{checkid}
+     </update>
+
 
 </mapper>
 

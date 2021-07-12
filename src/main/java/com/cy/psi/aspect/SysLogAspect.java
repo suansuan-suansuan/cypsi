@@ -1,18 +1,21 @@
 package com.cy.psi.aspect;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cy.psi.anno.SysLog;
 import com.cy.psi.entity.Log;
 import com.cy.psi.service.SysLogService;
+import com.cy.psi.service.SysUserService;
 import com.cy.psi.utils.IdWorker;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -26,6 +29,7 @@ import java.sql.Timestamp;
  */
 @Aspect
 @Component
+@Slf4j
 public class SysLogAspect {
 
     @Autowired
@@ -37,6 +41,38 @@ public class SysLogAspect {
 
     @Autowired
     private SysLogService sysLogService;
+
+    @Autowired
+    private SysUserService sysUserService;
+
+
+    /**
+     * 定义切点l
+     */
+//    @Pointcut("execution(public * com.cy.psi.controller.SysController.login(..))")
+    public void getuserByUserName(){
+        // this.
+    }
+
+    /**
+     * 用户名密码登录时
+     * @param joinPoint
+     */
+  //  @Before("getuserByUserName()")
+    public void doBefore(JoinPoint joinPoint){
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        // 记录下请求内容
+        log.info("URL : " + request.getRequestURL().toString());
+        log.info("HTTP_METHOD : " + request.getMethod());
+        log.info("REQUEST：" + joinPoint.getArgs().toString());
+        String xx= JSONObject.toJSONString(joinPoint.getArgs());
+        System.out.println(xx);
+        int index=xx.indexOf("uName");//{uanem:ssss,upass}
+        int index2=xx.indexOf('"'+","+'"'+"uPass");
+        String cha=xx.substring(index+11,index2);
+        userId=sysUserService.queryUserIdByUserName(cha);
+    }
     
     /**
      * @Author Twx

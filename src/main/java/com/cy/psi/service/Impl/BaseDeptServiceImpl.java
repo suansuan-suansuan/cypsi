@@ -14,7 +14,7 @@ import java.util.List;
  * @Description 部门业务访问层
  * @Since version-1.0
  */
-@Service
+@Service("BaseDeptService")
 public class BaseDeptServiceImpl implements BaseDeptService {
     @Autowired
     private BaseDeptDao baseDeptDao;

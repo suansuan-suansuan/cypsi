@@ -19,11 +19,14 @@ public class Inventory implements Serializable {
     private static final long serialVersionUID = 238569478249922232L;
 
     private String inventoryId;
-
+    // 仓库
+    private BaseDepot baseDepot;
     private String depotId;
 
     private String depotName;
 
+    // 产品
+    private BaseProduct baseProduct;
     private Integer productId;
 
     private String productName;
@@ -39,6 +42,8 @@ public class Inventory implements Serializable {
     private Integer vendorId;
 
     private String vendorName;
+
+    private Integer timeLiness;
 
 
     public String getInventoryId() {
@@ -127,6 +132,14 @@ public class Inventory implements Serializable {
 
     public void setVendorName(String vendorName) {
         this.vendorName = vendorName;
+    }
+
+    public Integer getTimeLiness() {
+        return timeLiness;
+    }
+
+    public void setTimeLiness(Integer timeLiness) {
+        this.timeLiness = timeLiness;
     }
 
 }

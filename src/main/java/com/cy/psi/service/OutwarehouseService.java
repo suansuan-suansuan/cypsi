@@ -1,6 +1,7 @@
 package com.cy.psi.service;
 
 import com.cy.psi.entity.SaleDelivery;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,15 +24,9 @@ public interface OutwarehouseService {
     List<SaleDelivery> selectBylikeOutwarehouse(String Starttime, String Endtime, String salesmen, String remarks);
 
     //审核   出库单
-    Integer OutwarehouseAudit( Integer approvalState,String approvalTime,String deliveryOrderId);
+    Integer OutwarehouseAudit( Integer deliveryState,String deliveryOrderId);
 
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param deliveryOrderId 主键
-     * @return 是否成功
-     */
-    boolean deleteById(String deliveryOrderId);
+    //逻辑删除
+    Integer DelOutwarehouse( Integer timeLiness,String deliveryOrderId);
 
 }

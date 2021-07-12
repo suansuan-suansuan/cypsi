@@ -45,6 +45,9 @@ public class Allotwarehouse implements Serializable {
 
     private Integer productId;
 
+    //删除状态
+    private Integer timeLiness;
+
 
     public Integer getChannelid() {
         return channelid;
@@ -132,6 +135,14 @@ public class Allotwarehouse implements Serializable {
 
     public void setProductId(Integer productId) {
         this.productId = productId;
+    }
+
+    public Integer getTimeLiness() {
+        return timeLiness;
+    }
+
+    public void setTimeLiness(Integer timeLiness) {
+        this.timeLiness = timeLiness;
     }
 
 }
