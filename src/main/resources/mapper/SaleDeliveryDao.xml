@@ -1,33 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cy.psi.dao.SaleDeliveryDao">
-  <resultMap id="BaseResultMap" type="com.cy.psi.entity.SaleDelivery">
-    <id column="delivery_order_id" jdbcType="VARCHAR" property="deliveryOrderId" />
-    <result column="delivery_order_time" jdbcType="TIMESTAMP" property="deliveryOrderTime" />
-    <result column="customer" jdbcType="VARCHAR" property="customer" />
-    <result column="salesmen" jdbcType="VARCHAR" property="salesmen" />
-    <result column="receivables" jdbcType="DECIMAL" property="receivables" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-    <result column="approver" jdbcType="VARCHAR" property="approver" />
-    <result column="found_time" jdbcType="TIMESTAMP" property="foundTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="approval_time" jdbcType="TIMESTAMP" property="approvalTime" />
-    <result column="approval_state" jdbcType="INTEGER" property="approvalState" />
-    <result column="delivery_state" jdbcType="INTEGER" property="deliveryState" />
-    <result column="order_state" jdbcType="INTEGER" property="orderState" />
-    <result column="sale_order_Id" jdbcType="VARCHAR" property="saleOrderId" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    delivery_order_id, delivery_order_time, customer, salesmen, receivables, remarks, 
+    <resultMap id="BaseResultMap" type="com.cy.psi.entity.SaleDelivery">
+        <id column="delivery_order_id" jdbcType="VARCHAR" property="deliveryOrderId"/>
+        <result column="delivery_order_time" jdbcType="TIMESTAMP" property="deliveryOrderTime"/>
+        <result column="customer" jdbcType="VARCHAR" property="customer"/>
+        <result column="salesmen" jdbcType="VARCHAR" property="salesmen"/>
+        <result column="receivables" jdbcType="DECIMAL" property="receivables"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="approver" jdbcType="VARCHAR" property="approver"/>
+        <result column="found_time" jdbcType="TIMESTAMP" property="foundTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="approval_time" jdbcType="TIMESTAMP" property="approvalTime"/>
+        <result column="approval_state" jdbcType="INTEGER" property="approvalState"/>
+        <result column="delivery_state" jdbcType="INTEGER" property="deliveryState"/>
+        <result column="order_state" jdbcType="INTEGER" property="orderState"/>
+        <result column="sale_order_Id" jdbcType="VARCHAR" property="saleOrderId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        delivery_order_id, delivery_order_time, customer, salesmen, receivables, remarks,
     approver, found_time, update_time, approval_time, approval_state, delivery_state, 
     order_state, sale_order_Id
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sale_delivery
-    where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
-  </select>
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sale_delivery
+        where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
+    </select>
+
+
+
+
+
+
+    <!--查询销售商品明细-->
+    <select id="listStatistical" resultType="java.util.Map" parameterType="map">
+        select bc.customer_name,
+        bp.product_number,
+        bp.product_name,
+        s.delivery_order_time,
+        s.delivery_order_id,
+        bd.depot_name,
+        bu.unit_name,
+        sdd.sale_unit_price,
+        sdd.product_num,
+        su.u_name
+        from sale_delivery s
+        join sale_delivery_details sdd on s.delivery_order_id = sdd.delivery_order_id
+        join base_depot bd on bd.depot_id = sdd.depot
+        join base_customer bc on bc.customer_id = s.customer
+        join base_product bp on bp.product_id = sdd.product_id
+        join base_unit bu on bu.unit_id = bp.unit_id
+        join sys_user su on su.u_id = s.salesmen
+        where 1 = 1
+        <if test="startTime!='' and endTime!=''">
+            and (s.delivery_order_time between #{startTime} and DATE_ADD(#{endTime},INTERVAL 1 DAY))
+        </if>
+        <if test="code!=''">
+            and bp.product_number = #{code}
+        </if>
+        <if test="name!=''">
+            and bc.customer_name = #{name}
+        </if>
+    </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sale_delivery
     where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
@@ -192,6 +230,15 @@
     where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
   </update>
 
+  <select id="queryByIdVo" resultType="com.cy.psi.entity.SaleDelivery">
+    select a.*,b.* from sale_delivery a INNER JOIN base_customer b on a.customer=b.customer_number
+    where delivery_order_id = #{id}
+  </select>
+  <select id="queryById" resultType="com.cy.psi.entity.SaleDelivery">
+    select * from sale_delivery
+    where delivery_order_id = #{deliveryId}
+  </select>
+
 <!--  =========================================我唐某的地盘==========================================================-->
   <resultMap type="com.cy.psi.entity.SaleDelivery" id="SaleDeliveryMap">
     <id property="deliveryOrderId" column="delivery_order_id" jdbcType="VARCHAR"/>
@@ -208,10 +255,11 @@
     <result property="deliveryState" column="delivery_state" jdbcType="INTEGER"/>
     <result property="orderState" column="order_state" jdbcType="INTEGER"/>
     <result property="saleOrderId" column="sale_order_Id" jdbcType="VARCHAR"/>
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeLiness" />
   </resultMap>
   <!--连查询出库单 -->
   <select id="selectOutwarehouse" resultMap="SaleDeliveryMap">
-    select * from cypsi.sale_delivery
+    select * from cypsi.sale_delivery where TimeLiness=0
   </select>
 
   <!--高级查询-->
@@ -228,14 +276,7 @@
         and remarks like concat('%',#{remarks},'%')
       </if>
     </where>
-  </select>
-  <select id="queryByIdVo" resultType="com.cy.psi.entity.SaleDelivery">
-    select a.*,b.* from sale_delivery a INNER JOIN base_customer b on a.customer=b.customer_number
-    where delivery_order_id = #{id}
-  </select>
-  <select id="queryById" resultType="com.cy.psi.entity.SaleDelivery">
-    select * from sale_delivery
-    where delivery_order_id = #{deliveryId}
+    where TimeLiness=0
   </select>
 
 
@@ -244,9 +285,90 @@
     update cypsi.sale_delivery  set delivery_state=#{deliveryState} where delivery_order_id=#{deliveryOrderId}
   </update>
 
-  <!--通过主键删除-->
-  <delete id="deleteById">
-    delete from cypsi.sale_delivery where delivery_order_id = #{deliveryOrderId}
-  </delete>
+
+  <!--逻辑删除 -->
+  <update id="DelOutwarehouse" parameterType="com.cy.psi.entity.SaleDelivery">
+        update cypsi.sale_delivery set TimeLiness=#{timeLiness} where delivery_order_id=#{deliveryOrderId}
+     </update>
+
+    <!--查询销售订单明细-->
+    <select id="listStatisticalOrder" resultType="java.util.Map" parameterType="map">
+        select so.sale_order_Id,
+               so.sale_order_time,
+               bp.product_number,
+               bp.product_name,
+               bp.product_spec,
+               bu.unit_name,
+               bc.customer_name,
+               sod.product_num,
+               sod.sale_money,
+               sdd.product_num ycxnum,
+               sdd.sale_money ycxmoney
+        from sale_order so
+                 join sale_order_details sod on so.sale_order_Id = sod.sale_order_Id
+                 join base_product bp on bp.product_id = sod.product_id
+                 join base_unit bu on bp.unit_id = bu.unit_id
+                 join base_customer bc on so.customer = bc.customer_id
+                 join sale_delivery sd on sd.sale_order_Id = so.sale_order_Id
+                 join sale_delivery_details sdd on sdd.delivery_order_id = sd.delivery_order_id
+        where 1 = 1
+        <if test="startTime!='' and endTime!=''">
+            and (so.sale_order_time between #{startTime} and DATE_ADD(#{endTime},INTERVAL 1 DAY))
+        </if>
+        <if test="code!=''">
+            and bp.product_number = #{code}
+        </if>
+        <if test="name!=''">
+            and bp.product_name = #{name}
+        </if>
+    </select>
+
+    <!--查询销售毛利明细-->
+    <select id="listSalesGross" resultType="java.util.Map" parameterType="map">
+        select bp.product_number,
+        bp.product_name,
+        sd.delivery_order_time,
+        sd.delivery_order_id,
+        bc.customer_name,
+        bu.unit_name,
+        sdd.product_num,
+        i.purchase_unit_price sj,
+        i.purchase_money cb
+        from sale_delivery sd
+        join sale_delivery_details sdd on sd.delivery_order_id = sdd.delivery_order_id
+        join base_product bp on sdd.product_id = bp.product_id
+        join base_customer bc on sd.customer = bc.customer_id
+        join base_unit bu on bp.unit_id = bu.unit_id
+        join inventory i on bp.product_id = i.product_id
+        where 1 = 1
+        <if test="startTime!='' and  endTime!=''">
+            and (sd.delivery_order_time between #{startTime} and DATE_ADD(#{endTime},INTERVAL 1 DAY))
+        </if>
+        <if test="code!=''">
+            and bp.product_number = #{code}
+        </if>
+        <if test="name!=''">
+            and bp.product_name = #{name}
+        </if>
+    </select>
+
+    <!--查询前10畅销商品-->
+    <select id="listStatisticalProduct" resultType="java.util.Map">
+        select bp.product_number,bd.depot_name,sdd.product_num,bp.product_name,bp.product_spec,bu.unit_name
+        from sale_delivery_details sdd
+        join base_product bp on sdd.product_id = bp.product_id
+        join inventory i on bp.product_id = i.product_id
+        join base_depot bd on i.depot_id = bd.depot_id
+        join base_unit bu on bp.unit_id = bu.unit_id
+    </select>
+
+
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from cypsi.sale_delivery
+        where delivery_order_id = #{deliveryOrderId}
+    </delete>
 
 </mapper>

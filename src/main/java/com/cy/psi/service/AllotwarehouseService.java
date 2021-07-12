@@ -21,13 +21,6 @@ public interface AllotwarehouseService {
      */
     List<Allotwarehouse> selectBylikeAllotwarehouse(String serialNumber, String documentmaker, String depotName);
 
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param channelid 主键
-     * @return 是否成功
-     */
-    boolean deleteById(Integer channelid);
-
+    //逻辑删除
+    Integer DelAllotwarehouse( Integer timeLiness,Integer channelid);
 }

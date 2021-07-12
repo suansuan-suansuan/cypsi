@@ -4,6 +4,7 @@ import com.cy.psi.entity.Goods;
 import com.cy.psi.entity.SaleDelivery;
 import com.cy.psi.service.GoodsService;
 import com.cy.psi.vo.GoodsRukuVo;
+import com.cy.psi.vo.GoodsVo;
 import com.cy.psi.vo.OutwarehouseAuditVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -69,5 +70,14 @@ public PageInfo<Goods> selectBylikeGoods(@RequestParam("currentPage") int curren
         return goodsService.GoodsAudit(vo.getGoodsZt(),vo.getPuorderTimestamp(),vo.getGoodsId());
     }
 
+
+    //    逻辑删除
+    @PutMapping("/DelGoods")
+    public Integer DelGoods(@RequestBody GoodsVo vo){
+        log.info("goodsId:"+vo.getGoodsId());
+        log.info("timeLiness:"+vo.getTimeLiness());
+        log.debug("修改想去");
+        return goodsService.DelGoods(vo.getTimeLiness(),vo.getGoodsId());
+    }
 
 }

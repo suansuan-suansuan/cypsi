@@ -15,7 +15,8 @@ import java.util.List;
 public interface CheckwarehouseService {
     //查询
     List<Checkwarehouse> selectCheckwarehouse();
-   //删除
-    boolean deleteById(Integer checkid);
+
+    //逻辑删除
+    Integer DelCheckwarehouse( Integer timeLiness,Integer checkid);
 
 }

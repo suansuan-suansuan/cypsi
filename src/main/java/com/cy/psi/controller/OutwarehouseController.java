@@ -4,6 +4,7 @@ import com.cy.psi.entity.Allotwarehouse;
 import com.cy.psi.entity.SaleDelivery;
 import com.cy.psi.service.OutwarehouseService;
 import com.cy.psi.vo.OutwarehouseAuditVo;
+import com.cy.psi.vo.OutwarehouseVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -62,12 +63,14 @@ public class OutwarehouseController {
         log.debug("修改想去");
         return saleDeliveryService.OutwarehouseAudit(vo.getDeliveryState(),vo.getDeliveryOrderId());
     }
-    //删除出库单
-    @DeleteMapping("/delOutwarehouse")
-    public String delOutwarehouse(@PathVariable("deliveryOrderId") String deliveryOrderId){
-        log.debug("开始删除！");
-        log.debug(String.valueOf(deliveryOrderId));
-        saleDeliveryService.deleteById(deliveryOrderId);
-        return "删除成功!";
+
+
+    //    逻辑删除
+    @PutMapping("/DelOutwarehouse")
+    public Integer DelOutwarehouse(@RequestBody OutwarehouseVo vo){
+        log.info("deliveryOrderId:"+vo.getDeliveryOrderId());
+        log.info("timeLiness:"+vo.getTimeLiness());
+        log.debug("修改想去");
+        return saleDeliveryService.DelOutwarehouse(vo.getTimeLiness(),vo.getDeliveryOrderId());
     }
 }

@@ -25,4 +25,7 @@ public interface GoodsService {
     //审核   出库单
     Integer GoodsAudit( Integer goodsZt,String puorderTimestamp,Integer goodsId);
 
+    //逻辑删除
+    Integer DelGoods( Integer timeLiness,Integer goodsId);
+
 }

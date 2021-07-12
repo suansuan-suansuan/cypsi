@@ -43,6 +43,8 @@ public class Inventory implements Serializable {
 
     private String vendorName;
 
+    private Integer timeLiness;
+
 
     public String getInventoryId() {
         return inventoryId;
@@ -130,6 +132,14 @@ public class Inventory implements Serializable {
 
     public void setVendorName(String vendorName) {
         this.vendorName = vendorName;
+    }
+
+    public Integer getTimeLiness() {
+        return timeLiness;
+    }
+
+    public void setTimeLiness(Integer timeLiness) {
+        this.timeLiness = timeLiness;
     }
 
 }

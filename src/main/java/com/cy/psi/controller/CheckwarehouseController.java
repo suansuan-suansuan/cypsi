@@ -2,6 +2,7 @@ package com.cy.psi.controller;
 
 import com.cy.psi.entity.Checkwarehouse;
 import com.cy.psi.service.CheckwarehouseService;
+import com.cy.psi.vo.CheckwarehouseVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -36,5 +37,13 @@ public class CheckwarehouseController {
         return classtypeVoPageInfo;
     }
 
+    //    逻辑删除
+    @PutMapping("/DelCheckwarehouse")
+    public Integer DelCheckwarehouse(@RequestBody CheckwarehouseVo vo){
+        log.info("checkid:"+vo.getCheckid());
+        log.info("timeLiness:"+vo.getTimeLiness());
+        log.debug("修改想去");
+        return checkwarehouseService.DelCheckwarehouse(vo.getTimeLiness(),vo.getCheckid());
+    }
 
 }
