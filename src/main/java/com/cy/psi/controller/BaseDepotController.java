@@ -1,19 +1,18 @@
 package com.cy.psi.controller;
 
 import com.cy.psi.entity.BaseDepot;
+import com.cy.psi.entity.BaseVendor;
 import com.cy.psi.service.BaseDepotService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-@Slf4j
 @RestController
+@Slf4j
+@CrossOrigin
 @RequestMapping("baseDepot")
 public class BaseDepotController {
 
@@ -32,5 +31,11 @@ public class BaseDepotController {
         List<BaseDepot> page=baseDepotService.SelectAll();
         PageInfo<BaseDepot> PageInfo=new PageInfo<>(page);
         return PageInfo;
+    }
+
+    @GetMapping("/selectAll100")
+    public List<BaseDepot> selectAll100(){
+        List<BaseDepot> Bacv =baseDepotService.selectAll100();
+        return Bacv;
     }
 }

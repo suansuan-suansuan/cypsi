@@ -23,6 +23,13 @@
     order by depot_id desc
   </select>
 
+  <select id="selectAll100" parameterType="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from base_depot
+    order by depot_id desc
+  </select>
+
   <!--根据仓库id查询数据-->
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 

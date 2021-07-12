@@ -176,7 +176,6 @@
     <!--连查询调拨单 -->
   <select id="selectChangewarehouse" resultMap="BaseResultMap">
     select * from cypsi.inventory
-
   </select>
   <!--高级查询-->
   <select id="selectBylikeChangewarehouse" resultMap="BaseResultMap">
