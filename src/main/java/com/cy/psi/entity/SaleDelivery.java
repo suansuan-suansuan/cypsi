@@ -1,5 +1,6 @@
 package com.cy.psi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class SaleDelivery implements Serializable {
     /**
      * 设置当前时间为出货日期
      */
+
     private Date deliveryOrderTime;
     /**
      * 客户id
@@ -83,7 +85,7 @@ public class SaleDelivery implements Serializable {
     public void setDeliveryOrderId(String deliveryOrderId) {
         this.deliveryOrderId = deliveryOrderId;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getDeliveryOrderTime() {
         return deliveryOrderTime;
     }
@@ -139,7 +141,7 @@ public class SaleDelivery implements Serializable {
     public void setFoundTime(Date foundTime) {
         this.foundTime = foundTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -147,7 +149,7 @@ public class SaleDelivery implements Serializable {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getApprovalTime() {
         return approvalTime;
     }
