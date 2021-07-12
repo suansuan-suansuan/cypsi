@@ -10,5 +10,6 @@ import lombok.Data;
 @Data
 public class OutwarehouseAuditVo {
     private  Integer approvalState;
-    private Integer deliveryOrderId;
+    private  String approvalTime;
+    private String deliveryOrderId;
 }

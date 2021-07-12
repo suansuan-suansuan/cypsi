@@ -20,6 +20,12 @@ public class BaseDepotController {
     @Resource
     private BaseDepotService baseDepotService;
 
+    /**
+     * 分页查询仓库数据
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/SelectAll")
     public PageInfo<BaseDepot> baseDepotPageInfo(@RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize){
         PageHelper.startPage(pageNum, pageSize);

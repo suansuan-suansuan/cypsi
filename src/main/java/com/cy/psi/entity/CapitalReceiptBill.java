@@ -81,6 +81,11 @@ public class CapitalReceiptBill implements Serializable {
 
      */
     private String remarks;
+    /**
+     * 关联销售单
+
+     */
+    private String saleOrderId;
 
     private static final long serialVersionUID = 1L;
 }

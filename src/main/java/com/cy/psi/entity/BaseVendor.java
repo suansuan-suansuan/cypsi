@@ -2,13 +2,20 @@ package com.cy.psi.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * base_vendor
  * @author 
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class BaseVendor implements Serializable {
     private String vendorId;
 

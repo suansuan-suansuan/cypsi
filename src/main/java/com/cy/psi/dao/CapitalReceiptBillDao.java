@@ -3,6 +3,8 @@ package com.cy.psi.dao;
 import com.cy.psi.entity.CapitalReceiptBill;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author 酸酸
  */
@@ -19,4 +21,6 @@ public interface CapitalReceiptBillDao {
     int updateByPrimaryKeySelective(CapitalReceiptBill record);
 
     int updateByPrimaryKey(CapitalReceiptBill record);
+
+    List<CapitalReceiptBill> relation(String id);
 }

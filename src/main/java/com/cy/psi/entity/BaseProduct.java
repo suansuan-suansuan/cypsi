@@ -3,13 +3,20 @@ package com.cy.psi.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * base_product
  * @author 
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class BaseProduct implements Serializable {
     private Integer productId;
 

@@ -31,14 +31,14 @@ public class OutwarehouseServiceImpl implements OutwarehouseService {
      高级查询
      */
     @Override
-    public List<SaleDelivery> selectBylikeOutwarehouse(String Starttime, String Endtime, String remarks) {
-        return saleDeliveryDao.selectBylikeOutwarehouse(Starttime,Endtime,remarks);
+    public List<SaleDelivery> selectBylikeOutwarehouse(String Starttime, String Endtime, String salesmen, String remarks) {
+        return saleDeliveryDao.selectBylikeOutwarehouse(Starttime,Endtime,salesmen,remarks);
     }
 
     //审核   出库单
     @Override
-    public Integer OutwarehouseAudit( Integer approvalState,Integer deliveryOrderId){
-        return saleDeliveryDao.OutwarehouseAudit(approvalState,deliveryOrderId);
+    public Integer OutwarehouseAudit( Integer approvalState,String approvalTime,String deliveryOrderId){
+        return saleDeliveryDao.OutwarehouseAudit(approvalState,approvalTime,deliveryOrderId);
     }
 
     /**

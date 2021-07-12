@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.CapitalReceivableDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.CapitalReceivable">
+    <id column="delivery_id" jdbcType="VARCHAR" property="deliveryId" />
+    <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime" />
+    <result column="customer" jdbcType="VARCHAR" property="customer" />
+    <result column="salesmen" jdbcType="VARCHAR" property="salesmen" />
+    <result column="receivables" jdbcType="DECIMAL" property="receivables" />
+    <result column="received" jdbcType="DECIMAL" property="received" />
+    <result column="uncollected" jdbcType="DECIMAL" property="uncollected" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="case_state" jdbcType="INTEGER" property="caseState" />
+    <result column="receipt_remark" jdbcType="VARCHAR" property="receiptRemark" />
+    <result column="last_collection_time" jdbcType="TIMESTAMP" property="lastCollectionTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    delivery_id, delivery_time, customer, salesmen, receivables, received, uncollected, 
+    remarks, case_state, receipt_remark, last_collection_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from capital_receivable
+    where delivery_id = #{deliveryId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from capital_receivable
+    where delivery_id = #{deliveryId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="delivery_id" keyProperty="deliveryId" parameterType="com.cy.psi.entity.CapitalReceivable" useGeneratedKeys="true">
+    insert into capital_receivable (delivery_time, customer, salesmen, 
+      receivables, received, uncollected, 
+      remarks, case_state, receipt_remark, 
+      last_collection_time)
+    values (#{deliveryTime,jdbcType=TIMESTAMP}, #{customer,jdbcType=VARCHAR}, #{salesmen,jdbcType=VARCHAR}, 
+      #{receivables,jdbcType=DECIMAL}, #{received,jdbcType=DECIMAL}, #{uncollected,jdbcType=DECIMAL}, 
+      #{remarks,jdbcType=VARCHAR}, #{caseState,jdbcType=INTEGER}, #{receiptRemark,jdbcType=VARCHAR}, 
+      #{lastCollectionTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="delivery_id" keyProperty="deliveryId" parameterType="com.cy.psi.entity.CapitalReceivable" useGeneratedKeys="true">
+    insert into capital_receivable
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deliveryTime != null">
+        delivery_time,
+      </if>
+      <if test="customer != null">
+        customer,
+      </if>
+      <if test="salesmen != null">
+        salesmen,
+      </if>
+      <if test="receivables != null">
+        receivables,
+      </if>
+      <if test="received != null">
+        received,
+      </if>
+      <if test="uncollected != null">
+        uncollected,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="caseState != null">
+        case_state,
+      </if>
+      <if test="receiptRemark != null">
+        receipt_remark,
+      </if>
+      <if test="lastCollectionTime != null">
+        last_collection_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deliveryTime != null">
+        #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customer != null">
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="salesmen != null">
+        #{salesmen,jdbcType=VARCHAR},
+      </if>
+      <if test="receivables != null">
+        #{receivables,jdbcType=DECIMAL},
+      </if>
+      <if test="received != null">
+        #{received,jdbcType=DECIMAL},
+      </if>
+      <if test="uncollected != null">
+        #{uncollected,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="caseState != null">
+        #{caseState,jdbcType=INTEGER},
+      </if>
+      <if test="receiptRemark != null">
+        #{receiptRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="lastCollectionTime != null">
+        #{lastCollectionTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.CapitalReceivable">
+    update capital_receivable
+    <set>
+      <if test="deliveryTime != null">
+        delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customer != null">
+        customer = #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="salesmen != null">
+        salesmen = #{salesmen,jdbcType=VARCHAR},
+      </if>
+      <if test="receivables != null">
+        receivables = #{receivables,jdbcType=DECIMAL},
+      </if>
+      <if test="received != null">
+        received = #{received,jdbcType=DECIMAL},
+      </if>
+      <if test="uncollected != null">
+        uncollected = #{uncollected,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="caseState != null">
+        case_state = #{caseState,jdbcType=INTEGER},
+      </if>
+      <if test="receiptRemark != null">
+        receipt_remark = #{receiptRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="lastCollectionTime != null">
+        last_collection_time = #{lastCollectionTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where delivery_id = #{deliveryId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.CapitalReceivable">
+    update capital_receivable
+    set delivery_time = #{deliveryTime,jdbcType=TIMESTAMP},
+      customer = #{customer,jdbcType=VARCHAR},
+      salesmen = #{salesmen,jdbcType=VARCHAR},
+      receivables = #{receivables,jdbcType=DECIMAL},
+      received = #{received,jdbcType=DECIMAL},
+      uncollected = #{uncollected,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      case_state = #{caseState,jdbcType=INTEGER},
+      receipt_remark = #{receiptRemark,jdbcType=VARCHAR},
+      last_collection_time = #{lastCollectionTime,jdbcType=TIMESTAMP}
+    where delivery_id = #{deliveryId,jdbcType=VARCHAR}
+  </update>
+</mapper>

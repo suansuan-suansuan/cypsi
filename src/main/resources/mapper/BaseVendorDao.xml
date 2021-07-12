@@ -13,10 +13,18 @@
     <result column="contact_number" jdbcType="VARCHAR" property="contactNumber" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
   </resultMap>
+
   <sql id="Base_Column_List">
     vendor_id, vendor_number, vendor_name, fund_account, u_id, accounts_payable, contact_name, 
     contact_address, contact_number, remarks
   </sql>
+
+  <select id="selectAll" parameterType="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from base_vendor
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

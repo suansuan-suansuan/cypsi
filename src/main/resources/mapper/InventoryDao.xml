@@ -164,7 +164,16 @@
       </set>
       where (select b.product_number from base_product b where b.product_id=i.product_id) = #{productId} and i.depot_name = #{depotName}
     </update>
-  <!--连查询调拨单 -->
+    <update id="expectAdd">
+      update inventory i
+      <set>
+        <if test="inventoryQuantity != null and inventoryQuantity != ''">
+          i.inventory_quantity=i.inventory_quantity+{productNum}
+        </if>
+      </set>
+      where (select b.product_number from base_product b where b.product_id=i.product_id) = #{productId} and i.depot_name = #{depotName}
+    </update>
+    <!--连查询调拨单 -->
   <select id="selectChangewarehouse" resultMap="BaseResultMap">
     select * from cypsi.inventory
 
