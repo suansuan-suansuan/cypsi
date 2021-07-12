@@ -1,138 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cy.psi.dao.BaseDepotDao">
-  <resultMap id="BaseResultMap" type="com.cy.psi.entity.BaseDepot">
-    <id column="depot_id" jdbcType="VARCHAR" property="depotId" />
-    <result column="depot_name" jdbcType="VARCHAR" property="depotName" />
-    <result column="u_id" jdbcType="VARCHAR" property="uId" />
-    <result column="ontact_number" jdbcType="VARCHAR" property="ontactNumber" />
-    <result column="depot_address" jdbcType="VARCHAR" property="depotAddress" />
-    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    depot_id, depot_name, u_id, ontact_number, depot_address, remarks,
-    `state`
-  </sql>
 
-  <!--查询所有仓库-->
-  <select id="selectAll" parameterType="list" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from base_depot
-    order by depot_id desc
-  </select>
+    <resultMap type="com.cy.psi.entity.BaseDepot" id="BaseDepotMap">
+        <result property="depotId" column="depot_id" jdbcType="VARCHAR"/>
+        <result property="depotName" column="depot_name" jdbcType="VARCHAR"/>
+        <result property="uId" column="u_id" jdbcType="VARCHAR"/>
+        <result property="ontactNumber" column="ontact_number" jdbcType="VARCHAR"/>
+        <result property="depotAddress" column="depot_address" jdbcType="VARCHAR"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
 
-  <select id="selectAll100" parameterType="list" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from base_depot
-    order by depot_id desc
-  </select>
+    <sql id="BaseDepotCol">
+        depot_id, depot_name, u_id, ontact_number, depot_address, remarks, state    </sql>
 
-  <!--根据仓库id查询数据-->
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from base_depot
-    where depot_id = #{depotId,jdbcType=VARCHAR}
-  </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseDepotMap">
+        select
+        <include refid="BaseDepotCol"></include>
+        from cypsi.base_depot
+        where depot_id = #{depotId}
+    </select>
 
-  <!--根据仓库id删除数据  -->
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from base_depot
-    where depot_id = #{depotId,jdbcType=VARCHAR}
-  </delete>
+    <!--查询所有-->
+    <select id="queryAll" resultMap="BaseDepotMap">
+        select
+        <include refid="BaseDepotCol"></include>
+        from cypsi.base_depot
+    </select>
 
-  <!--新增仓库数据  -->
-  <insert id="insert" keyColumn="depot_id" keyProperty="depotId" parameterType="com.cy.psi.entity.BaseDepot" useGeneratedKeys="true">
-    insert into base_depot (depot_name, u_id, ontact_number, 
-      depot_address, remarks,
-      `state`)
-    values (#{depotName,jdbcType=VARCHAR}, #{uId,jdbcType=VARCHAR}, #{ontactNumber,jdbcType=VARCHAR}, 
-      #{depotAddress,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR},
-      #{state,jdbcType=INTEGER})
-  </insert>
+    <!--通过实体作为或者条件查询-->
+    <select id="queryOrByPojo" resultMap="BaseDepotMap">
+        select
+        <include refid="BaseDepotCol"></include>
+        from cypsi.base_depot
+        <where>
+            <if test="depotId != null and depotId != ''">
+                or depot_id like CONCAT('%',#{depotId},'%')
+            </if>
+            <if test="depotName != null and depotName != ''">
+                or depot_name like CONCAT('%',#{depotName},'%')
+            </if>
+            <if test="uId != null and uId != ''">
+                or u_id like CONCAT('%',#{uId},'%')
+            </if>
+            <if test="ontactNumber != null and ontactNumber != ''">
+                or ontact_number like CONCAT('%',#{ontactNumber},'%')
+            </if>
+            <if test="depotAddress != null and depotAddress != ''">
+                or depot_address like CONCAT('%',#{depotAddress},'%')
+            </if>
+            <if test="remarks != null and remarks != ''">
+                or remarks like CONCAT('%',#{remarks},'%')
+            </if>
+            <if test="state != null">
+                or state like CONCAT('%',#{state},'%')
+            </if>
+        </where>
+    </select>
 
+    <!--通过实体作为并且条件查询-->
+    <select id="queryAndByPojo" resultMap="BaseDepotMap">
+        select
+        <include refid="BaseDepotCol"></include>
+        from cypsi.base_depot
+        <where>
+            <if test="depotId != null and depotId != ''">
+                and depot_id = #{depotId}
+            </if>
+            <if test="depotName != null and depotName != ''">
+                and depot_name = #{depotName}
+            </if>
+            <if test="uId != null and uId != ''">
+                and u_id = #{uId}
+            </if>
+            <if test="ontactNumber != null and ontactNumber != ''">
+                and ontact_number = #{ontactNumber}
+            </if>
+            <if test="depotAddress != null and depotAddress != ''">
+                and depot_address = #{depotAddress}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
 
-  <insert id="insertSelective" keyColumn="depot_id" keyProperty="depotId" parameterType="com.cy.psi.entity.BaseDepot" useGeneratedKeys="true">
-    insert into base_depot
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="depotName != null">
-        depot_name,
-      </if>
-      <if test="uId != null">
-        u_id,
-      </if>
-      <if test="ontactNumber != null">
-        ontact_number,
-      </if>
-      <if test="depotAddress != null">
-        depot_address,
-      </if>
-      <if test="remarks != null">
-        remarks,
-      </if>
-      <if test="state != null">
-        `state`,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="depotName != null">
-        #{depotName,jdbcType=VARCHAR},
-      </if>
-      <if test="uId != null">
-        #{uId,jdbcType=VARCHAR},
-      </if>
-      <if test="ontactNumber != null">
-        #{ontactNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="depotAddress != null">
-        #{depotAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="remarks != null">
-        #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
+    <!--新增所有列-->
+    <insert id="insert">
+        insert into cypsi.base_depot
+        <trim prefix="(" suffix=")" suffixOverrides=",">
 
-  <!--修改仓库数据-->
-  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.BaseDepot">
-    update base_depot
-    <set>
-      <if test="depotName != null">
-        depot_name = #{depotName,jdbcType=VARCHAR},
-      </if>
-      <if test="uId != null">
-        u_id = #{uId,jdbcType=VARCHAR},
-      </if>
-      <if test="ontactNumber != null">
-        ontact_number = #{ontactNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="depotAddress != null">
-        depot_address = #{depotAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="remarks != null">
-        remarks = #{remarks,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        `state` = #{state,jdbcType=INTEGER},
-      </if>
-    </set>
-    where depot_id = #{depotId,jdbcType=VARCHAR}
-  </update>
+            <if test="depotName != null">
+                depot_name,
+            </if>
+            <if test="uId != null">
+                u_id,
+            </if>
+            <if test="ontactNumber != null">
+                ontact_number,
+            </if>
+            <if test="depotAddress != null">
+                depot_address,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
 
-  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.BaseDepot">
-    update base_depot
-    set depot_name = #{depotName,jdbcType=VARCHAR},
-      u_id = #{uId,jdbcType=VARCHAR},
-      ontact_number = #{ontactNumber,jdbcType=VARCHAR},
-      depot_address = #{depotAddress,jdbcType=VARCHAR},
-      remarks = #{remarks,jdbcType=VARCHAR},
-      `state` = #{state,jdbcType=INTEGER}
-    where depot_id = #{depotId,jdbcType=VARCHAR}
-  </update>
+            <if test="depotName != null">
+                #{depotName},
+            </if>
+            <if test="uId != null">
+                #{uId},
+            </if>
+            <if test="ontactNumber != null">
+                #{ontactNumber},
+            </if>
+            <if test="depotAddress != null">
+                #{depotAddress},
+            </if>
+            <if test="remarks != null">
+                #{remarks},
+            </if>
+            <if test="state != null">
+                #{state},
+            </if>
+        </trim>
+
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update cypsi.base_depot
+        <set>
+            <if test="depotName != null">
+                depot_name = #{depotName},
+            </if>
+            <if test="uId != null">
+                u_id = #{uId},
+            </if>
+            <if test="ontactNumber != null">
+                ontact_number = #{ontactNumber},
+            </if>
+            <if test="depotAddress != null">
+                depot_address = #{depotAddress},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+        </set>
+        where depot_id = #{depotId}
+    </update>
+
+    <!--通过主键删除数据-->
+    <delete id="deleteById">
+        delete from cypsi.base_depot where depot_id = #{depotId}
+    </delete>
+
+    <!--通过主键列表批量删除数据-->
+    <delete id="deleteBatch">
+        delete from cypsi.base_depot where depot_id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--通过实体列表批量删除数据-->
+    <delete id="deleteBatchByEntities">
+        delete from cypsi.base_depot where depot_id in
+        <foreach collection="list" item="entity" open="(" separator="," close=")">
+            #{entity.depotId}
+        </foreach>
+    </delete>
 </mapper>
+
