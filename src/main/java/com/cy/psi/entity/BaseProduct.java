@@ -1,23 +1,27 @@
 package com.cy.psi.entity;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
+import java.math.BigDecimal;
+import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Data;
 import lombok.ToString;
 
 /**
- * base_product
- * @author 
+ * (BaseProduct)实体类
+ *
+ * @author makejava
+ * @since 2021-07-12 23:10:24
  */
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @ToString
 public class BaseProduct implements Serializable {
+    private static final long serialVersionUID = 283060040475951997L;
+
     private Integer productId;
 
     private String productNumber;
@@ -28,19 +32,17 @@ public class BaseProduct implements Serializable {
 
     private String productSpec;
 
-    private BigDecimal purchaseMoney;
+    private Double purchaseMoney;
 
-    private BigDecimal costPrice;
+    private Double costPrice;
 
-    private BigDecimal purchaseUnitPrice;
+    private Double purchaseUnitPrice;
 
     private String remarks;
 
-    private Date expirationTime;
+    private Date expiration;
 
     private Integer state;
 
     private String vendorNumber;
-
-    private static final long serialVersionUID = 1L;
 }

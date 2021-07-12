@@ -33,7 +33,7 @@ public class BaseProductQueryForm implements Serializable {
 
     private String remarks;
 
-    private Date expirationTime;
+    private Date expiration;
 
     private Integer state;
 

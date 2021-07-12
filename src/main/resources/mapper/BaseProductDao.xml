@@ -12,13 +12,13 @@
         <result property="costPrice" column="cost_price" jdbcType="NUMERIC"/>
         <result property="purchaseUnitPrice" column="purchase_unit_price" jdbcType="NUMERIC"/>
         <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
-        <result property="expirationTime" column="expiration_time" jdbcType="TIMESTAMP"/>
+        <result property="expiration" column="expiration" jdbcType="TIMESTAMP"/>
         <result property="state" column="state" jdbcType="INTEGER"/>
         <result property="vendorNumber" column="vendor_number" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="BaseProductCol">
-        product_id, product_number, product_name, unit_id, product_spec, purchase_money, cost_price, purchase_unit_price, remarks, expiration_time, state, vendor_number    </sql>
+        product_id, product_number, product_name, unit_id, product_spec, purchase_money, cost_price, purchase_unit_price, remarks, expiration, state, vendor_number    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseProductMap">
@@ -68,8 +68,8 @@
             <if test="remarks != null and remarks != ''">
                 or remarks like CONCAT('%',#{remarks},'%')
             </if>
-            <if test="expirationTime != null">
-                or expiration_time like CONCAT('%',#{expirationTime},'%')
+            <if test="expiration != null">
+                or expiration like CONCAT('%',#{expiration},'%')
             </if>
             <if test="state != null">
                 or state like CONCAT('%',#{state},'%')
@@ -113,8 +113,8 @@
             <if test="remarks != null and remarks != ''">
                 and remarks = #{remarks}
             </if>
-            <if test="expirationTime != null">
-                and expiration_time = #{expirationTime}
+            <if test="expiration != null">
+                and expiration = #{expiration}
             </if>
             <if test="state != null">
                 and state = #{state}
@@ -154,8 +154,8 @@
             <if test="remarks != null">
                 remarks,
             </if>
-            <if test="expirationTime != null">
-                expiration_time,
+            <if test="expiration != null">
+                expiration,
             </if>
             <if test="state != null">
                 state,
@@ -191,8 +191,8 @@
             <if test="remarks != null">
                 #{remarks},
             </if>
-            <if test="expirationTime != null">
-                #{expirationTime},
+            <if test="expiration != null">
+                #{expiration},
             </if>
             <if test="state != null">
                 #{state},
@@ -234,8 +234,8 @@
                 <if test="entity.remarks != null">
                     remarks,
                 </if>
-                <if test="entity.expirationTime != null">
-                    expiration_time,
+                <if test="entity.expiration != null">
+                    expiration,
                 </if>
                 <if test="entity.state != null">
                     state,
@@ -271,8 +271,8 @@
                 <if test="entity.remarks != null">
                     #{entity.remarks},
                 </if>
-                <if test="entity.expirationTime != null">
-                    #{entity.expiration_time},
+                <if test="entity.expiration != null">
+                    #{entity.expiration},
                 </if>
                 <if test="entity.state != null">
                     #{entity.state},
@@ -312,8 +312,8 @@
             <if test="remarks != null">
                 remarks = #{remarks},
             </if>
-            <if test="expirationTime != null">
-                expiration_time = #{expirationTime},
+            <if test="expiration != null">
+                expiration = #{expiration},
             </if>
             <if test="state != null">
                 state = #{state},
@@ -354,8 +354,8 @@
                 <if test="entity.remarks != null">
                     remarks = #{entity.remarks},
                 </if>
-                <if test="entity.expirationTime != null">
-                    expiration_time = #{entity.expirationTime},
+                <if test="entity.expiration != null">
+                    expiration = #{entity.expiration},
                 </if>
                 <if test="entity.state != null">
                     state = #{entity.state},
