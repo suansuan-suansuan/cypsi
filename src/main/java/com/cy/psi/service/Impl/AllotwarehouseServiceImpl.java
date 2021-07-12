@@ -34,14 +34,11 @@ public class AllotwarehouseServiceImpl implements AllotwarehouseService {
         return allotwarehouseDao.selectBylikeAllotwarehouse(serialNumber,documentmaker,depotName);
     }
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param channelid 主键
-     * @return 是否成功
-     */
+    //逻辑删除
     @Override
-    public boolean deleteById(Integer channelid) {
-        return this.allotwarehouseDao.deleteById(channelid) > 0;
+    public Integer DelAllotwarehouse( Integer timeLiness,Integer channelid){
+        return allotwarehouseDao.DelAllotwarehouse(timeLiness,channelid);
     }
+
+
 }

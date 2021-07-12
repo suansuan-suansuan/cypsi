@@ -2,6 +2,7 @@ package com.cy.psi.controller;
 
 import com.cy.psi.entity.Allotwarehouse;
 import com.cy.psi.service.AllotwarehouseService;
+import com.cy.psi.vo.AllotwarehouseVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,15 @@ public class AllotwarehouseController {
         PageHelper.startPage(currentPage,pagesize);
         PageInfo<Allotwarehouse> classtypeVoPageInfo = new  PageInfo<>(entityPage);
         return classtypeVoPageInfo;
+    }
+
+    //    逻辑删除
+    @PutMapping("/DelAllotwarehouse")
+    public Integer DelAllotwarehouse(@RequestBody AllotwarehouseVo vo){
+        log.info("channelid:"+vo.getChannelid());
+        log.info("timeLiness:"+vo.getTimeLiness());
+        log.debug("修改想去");
+        return allotwarehouseService.DelAllotwarehouse(vo.getTimeLiness(),vo.getChannelid());
     }
 
 }

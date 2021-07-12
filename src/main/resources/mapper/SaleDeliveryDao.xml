@@ -192,6 +192,15 @@
     where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
   </update>
 
+  <select id="queryByIdVo" resultType="com.cy.psi.entity.SaleDelivery">
+    select a.*,b.* from sale_delivery a INNER JOIN base_customer b on a.customer=b.customer_number
+    where delivery_order_id = #{id}
+  </select>
+  <select id="queryById" resultType="com.cy.psi.entity.SaleDelivery">
+    select * from sale_delivery
+    where delivery_order_id = #{deliveryId}
+  </select>
+
 <!--  =========================================我唐某的地盘==========================================================-->
   <resultMap type="com.cy.psi.entity.SaleDelivery" id="SaleDeliveryMap">
     <id property="deliveryOrderId" column="delivery_order_id" jdbcType="VARCHAR"/>
@@ -208,10 +217,11 @@
     <result property="deliveryState" column="delivery_state" jdbcType="INTEGER"/>
     <result property="orderState" column="order_state" jdbcType="INTEGER"/>
     <result property="saleOrderId" column="sale_order_Id" jdbcType="VARCHAR"/>
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeLiness" />
   </resultMap>
   <!--连查询出库单 -->
   <select id="selectOutwarehouse" resultMap="SaleDeliveryMap">
-    select * from cypsi.sale_delivery
+    select * from cypsi.sale_delivery where TimeLiness=0
   </select>
 
   <!--高级查询-->
@@ -228,14 +238,7 @@
         and remarks like concat('%',#{remarks},'%')
       </if>
     </where>
-  </select>
-  <select id="queryByIdVo" resultType="com.cy.psi.entity.SaleDelivery">
-    select a.*,b.* from sale_delivery a INNER JOIN base_customer b on a.customer=b.customer_number
-    where delivery_order_id = #{id}
-  </select>
-  <select id="queryById" resultType="com.cy.psi.entity.SaleDelivery">
-    select * from sale_delivery
-    where delivery_order_id = #{deliveryId}
+    where TimeLiness=0
   </select>
 
 
@@ -244,9 +247,9 @@
     update cypsi.sale_delivery  set delivery_state=#{deliveryState} where delivery_order_id=#{deliveryOrderId}
   </update>
 
-  <!--通过主键删除-->
-  <delete id="deleteById">
-    delete from cypsi.sale_delivery where delivery_order_id = #{deliveryOrderId}
-  </delete>
+  <!--逻辑删除 -->
+  <update id="DelOutwarehouse" parameterType="com.cy.psi.entity.SaleDelivery">
+        update cypsi.sale_delivery set TimeLiness=#{timeLiness} where delivery_order_id=#{deliveryOrderId}
+     </update>
 
 </mapper>

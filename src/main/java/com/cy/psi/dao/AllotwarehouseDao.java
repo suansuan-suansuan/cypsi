@@ -25,14 +25,9 @@ public interface AllotwarehouseDao {
      */
     List<Allotwarehouse> selectBylikeAllotwarehouse(@Param("serialNumber") String serialNumber, @Param("documentmaker") String documentmaker, @Param("depotName") String depotName);
 
+    //逻辑删除
+    Integer DelAllotwarehouse(@Param("timeLiness") Integer timeLiness, @Param("channelid")Integer channelid);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param channelid 主键
-     * @return 影响行数
-     */
-    int deleteById(Integer channelid);
 
 }
 

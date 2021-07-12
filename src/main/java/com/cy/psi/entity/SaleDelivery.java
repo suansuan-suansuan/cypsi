@@ -76,6 +76,8 @@ public class SaleDelivery implements Serializable {
      * 关联销售单id
      */
     private String saleOrderId;
+//删除状态
+    private Integer timeLiness;
 
 
     public String getDeliveryOrderId() {
@@ -188,6 +190,14 @@ public class SaleDelivery implements Serializable {
 
     public void setSaleOrderId(String saleOrderId) {
         this.saleOrderId = saleOrderId;
+    }
+
+    public Integer getTimeLiness() {
+        return timeLiness;
+    }
+
+    public void setTimeLiness(Integer timeLiness) {
+        this.timeLiness = timeLiness;
     }
 
 }

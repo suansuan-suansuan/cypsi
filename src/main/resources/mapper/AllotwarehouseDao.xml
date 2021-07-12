@@ -24,7 +24,7 @@
      select * from cypsi.Allotwarehouse a
       left join cypsi.base_depot b on a.depot_id=b.depot_id
       where a.TimeLiness=0
-      order by a.depot_id
+      order by a.channelid
     </select>
     <!--高级查询-->
     <select id="selectBylikeAllotwarehouse" resultMap="AllotwarehouseMap">
@@ -42,13 +42,14 @@
             </if>
         </where>
         and a.TimeLiness = 0
-        order by e.depot_id
+        order by a.channelid
     </select>
 
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete from cypsi.Allotwarehouse where channelid = #{channelid}
-    </delete>
+    <!--逻辑删除 -->
+    <update id="DelAllotwarehouse" parameterType="com.cy.psi.entity.Allotwarehouse">
+        update cypsi.Allotwarehouse set TimeLiness=#{timeLiness} where channelid=#{channelid}
+     </update>
+
 
 </mapper>
 
