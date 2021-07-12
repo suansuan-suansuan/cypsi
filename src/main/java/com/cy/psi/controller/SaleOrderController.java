@@ -5,15 +5,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.cy.psi.entity.SaleOrder;
 import com.cy.psi.entity.SaleOrderDetails;
-import com.cy.psi.service.InventoryService;
-import com.cy.psi.service.SaleOrderDetailsService;
-import com.cy.psi.service.SaleOrderService;
+import com.cy.psi.service.*;
 import com.cy.psi.vo.AjaxResponse;
+import com.cy.psi.vo.SaleOrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -31,6 +27,10 @@ public class SaleOrderController {
     private InventoryService inventoryService;
     @Resource
     private SaleOrderService saleOrderService;
+    @Resource
+    private SysUserService sysUserService;
+
+
     /**
  * 新增销售订单
  * @param add 单据信息
@@ -70,5 +70,46 @@ public AjaxResponse add(@PathVariable("type") int type, @RequestBody String add)
     }
     return AjaxResponse.success(saleOrder.getSaleOrderId());
 }
-
+    /**
+     * 通过主键查询销售订单及销售订单详情
+     * @param id 主键
+     * @return 数据
+     */
+    @GetMapping("/find/{id}")
+    public AjaxResponse selectOne(@PathVariable("id") String id) {
+        SaleOrder order=saleOrderService.queryById(id);
+        List<SaleOrderDetails> orderDetails=saleOrderDetailsService.queryById(id);
+        SaleOrderVo vo=new SaleOrderVo();
+        if(order.getApprover()!=null) {
+            order.setApprover(sysUserService.queryById(order.getApprover()).getUName());
+        }
+        order.setSalesmen(sysUserService.queryById(order.getSalesmen()).getUName());
+        vo.setOrder(order);
+        vo.setOrderdetails(orderDetails);
+        return AjaxResponse.success(vo);
+    }
+    /**
+     * 修改销售订单审批状态
+     * @param orderid 主键
+     * @return 数据
+     */
+    @GetMapping("/approval")
+    public AjaxResponse approvalorder(String orderid,int type,String username,String approvalremarks){
+        SaleOrder order=new SaleOrder();
+        order.setSaleOrderId(orderid);
+        order.setApprovalState(type);
+        order.setApprover(sysUserService.queryUserIdByUserName(username));
+        order.setRemarks(approvalremarks);
+        order.setApprovalTime(new Date());
+        order.setUpdateTime(new Date());
+        //订单驳回修改库存
+        if(type == -1){
+            List<SaleOrderDetails> orderDetails=saleOrderDetailsService.queryById(order.getSaleOrderId());
+            for(SaleOrderDetails sod:orderDetails){
+                inventoryService.expectAdd(sod.getProductId(),sod.getDepot(),sod.getProductNum());
+            }
+        }
+        SaleOrder saleOrder=saleOrderService.update(order);
+        return AjaxResponse.success(saleOrder);
+    }
 }

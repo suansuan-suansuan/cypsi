@@ -22,198 +22,17 @@
     approver, found_time, update_time, approval_time, approval_state, delivery_state, 
     order_state, sale_order_Id
     </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from sale_delivery
         where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete
-        from sale_delivery
-        where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
-    </delete>
-    <insert id="insert" keyColumn="delivery_order_id" keyProperty="deliveryOrderId"
-            parameterType="com.cy.psi.entity.SaleDelivery" useGeneratedKeys="true">
-        insert into sale_delivery (delivery_order_time, customer, salesmen,
-                                   receivables, remarks, approver,
-                                   found_time, update_time, approval_time,
-                                   approval_state, delivery_state, order_state,
-                                   sale_order_Id)
-        values (#{deliveryOrderTime,jdbcType=TIMESTAMP}, #{customer,jdbcType=VARCHAR}, #{salesmen,jdbcType=VARCHAR},
-                #{receivables,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR},
-                #{foundTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{approvalTime,jdbcType=TIMESTAMP},
-                #{approvalState,jdbcType=INTEGER}, #{deliveryState,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER},
-                #{saleOrderId,jdbcType=VARCHAR})
-    </insert>
-    <insert id="insertSelective" keyColumn="delivery_order_id" keyProperty="deliveryOrderId"
-            parameterType="com.cy.psi.entity.SaleDelivery" useGeneratedKeys="true">
-        insert into sale_delivery
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="deliveryOrderTime != null">
-                delivery_order_time,
-            </if>
-            <if test="customer != null">
-                customer,
-            </if>
-            <if test="salesmen != null">
-                salesmen,
-            </if>
-            <if test="receivables != null">
-                receivables,
-            </if>
-            <if test="remarks != null">
-                remarks,
-            </if>
-            <if test="approver != null">
-                approver,
-            </if>
-            <if test="foundTime != null">
-                found_time,
-            </if>
-            <if test="updateTime != null">
-                update_time,
-            </if>
-            <if test="approvalTime != null">
-                approval_time,
-            </if>
-            <if test="approvalState != null">
-                approval_state,
-            </if>
-            <if test="deliveryState != null">
-                delivery_state,
-            </if>
-            <if test="orderState != null">
-                order_state,
-            </if>
-            <if test="saleOrderId != null">
-                sale_order_Id,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="deliveryOrderTime != null">
-                #{deliveryOrderTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="customer != null">
-                #{customer,jdbcType=VARCHAR},
-            </if>
-            <if test="salesmen != null">
-                #{salesmen,jdbcType=VARCHAR},
-            </if>
-            <if test="receivables != null">
-                #{receivables,jdbcType=DECIMAL},
-            </if>
-            <if test="remarks != null">
-                #{remarks,jdbcType=VARCHAR},
-            </if>
-            <if test="approver != null">
-                #{approver,jdbcType=VARCHAR},
-            </if>
-            <if test="foundTime != null">
-                #{foundTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="approvalTime != null">
-                #{approvalTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="approvalState != null">
-                #{approvalState,jdbcType=INTEGER},
-            </if>
-            <if test="deliveryState != null">
-                #{deliveryState,jdbcType=INTEGER},
-            </if>
-            <if test="orderState != null">
-                #{orderState,jdbcType=INTEGER},
-            </if>
-            <if test="saleOrderId != null">
-                #{saleOrderId,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.SaleDelivery">
-        update sale_delivery
-        <set>
-            <if test="deliveryOrderTime != null">
-                delivery_order_time = #{deliveryOrderTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="customer != null">
-                customer = #{customer,jdbcType=VARCHAR},
-            </if>
-            <if test="salesmen != null">
-                salesmen = #{salesmen,jdbcType=VARCHAR},
-            </if>
-            <if test="receivables != null">
-                receivables = #{receivables,jdbcType=DECIMAL},
-            </if>
-            <if test="remarks != null">
-                remarks = #{remarks,jdbcType=VARCHAR},
-            </if>
-            <if test="approver != null">
-                approver = #{approver,jdbcType=VARCHAR},
-            </if>
-            <if test="foundTime != null">
-                found_time = #{foundTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="approvalTime != null">
-                approval_time = #{approvalTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="approvalState != null">
-                approval_state = #{approvalState,jdbcType=INTEGER},
-            </if>
-            <if test="deliveryState != null">
-                delivery_state = #{deliveryState,jdbcType=INTEGER},
-            </if>
-            <if test="orderState != null">
-                order_state = #{orderState,jdbcType=INTEGER},
-            </if>
-            <if test="saleOrderId != null">
-                sale_order_Id = #{saleOrderId,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.SaleDelivery">
-        update sale_delivery
-        set delivery_order_time = #{deliveryOrderTime,jdbcType=TIMESTAMP},
-            customer            = #{customer,jdbcType=VARCHAR},
-            salesmen            = #{salesmen,jdbcType=VARCHAR},
-            receivables         = #{receivables,jdbcType=DECIMAL},
-            remarks             = #{remarks,jdbcType=VARCHAR},
-            approver            = #{approver,jdbcType=VARCHAR},
-            found_time          = #{foundTime,jdbcType=TIMESTAMP},
-            update_time         = #{updateTime,jdbcType=TIMESTAMP},
-            approval_time       = #{approvalTime,jdbcType=TIMESTAMP},
-            approval_state      = #{approvalState,jdbcType=INTEGER},
-            delivery_state      = #{deliveryState,jdbcType=INTEGER},
-            order_state         = #{orderState,jdbcType=INTEGER},
-            sale_order_Id       = #{saleOrderId,jdbcType=VARCHAR}
-        where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
-    </update> <!--连查询出库单 -->
-    <select id="selectOutwarehouse" resultMap="BaseResultMap">
-        select *
-        from cypsi.sale_delivery
-    </select>
 
-    <!--高级查询-->
-    <select id="selectBylikeOutwarehouse" resultMap="BaseResultMap">
-        select * from cypsi.sale_delivery
-        <where>
-            <if test="Starttime!=null and Endtime!=null">
-                and delivery_order_time between #{Starttime} and #{Endtime}
-            </if>
-            <!--            <if test="documentmaker!=null and documentmaker!=''">-->
-            <!--                and a.documentMaker like concat('%',#{documentmaker},'%')-->
-            <!--            </if>-->
-            <if test="remarks!=null || remarks!=''">
-                and remarks like concat('%',#{remarks},'%')
-            </if>
-        </where>
-    </select>
+
+
+
 
 
     <!--查询销售商品明细-->
@@ -246,6 +65,222 @@
             and bc.customer_name = #{name}
         </if>
     </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sale_delivery
+    where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="delivery_order_id" keyProperty="deliveryOrderId" parameterType="com.cy.psi.entity.SaleDelivery" useGeneratedKeys="true">
+    insert into sale_delivery (delivery_order_time, customer, salesmen, 
+      receivables, remarks, approver, 
+      found_time, update_time, approval_time, 
+      approval_state, delivery_state, order_state, 
+      sale_order_Id)
+    values (#{deliveryOrderTime,jdbcType=TIMESTAMP}, #{customer,jdbcType=VARCHAR}, #{salesmen,jdbcType=VARCHAR}, 
+      #{receivables,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR}, 
+      #{foundTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{approvalTime,jdbcType=TIMESTAMP}, 
+      #{approvalState,jdbcType=INTEGER}, #{deliveryState,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER}, 
+      #{saleOrderId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="delivery_order_id" keyProperty="deliveryOrderId" parameterType="com.cy.psi.entity.SaleDelivery" useGeneratedKeys="true">
+    insert into sale_delivery
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deliveryOrderTime != null">
+        delivery_order_time,
+      </if>
+      <if test="customer != null">
+        customer,
+      </if>
+      <if test="salesmen != null">
+        salesmen,
+      </if>
+      <if test="receivables != null">
+        receivables,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="approver != null">
+        approver,
+      </if>
+      <if test="foundTime != null">
+        found_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="approvalTime != null">
+        approval_time,
+      </if>
+      <if test="approvalState != null">
+        approval_state,
+      </if>
+      <if test="deliveryState != null">
+        delivery_state,
+      </if>
+      <if test="orderState != null">
+        order_state,
+      </if>
+      <if test="saleOrderId != null">
+        sale_order_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deliveryOrderTime != null">
+        #{deliveryOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customer != null">
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="salesmen != null">
+        #{salesmen,jdbcType=VARCHAR},
+      </if>
+      <if test="receivables != null">
+        #{receivables,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="approver != null">
+        #{approver,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null">
+        #{foundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalTime != null">
+        #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalState != null">
+        #{approvalState,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryState != null">
+        #{deliveryState,jdbcType=INTEGER},
+      </if>
+      <if test="orderState != null">
+        #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="saleOrderId != null">
+        #{saleOrderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.SaleDelivery">
+    update sale_delivery
+    <set>
+      <if test="deliveryOrderTime != null">
+        delivery_order_time = #{deliveryOrderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customer != null">
+        customer = #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="salesmen != null">
+        salesmen = #{salesmen,jdbcType=VARCHAR},
+      </if>
+      <if test="receivables != null">
+        receivables = #{receivables,jdbcType=DECIMAL},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="approver != null">
+        approver = #{approver,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null">
+        found_time = #{foundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalTime != null">
+        approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvalState != null">
+        approval_state = #{approvalState,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryState != null">
+        delivery_state = #{deliveryState,jdbcType=INTEGER},
+      </if>
+      <if test="orderState != null">
+        order_state = #{orderState,jdbcType=INTEGER},
+      </if>
+      <if test="saleOrderId != null">
+        sale_order_Id = #{saleOrderId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.SaleDelivery">
+    update sale_delivery
+    set delivery_order_time = #{deliveryOrderTime,jdbcType=TIMESTAMP},
+      customer = #{customer,jdbcType=VARCHAR},
+      salesmen = #{salesmen,jdbcType=VARCHAR},
+      receivables = #{receivables,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      approver = #{approver,jdbcType=VARCHAR},
+      found_time = #{foundTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      approval_time = #{approvalTime,jdbcType=TIMESTAMP},
+      approval_state = #{approvalState,jdbcType=INTEGER},
+      delivery_state = #{deliveryState,jdbcType=INTEGER},
+      order_state = #{orderState,jdbcType=INTEGER},
+      sale_order_Id = #{saleOrderId,jdbcType=VARCHAR}
+    where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
+  </update>
+
+<!--  =========================================我唐某的地盘==========================================================-->
+  <resultMap type="com.cy.psi.entity.SaleDelivery" id="SaleDeliveryMap">
+    <id property="deliveryOrderId" column="delivery_order_id" jdbcType="VARCHAR"/>
+    <result property="deliveryOrderTime" column="delivery_order_time" jdbcType="TIMESTAMP"/>
+    <result property="customer" column="customer" jdbcType="VARCHAR"/>
+    <result property="salesmen" column="salesmen" jdbcType="VARCHAR"/>
+    <result property="receivables" column="receivables" jdbcType="NUMERIC"/>
+    <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    <result property="approver" column="approver" jdbcType="VARCHAR"/>
+    <result property="foundTime" column="found_time" jdbcType="TIMESTAMP"/>
+    <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    <result property="approvalTime" column="approval_time" jdbcType="TIMESTAMP"/>
+    <result property="approvalState" column="approval_state" jdbcType="INTEGER"/>
+    <result property="deliveryState" column="delivery_state" jdbcType="INTEGER"/>
+    <result property="orderState" column="order_state" jdbcType="INTEGER"/>
+    <result property="saleOrderId" column="sale_order_Id" jdbcType="VARCHAR"/>
+  </resultMap>
+  <!--连查询出库单 -->
+  <select id="selectOutwarehouse" resultMap="SaleDeliveryMap">
+    select * from cypsi.sale_delivery
+  </select>
+
+  <!--高级查询-->
+  <select id="selectBylikeOutwarehouse" resultMap="SaleDeliveryMap">
+    select * from cypsi.sale_delivery
+    <where>
+      <if test="Starttime!=null and Endtime!=null">
+        and delivery_order_time between #{Starttime} and #{Endtime}
+      </if>
+      <if test="salesmen!=null || salesmen!=''">
+        and salesmen like concat('%',#{salesmen},'%')
+      </if>
+      <if test="remarks!=null || remarks!=''">
+        and remarks like concat('%',#{remarks},'%')
+      </if>
+    </where>
+  </select>
+  <select id="queryByIdVo" resultType="com.cy.psi.entity.SaleDelivery">
+    select a.*,b.* from sale_delivery a INNER JOIN base_customer b on a.customer=b.customer_number
+    where delivery_order_id = #{id}
+  </select>
+  <select id="queryById" resultType="com.cy.psi.entity.SaleDelivery">
+    select * from sale_delivery
+    where delivery_order_id = #{deliveryId}
+  </select>
+
+
+  <!--审核  出库单-->
+  <update id="OutwarehouseAudit" parameterType="com.cy.psi.entity.SaleDelivery">
+    update cypsi.sale_delivery  set delivery_state=#{deliveryState} where delivery_order_id=#{deliveryOrderId}
+  </update>
 
     <!--查询销售订单明细-->
     <select id="listStatisticalOrder" resultType="java.util.Map" parameterType="map">
@@ -319,12 +354,6 @@
     </select>
 
 
-    <!--审核 出库单-->
-    <update id="OutwarehouseAudit" parameterType="com.cy.psi.entity.SaleDelivery">
-        update cypsi.sale_delivery
-        set approval_state=#{approvalState}
-        where delivery_order_id = #{deliveryOrderId}
-    </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">

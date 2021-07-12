@@ -32,10 +32,12 @@ public interface SaleDeliveryDao {
     /**
      * 搞鸡查询
      */
-    List<SaleDelivery> selectBylikeOutwarehouse(@Param("Starttime") String Starttime, @Param("Endtime") String Endtime, @Param("remarks") String remarks);
+    List<SaleDelivery> selectBylikeOutwarehouse(@Param("Starttime") String Starttime, @Param("Endtime") String Endtime, @Param("salesmen") String salesmen, @Param("remarks") String remarks);
 
-    //审核出库单
-    Integer OutwarehouseAudit(@Param("approvalState") Integer approvalState, @Param("deliveryOrderId") Integer deliveryOrderId);
+
+    //审核    出库单
+    Integer OutwarehouseAudit(@Param("deliveryState") Integer deliveryState, @Param("deliveryOrderId")String deliveryOrderId);
+
 
     /**
      * 通过主键删除数据
@@ -70,4 +72,7 @@ public interface SaleDeliveryDao {
      */
     List<Map<String,Object>> listSalesGross(Map map);
 
+    SaleDelivery queryByIdVo(String id);
+
+    SaleDelivery queryById(String deliveryOrderId);
 }

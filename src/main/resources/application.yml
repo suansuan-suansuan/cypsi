@@ -3,9 +3,10 @@ server:
   #连接池配置
   servlet:
     context-path: /cypsi
+
 spring:
   datasource:
-    url: jdbc:mysql://47.106.123.114:3306/cypsi?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://47.106.123.114:3306/cypsi?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     username: root
     password: xu15211666207
     driver-class-name: com.mysql.cj.jdbc.Driver

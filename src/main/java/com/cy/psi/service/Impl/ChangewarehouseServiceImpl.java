@@ -30,8 +30,8 @@ public class ChangewarehouseServiceImpl implements ChangewarehouseService {
      高级查询
      */
     @Override
-    public List<Inventory> selectBylikeChangewarehouse(String serialNumber, String documentmaker, String depotName) {
-        return inventoryDao.selectBylikeChangewarehouse(serialNumber,documentmaker,depotName);
+    public List<Inventory> selectBylikeChangewarehouse(String depotName, String productName) {
+        return inventoryDao.selectBylikeChangewarehouse(depotName,productName);
     }
 
 

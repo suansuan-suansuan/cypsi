@@ -23,4 +23,11 @@ public interface InventoryService {
      */
     List<Map<String,Object>> listProduct(Map map);
 
+
+     /**添加库存
+     * @param productId
+     * @param depot
+     * @param productNum
+     */
+    void expectAdd(String productId, String depot, Integer productNum);
 }

@@ -29,13 +29,13 @@
     delete from CYpsi_Puorder
     where Puorder_id = #{puorderId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="Puorder_id" keyProperty="puorderId" parameterType="com.cy.psi.entity.CypsiPuorder" useGeneratedKeys="true">
+  <insert id="insertPu" keyColumn="Puorder_id" keyProperty="puorderId" parameterType="com.cy.psi.entity.CypsiPuorder" useGeneratedKeys="true">
     insert into CYpsi_Puorder (Puorder_Timestamp, Puorder_C, Approval, 
-      AppTime, Puorder_Cg, Puorder_state, 
+      AppTime, Puorder_state,
       Puorder_Total, `Explain`, Puorder_G, 
       depot_id, vendor_id)
     values (#{puorderTimestamp,jdbcType=TIMESTAMP}, #{puorderC,jdbcType=VARCHAR}, #{approval,jdbcType=INTEGER}, 
-      #{apptime,jdbcType=TIMESTAMP}, #{puorderCg,jdbcType=VARCHAR}, #{puorderState,jdbcType=VARCHAR}, 
+      #{apptime,jdbcType=TIMESTAMP}, #{puorderState,jdbcType=VARCHAR},
       #{puorderTotal,jdbcType=DECIMAL}, #{explain,jdbcType=VARCHAR}, #{puorderG,jdbcType=VARCHAR}, 
       #{depotId,jdbcType=VARCHAR}, #{vendorId,jdbcType=VARCHAR})
   </insert>

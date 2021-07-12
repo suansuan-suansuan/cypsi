@@ -22,6 +22,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
 
+
     /**
      * dfy查询库存明细
      * @return
@@ -29,5 +30,10 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public List<Map<String, Object>> listProduct(Map map) {
         return inventoryDao.listProduct(map);
+    }
+
+    @Override
+    public void expectAdd(String productId, String depot, Integer productNum) {
+        this.inventoryDao.expectAdd(productId,depot,productNum);
     }
 }

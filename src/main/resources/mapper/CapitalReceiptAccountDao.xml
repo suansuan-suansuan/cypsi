@@ -17,7 +17,13 @@
     from capital_receipt_account
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="queryById" resultType="com.cy.psi.entity.CapitalReceiptAccount">
+      select
+        id, receipt_id, fund_account, settlement_type, this_money
+      from capital_receipt_account
+      where receipt_id = #{capitalReceiptId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from capital_receipt_account
     where id = #{id,jdbcType=INTEGER}
   </delete>
