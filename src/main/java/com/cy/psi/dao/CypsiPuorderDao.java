@@ -13,7 +13,7 @@ import java.util.List;
 public interface CypsiPuorderDao {
     int deleteByPrimaryKey(Integer puorderId);
 
-    int insert(CypsiPuorder record);
+    int insertPu(CypsiPuorder record);
 
     int insertSelective(CypsiPuorder record);
 

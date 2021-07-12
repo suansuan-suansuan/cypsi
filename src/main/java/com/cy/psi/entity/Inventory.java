@@ -19,11 +19,14 @@ public class Inventory implements Serializable {
     private static final long serialVersionUID = 238569478249922232L;
 
     private String inventoryId;
-
+    // 仓库
+    private BaseDepot baseDepot;
     private String depotId;
 
     private String depotName;
 
+    // 产品
+    private BaseProduct baseProduct;
     private Integer productId;
 
     private String productName;

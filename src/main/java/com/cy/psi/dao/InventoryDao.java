@@ -27,6 +27,9 @@ public interface InventoryDao {
      * @param productNum
      */
     void expectReduce(@Param("productId") String productId, @Param("depot") String depot, @Param("productNum") Integer productNum);
+
+
+//    ==============================================我唐某的地盘============================================================
     /**
      查询全部
      */
@@ -35,7 +38,7 @@ public interface InventoryDao {
     /**
      搞鸡查询
      */
-    List<Inventory> selectBylikeChangewarehouse(@Param("serialNumber") String serialNumber, @Param("documentmaker") String documentmaker, @Param("depotName") String depotName);
+    List<Inventory> selectBylikeChangewarehouse(@Param("depotName") String depotName, @Param("productName") String productName);
 
     /**
      * 通过主键删除数据
@@ -44,4 +47,13 @@ public interface InventoryDao {
      * @return 影响行数
      */
     int deleteById(String inventoryId);
+
+
+    /**
+     * add
+     * @param productId
+     * @param depot
+     * @param productNum
+     */
+    void expectAdd(String productId, String depot, Integer productNum);
 }

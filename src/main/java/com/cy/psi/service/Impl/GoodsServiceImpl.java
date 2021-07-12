@@ -1,8 +1,8 @@
 package com.cy.psi.service.Impl;
 
-import com.cy.psi.dao.CypsiPuorderDao;
 import com.cy.psi.dao.GoodsDao;
 import com.cy.psi.entity.Goods;
+import com.cy.psi.entity.SaleDelivery;
 import com.cy.psi.service.GoodsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,5 +26,24 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDao.GoselectAll();
     }
 
+//=========================================我唐某的地盘===========================================================
 
+    @Override
+    public List<Goods> GoselectAll2() {
+        log.debug("查询所有");
+        return goodsDao.GoselectAll2();
+    }
+    /**
+     高级查询
+     */
+    @Override
+    public List<Goods> selectBylikeGoods(String Starttime, String Endtime, String goodsZt, Integer goodsState) {
+        return goodsDao.selectBylikeGoods(Starttime,Endtime,goodsZt,goodsState);
+    }
+
+    //审核   出库单
+    @Override
+    public Integer GoodsAudit( Integer goodsZt,String puorderTimestamp,Integer goodsId){
+        return goodsDao.GoodsAudit(goodsZt,puorderTimestamp,goodsId);
+    }
 }

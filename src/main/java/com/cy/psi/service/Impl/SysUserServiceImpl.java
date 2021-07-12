@@ -6,8 +6,6 @@ import com.cy.psi.service.SysUserService;
 import com.cy.psi.vo.SysUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,6 +53,21 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public List<SysUserVo> findAllUser() {
         return sysUserDao.findAllUser();
+    }
+
+    @Override
+    public SysUser queryById(String uid) {
+        return this.sysUserDao.selectByPrimaryKey(uid);
+    }
+
+    @Override
+    public String queryUserIdByUserName(String username) {
+        return this.sysUserDao.queryUserIdByUserName(username);
+    }
+
+    @Override
+    public SysUser selectUserByName(String username) {
+        return sysUserDao.selectUserByName(username);
     }
 
 

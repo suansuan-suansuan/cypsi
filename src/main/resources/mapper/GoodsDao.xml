@@ -138,4 +138,36 @@
     from Goods
     order by Goods_id desc
   </select>
+
+
+<!--  ============================================我唐某的地盘============================================================-->
+  <select id="GoselectAll2" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Goods
+    where Approval=1
+    order by Goods_id desc
+  </select>
+  <!--高级查询-->
+  <select id="selectBylikeGoods" resultMap="BaseResultMap">
+    select * from cypsi.Goods
+    <where>
+      <if test="goodsZt!=null || goodsZt!=''">
+        and Goods_Zt like concat('%',#{goodsZt},'%')
+      </if>
+      <if test="goodsState!=null || goodsState!=''">
+        and Goods_state like concat('%',#{goodsState},'%')
+      </if>
+      <if test="Starttime!=null and Endtime!=null">
+        and Puorder_Timestamp between #{Starttime} and #{Endtime}
+      </if>
+    </where>
+  </select>
+
+
+  <!--审核  入库单-->
+  <update id="GoodsAudit" parameterType="com.cy.psi.entity.Goods">
+    update cypsi.Goods  set Goods_Zt=#{goodsZt},Puorder_Timestamp=#{puorderTimestamp} where Goods_id=#{goodsId}
+  </update>
+
 </mapper>

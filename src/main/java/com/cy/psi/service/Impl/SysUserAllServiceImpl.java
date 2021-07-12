@@ -111,4 +111,17 @@ public class SysUserAllServiceImpl implements SysUserAllService {
 
         sysUserService.deleteByPrimaryKey(uId);
     }
+
+    @Override
+    public String queryUserIdByUserName(String username) {
+        return sysUserService.queryUserIdByUserName(username);
+    }
+
+    /**
+     * 用户登录
+     * */
+    @Override
+    public SysUser login(String username) {
+        return sysUserService.selectUserByName(username);
+    }
 }

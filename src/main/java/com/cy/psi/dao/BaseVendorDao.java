@@ -1,7 +1,11 @@
 package com.cy.psi.dao;
 
 import com.cy.psi.entity.BaseVendor;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
+@Mapper
 public interface BaseVendorDao {
     int deleteByPrimaryKey(String vendorId);
 
@@ -14,4 +18,8 @@ public interface BaseVendorDao {
     int updateByPrimaryKeySelective(BaseVendor record);
 
     int updateByPrimaryKey(BaseVendor record);
+
+    List<BaseVendor> selectAll();
+
+    List<BaseVendor> selectAll88();
 }

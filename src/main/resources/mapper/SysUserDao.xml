@@ -37,8 +37,16 @@
     <select id="findAllUser" resultMap="BaseResultMap">
       select u.*,d.* from sys_user u,base_dept d where u.u_dept = d.dept_id
     </select>
+    <select id="queryUserIdByUserName" resultType="java.lang.String">
+        select u_id
+        from sys_user
+        where u_name=#{userName}
+    </select>
+  <select id="selectUserByName" resultMap="BaseResultMap2">
+    select * from sys_user where u_name =#{username}
+  </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sys_user
     where u_id = #{uId,jdbcType=VARCHAR}
   </delete>

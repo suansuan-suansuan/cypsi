@@ -13,6 +13,7 @@
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="expiration time" jdbcType="TIMESTAMP" property="expirationTime" />
     <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="vendor_number" jdbcType="VARCHAR" property="vendorNumber" />
   </resultMap>
   <sql id="Base_Column_List">
     product_id, product_number, product_name, unit_id, product_spec, purchase_money, 

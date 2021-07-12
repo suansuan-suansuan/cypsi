@@ -22,6 +22,10 @@ public interface SaleDeliveryDao {
     int updateByPrimaryKeySelective(SaleDelivery record);
 
     int updateByPrimaryKey(SaleDelivery record);
+    
+    
+    
+//    ========================================我唐某的地盘=============================================================
     /**
      查询全部
      */
@@ -30,10 +34,10 @@ public interface SaleDeliveryDao {
     /**
      搞鸡查询
      */
-    List<SaleDelivery> selectBylikeOutwarehouse(@Param("Starttime") String Starttime, @Param("Endtime") String Endtime, @Param("remarks") String remarks);
+    List<SaleDelivery> selectBylikeOutwarehouse(@Param("Starttime") String Starttime, @Param("Endtime") String Endtime, @Param("salesmen") String salesmen, @Param("remarks") String remarks);
 
     //审核    出库单
-    Integer OutwarehouseAudit(@Param("approvalState") Integer approvalState, @Param("deliveryOrderId")Integer deliveryOrderId);
+    Integer OutwarehouseAudit(@Param("deliveryState") Integer deliveryState, @Param("deliveryOrderId")String deliveryOrderId);
 
     /**
      * 通过主键删除数据
@@ -42,4 +46,8 @@ public interface SaleDeliveryDao {
      * @return 影响行数
      */
     int deleteById(String deliveryOrderId);
+
+    SaleDelivery queryByIdVo(String id);
+
+    SaleDelivery queryById(String deliveryOrderId);
 }

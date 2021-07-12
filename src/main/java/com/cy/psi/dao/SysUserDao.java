@@ -3,6 +3,7 @@ package com.cy.psi.dao;
 import com.cy.psi.entity.SysUser;
 import com.cy.psi.vo.SysUserVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
  * @Since version-1.0
  */
 @Repository
+
+
 @Mapper
 public interface SysUserDao {
     int deleteByPrimaryKey(String uId);
@@ -28,6 +31,13 @@ public interface SysUserDao {
 
     int updateByPrimaryKey(SysUser record);
 
+
     List<SysUserVo> findAllUser();
+
+
+    String queryUserIdByUserName(String username);
+
+    SysUser selectUserByName(@Param("username") String username);
+
 
 }

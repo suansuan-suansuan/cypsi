@@ -1,5 +1,6 @@
 package com.cy.psi.service;
 
+import com.cy.psi.entity.SysUser;
 import com.cy.psi.vo.SysUserReqVo;
 import com.cy.psi.vo.SysUserVo;
 
@@ -19,4 +20,8 @@ public interface SysUserAllService {
     List<SysUserVo> findAllUser();
 
     void delUser(String uId);
+
+    String queryUserIdByUserName(String username);
+
+    SysUser login(String username);
 }

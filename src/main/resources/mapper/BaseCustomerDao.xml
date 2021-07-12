@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.BaseCustomerDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.BaseCustomer">
+    <id column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="customer_number" jdbcType="VARCHAR" property="customerNumber" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="customer_type" jdbcType="VARCHAR" property="customerType" />
+    <result column="ratio" jdbcType="DECIMAL" property="ratio" />
+    <result column="u_id" jdbcType="VARCHAR" property="uId" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="contact_address" jdbcType="VARCHAR" property="contactAddress" />
+    <result column="contact_number" jdbcType="VARCHAR" property="contactNumber" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    customer_id, customer_number, customer_name, customer_type, ratio, u_id, contact, 
+    contact_address, contact_number, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_customer
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from base_customer
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="customer_id" keyProperty="customerId" parameterType="com.cy.psi.entity.BaseCustomer" useGeneratedKeys="true">
+    insert into base_customer (customer_number, customer_name, customer_type, 
+      ratio, u_id, contact, 
+      contact_address, contact_number, remarks
+      )
+    values (#{customerNumber,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{customerType,jdbcType=VARCHAR}, 
+      #{ratio,jdbcType=DECIMAL}, #{uId,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{contactAddress,jdbcType=VARCHAR}, #{contactNumber,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="customer_id" keyProperty="customerId" parameterType="com.cy.psi.entity.BaseCustomer" useGeneratedKeys="true">
+    insert into base_customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="customerNumber != null">
+        customer_number,
+      </if>
+      <if test="customerName != null">
+        customer_name,
+      </if>
+      <if test="customerType != null">
+        customer_type,
+      </if>
+      <if test="ratio != null">
+        ratio,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="contactAddress != null">
+        contact_address,
+      </if>
+      <if test="contactNumber != null">
+        contact_number,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="customerNumber != null">
+        #{customerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null">
+        #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ratio != null">
+        #{ratio,jdbcType=DECIMAL},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddress != null">
+        #{contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNumber != null">
+        #{contactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.BaseCustomer">
+    update base_customer
+    <set>
+      <if test="customerNumber != null">
+        customer_number = #{customerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null">
+        customer_type = #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="ratio != null">
+        ratio = #{ratio,jdbcType=DECIMAL},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddress != null">
+        contact_address = #{contactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNumber != null">
+        contact_number = #{contactNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.BaseCustomer">
+    update base_customer
+    set customer_number = #{customerNumber,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_type = #{customerType,jdbcType=VARCHAR},
+      ratio = #{ratio,jdbcType=DECIMAL},
+      u_id = #{uId,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      contact_address = #{contactAddress,jdbcType=VARCHAR},
+      contact_number = #{contactNumber,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+</mapper>

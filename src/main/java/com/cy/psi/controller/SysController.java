@@ -1,7 +1,11 @@
 package com.cy.psi.controller;
 import com.cy.psi.anno.SysLog;
 import com.cy.psi.entity.BaseDept;
+import com.cy.psi.entity.SysRole;
+import com.cy.psi.entity.SysUser;
 import com.cy.psi.service.BaseDeptService;
+import com.cy.psi.service.SysMenuService;
+import com.cy.psi.service.SysRoleService;
 import com.cy.psi.service.SysUserAllService;
 import com.cy.psi.utils.IdWorker;
 import com.cy.psi.vo.AjaxResponse;
@@ -28,6 +32,12 @@ public class SysController {
 
     @Autowired
     private SysUserAllService sysUserAllService;
+
+    @Autowired
+    private SysRoleService sysRoleService;
+
+    @Autowired
+    private SysMenuService sysMenuService;
 
     @Autowired
     private IdWorker idWorker;
@@ -127,6 +137,52 @@ public class SysController {
     public AjaxResponse updateUser(@PathVariable String uId){
         sysUserAllService.delUser(uId);
         return AjaxResponse.success();
+    }
+
+    /**
+     * 用户登录
+     * */
+    @PostMapping("/login")
+    public AjaxResponse login(@RequestBody SysUser sysUser){
+        SysUser loginuser = sysUserAllService.login(sysUser.getUName());
+        if (loginuser == null) {
+            return AjaxResponse.success("账户不存在");
+        } else {
+            if (loginuser.getIsdisabled() != 0) {
+                return AjaxResponse.success("账户已停用！请联系超级管理员！");
+            } else if (sysUser.getUPass() != loginuser.getUPass()) {
+                return AjaxResponse.success("密码错误");
+            } else {
+                String userid = sysUserAllService.queryUserIdByUserName(loginuser.getUName());
+                return AjaxResponse.success(loginuser);
+            }
+        }
+
+    }
+
+    /**
+     * 返回所有角色
+     * */
+    @GetMapping("/getAllRoles")
+    public AjaxResponse getAllRoles(){
+        return AjaxResponse.success(sysRoleService.selectAllRole());
+    }
+
+    /**
+     * 添加角色
+     * */
+    @PostMapping("/addRole")
+    public AjaxResponse addRole(SysRole sysRole){
+
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 查询所有菜单
+     * */
+    @GetMapping("/getAllMenu")
+    public AjaxResponse getAllMenu (){
+        return AjaxResponse.success(sysMenuService.selectAllMenu());
     }
 
 }

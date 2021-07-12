@@ -15,6 +15,7 @@ import java.util.List;
  */
 @RestController
 @Slf4j
+@CrossOrigin
 @RequestMapping("test")
 public class PuorderController {
 
