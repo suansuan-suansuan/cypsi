@@ -37,4 +37,6 @@ public interface SaleOrderDao {
      * @return
      */
     SaleOrder queryById(String id);
+
+    void advanceadd(SaleOrder order);
 }

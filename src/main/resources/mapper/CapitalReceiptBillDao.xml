@@ -8,7 +8,6 @@
     <result column="this_money" jdbcType="VARCHAR" property="thisMoney" />
     <result column="customer" jdbcType="VARCHAR" property="customer" />
     <result column="payee" jdbcType="VARCHAR" property="payee" />
-    <result column="founder" jdbcType="VARCHAR" property="founder" />
     <result column="approver" jdbcType="VARCHAR" property="approver" />
     <result column="found_time" jdbcType="VARCHAR" property="foundTime" />
     <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
@@ -30,7 +29,11 @@
       select receipt_id from capital_receipt_bill
       where sale_order_id = #{id}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="queryById" resultType="com.cy.psi.entity.CapitalReceiptBill">
+    select * from capital_receipt_bill
+    where capital_receipt_id = #{capitalReceiptId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from capital_receipt_bill
     where id = #{id,jdbcType=INTEGER}
   </delete>
@@ -119,7 +122,14 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.CapitalReceiptBill">
+    <insert id="insertBatch">
+      insert into capital_receipt_bill(capital_receipt_id, settlement_type, this_money, customer, payee,
+      approver, found_time, update_time,approval_state,remarks,sale_order_id)
+      values
+        (#{entity.capitalReceiptId}, #{entity.settlementType}, #{entity.thisMoney}, #{entity.customer},
+        #{entity.payee}, #{entity.approver}, #{entity.foundTime}, #{entity.updateTime}, #{entity.approvalState}, #{entity.remarks},#{entity.saleOrderId})
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.CapitalReceiptBill">
     update capital_receipt_bill
     <set>
       <if test="capitalReceiptId != null">

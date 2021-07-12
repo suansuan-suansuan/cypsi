@@ -155,4 +155,20 @@
       last_collection_time = #{lastCollectionTime,jdbcType=TIMESTAMP}
     where delivery_id = #{deliveryId,jdbcType=VARCHAR}
   </update>
+  <update id="receivedAdd">
+    update capital_receivable
+    <set>
+      <if test="remarks != null and remarks != ''">
+        remarks = #{remarks},
+      </if>
+      <if test="lastCollectionTime != null">
+        last_collection_time = #{lastCollectionTime},
+      </if>
+      <if test="received != null">
+        received = received + #{received},
+        uncollected = receivables - received
+      </if>
+    </set>
+    where delivery_id = #{deliveryId}
+  </update>
 </mapper>

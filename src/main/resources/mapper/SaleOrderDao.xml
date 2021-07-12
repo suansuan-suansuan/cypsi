@@ -17,12 +17,11 @@
     <result column="order_state" jdbcType="INTEGER" property="orderState" />
     <result column="delivery_time" jdbcType="TIMESTAMP" property="deliveryTime" />
     <result column="advance" jdbcType="DECIMAL" property="advance" />
-    <result column="sale_delivery_id" jdbcType="VARCHAR" property="saleDeliveryId" />
   </resultMap>
   <sql id="Base_Column_List">
     sale_order_Id, sale_order_time, customer, salesmen, receivables, remarks, approver, 
     found_time, update_time, approval_time, approval_state, delivery_state, order_state, 
-    delivery_time, advance,sale_delivery_id
+    delivery_time, advance
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -254,5 +253,17 @@
         </if>
       </set>
       where sale_order_Id = #{saleOrderId,jdbcType=VARCHAR}
+    </update>
+    <update id="advanceadd">
+      update sale_order
+      <set>
+        <if test="updateTime != null">
+          update_time = #{updateTime},
+        </if>
+        <if test="advance != null">
+          advance =advance + #{advance},
+        </if>
+      </set>
+      where sale_order_id = #{saleOrderId}
     </update>
 </mapper>

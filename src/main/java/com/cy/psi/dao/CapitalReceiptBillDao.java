@@ -2,6 +2,7 @@ package com.cy.psi.dao;
 
 import com.cy.psi.entity.CapitalReceiptBill;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface CapitalReceiptBillDao {
     int updateByPrimaryKey(CapitalReceiptBill record);
 
     List<CapitalReceiptBill> relation(String id);
+
+    List<CapitalReceiptBill> queryById(String capitalReceiptId);
 }

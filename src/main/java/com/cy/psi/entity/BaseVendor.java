@@ -37,5 +37,7 @@ public class BaseVendor implements Serializable {
 
     private String remarks;
 
+    private String productNumber;
+
     private static final long serialVersionUID = 1L;
 }

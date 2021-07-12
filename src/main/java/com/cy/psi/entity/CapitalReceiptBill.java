@@ -46,12 +46,6 @@ public class CapitalReceiptBill implements Serializable {
     private String payee;
 
     /**
-     * 创建人id
-
-     */
-    private String founder;
-
-    /**
      * 审批人id
 
      */
