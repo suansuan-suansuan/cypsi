@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 酸酸
@@ -22,18 +23,19 @@ public interface SaleDeliveryDao {
     int updateByPrimaryKeySelective(SaleDelivery record);
 
     int updateByPrimaryKey(SaleDelivery record);
+
     /**
-     查询全部
+     * 查询全部
      */
     List<SaleDelivery> selectOutwarehouse();
 
     /**
-     搞鸡查询
+     * 搞鸡查询
      */
     List<SaleDelivery> selectBylikeOutwarehouse(@Param("Starttime") String Starttime, @Param("Endtime") String Endtime, @Param("remarks") String remarks);
 
-    //审核    出库单
-    Integer OutwarehouseAudit(@Param("approvalState") Integer approvalState, @Param("deliveryOrderId")Integer deliveryOrderId);
+    //审核出库单
+    Integer OutwarehouseAudit(@Param("approvalState") Integer approvalState, @Param("deliveryOrderId") Integer deliveryOrderId);
 
     /**
      * 通过主键删除数据
@@ -42,4 +44,30 @@ public interface SaleDeliveryDao {
      * @return 影响行数
      */
     int deleteById(String deliveryOrderId);
+
+    /**
+     *查询销售商品明细
+     * @return
+     */
+    List<Map<String,Object>> listStatistical(Map map);
+
+    /**
+     *查询销售订单明细
+     * @return
+     */
+    List<Map<String,Object>> listStatisticalOrder(Map map);
+
+    /**
+     *查询前十畅销商品
+     * @return
+     */
+    List<Map<String,Object>> listStatisticalProduct();
+
+    /**
+     * 销售毛利明细表
+     * @param map
+     * @return
+     */
+    List<Map<String,Object>> listSalesGross(Map map);
+
 }

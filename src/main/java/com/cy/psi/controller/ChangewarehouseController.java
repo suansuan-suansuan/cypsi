@@ -27,27 +27,28 @@ public class ChangewarehouseController {
      */
     @Resource
     private ChangewarehouseService inventoryService;
+
     //分页查询调拨单
     @GetMapping("/selectChangewarehouse")
-    public PageInfo<Inventory> selectChangewarehouse (@RequestParam("currentPage") Integer currentPage, @RequestParam("pagesize") Integer pagesize){
+    public PageInfo<Inventory> selectChangewarehouse(@RequestParam("currentPage") Integer currentPage, @RequestParam("pagesize") Integer pagesize) {
         log.debug("分页查询信息");
-        PageHelper.startPage(currentPage,pagesize);
+        PageHelper.startPage(currentPage, pagesize);
         log.debug("---------------------------------------------------");
-        List<Inventory> entityPage =inventoryService.selectChangewarehouse();
-        PageInfo<Inventory> classtypeVoPageInfo = new  PageInfo<>(entityPage);
+        List<Inventory> entityPage = inventoryService.selectChangewarehouse();
+        PageInfo<Inventory> classtypeVoPageInfo = new PageInfo<>(entityPage);
         return classtypeVoPageInfo;
     }
 
     //     高级分页查询调拨单
     @GetMapping("/selectBylikeChangewarehouse")
     public PageInfo<Inventory> selectBylikeChangewarehouse(@RequestParam("currentPage") int currentPage,
-                                                               @RequestParam("pagesize") int pagesize,
-                                                               @RequestParam(value ="serialNumber",required = false) String serialNumber,
-                                                               @RequestParam(value ="documentmaker",required = false) String documentmaker,
-                                                               @RequestParam(value ="depotName",required = false) String depotName){
-        List<Inventory> entityPage =inventoryService.selectBylikeChangewarehouse(serialNumber,documentmaker,depotName);
-        PageHelper.startPage(currentPage,pagesize);
-        PageInfo<Inventory> classtypeVoPageInfo = new  PageInfo<>(entityPage);
+                                                           @RequestParam("pagesize") int pagesize,
+                                                           @RequestParam(value = "serialNumber", required = false) String serialNumber,
+                                                           @RequestParam(value = "documentmaker", required = false) String documentmaker,
+                                                           @RequestParam(value = "depotName", required = false) String depotName) {
+        List<Inventory> entityPage = inventoryService.selectBylikeChangewarehouse(serialNumber, documentmaker, depotName);
+        PageHelper.startPage(currentPage, pagesize);
+        PageInfo<Inventory> classtypeVoPageInfo = new PageInfo<>(entityPage);
         return classtypeVoPageInfo;
     }
 

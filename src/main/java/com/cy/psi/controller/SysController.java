@@ -26,7 +26,6 @@ public class SysController {
         return AjaxResponse.success();
     }
 
-
     /**
      * @Author Twx
      * @Date 2021/7/11 16:16
@@ -57,7 +56,5 @@ public class SysController {
         baseDeptService.insertSelective(baseDept);
         return AjaxResponse.success(baseDept);
     }
-
-
 
 }

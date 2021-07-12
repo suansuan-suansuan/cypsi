@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface InventoryDao {
@@ -39,9 +40,15 @@ public interface InventoryDao {
 
     /**
      * 通过主键删除数据
-     *
      * @param inventoryId 主键
      * @return 影响行数
      */
     int deleteById(String inventoryId);
+
+    /**
+     * 查询库存明细
+     * @param map
+     * @return
+     */
+    List<Map<String,Object>> listProduct(Map map);
 }
