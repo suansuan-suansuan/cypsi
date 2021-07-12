@@ -48,6 +48,11 @@ public class BaseDepotServiceImpl implements BaseDepotService {
         return new PageInfo<>(baseDepotList);
     }
 
+    @Override
+    public List<BaseDepot> queryAllWWWW() {
+        return baseDepotDao.queryAllWWWW();
+    }
+
     /**
      * 根据查询条件搜索数据
      *

@@ -31,6 +31,9 @@ public interface BaseDepotService {
      */
     PageInfo<BaseDepot> queryAll(BaseDepotQueryForm baseDepotQueryForm);
 
+
+    List<BaseDepot> queryAllWWWW();
+
     /**
      * 根据查询条件搜索数据
      *
