@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.SysApprovedDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.SysApproved">
+    <result column="u_id" jdbcType="VARCHAR" property="uId" />
+    <result column="approved_u_id" jdbcType="VARCHAR" property="approvedUId" />
+    <result column="approved_u_name" jdbcType="VARCHAR" property="approvedUName" />
+  </resultMap>
+  <insert id="insert" parameterType="com.cy.psi.entity.SysApproved">
+    insert into sys_approved (u_id, approved_u_id, approved_u_name
+      )
+    values (#{uId,jdbcType=VARCHAR}, #{approvedUId,jdbcType=VARCHAR}, #{approvedUName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cy.psi.entity.SysApproved">
+    insert into sys_approved
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="approvedUId != null">
+        approved_u_id,
+      </if>
+      <if test="approvedUName != null">
+        approved_u_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="approvedUId != null">
+        #{approvedUId,jdbcType=VARCHAR},
+      </if>
+      <if test="approvedUName != null">
+        #{approvedUName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByUidAndAppro" parameterType="com.cy.psi.entity.SysApproved">
+        delete from sys_approved where u_id =#{uId} and approved_u_id =#{approvedUId}
+  </delete>
+  <select id="selectApproByUid" resultMap="BaseResultMap">
+        select * from sys_approved where u_id =#{uId}
+    </select>
+</mapper>

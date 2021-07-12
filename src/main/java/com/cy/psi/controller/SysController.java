@@ -2,9 +2,15 @@ package com.cy.psi.controller;
 import com.cy.psi.anno.SysLog;
 import com.cy.psi.entity.BaseDept;
 import com.cy.psi.service.BaseDeptService;
+import com.cy.psi.service.SysUserAllService;
+import com.cy.psi.utils.IdWorker;
 import com.cy.psi.vo.AjaxResponse;
+import com.cy.psi.vo.SysUserReqVo;
+import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @Author Twx
@@ -19,6 +25,12 @@ public class SysController {
 
     @Autowired
     private BaseDeptService baseDeptService;
+
+    @Autowired
+    private SysUserAllService sysUserAllService;
+
+    @Autowired
+    private IdWorker idWorker;
 
     @SysLog("测试")
     @PostMapping("/test")
@@ -59,5 +71,62 @@ public class SysController {
     }
 
 
+    /**
+     * 编辑部门
+     * */
+    @PutMapping("/updateDept")
+    public AjaxResponse updateDept(@RequestBody BaseDept baseDept){
+        baseDeptService.updateByPrimaryKey(baseDept);
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 删除部门
+     * */
+    @DeleteMapping("/delDept/{id}")
+    public AjaxResponse delDept(@PathVariable int id){
+        baseDeptService.deleteByPrimaryKey(id);
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 查询所有用户的所有信息
+     * */
+    @GetMapping("/getAllUser")
+    public AjaxResponse getAllUser(){
+        return AjaxResponse.success(sysUserAllService.findAllUser());
+    }
+
+
+    /**
+     * 添加所有用户
+     * */
+    @PostMapping("/addUserInfo")
+    public AjaxResponse addUserInfo(@RequestBody SysUserReqVo sysUserReqVo){
+        sysUserReqVo.setUId(idWorker.nextId()+"");
+        System.out.println(sysUserReqVo.toString());
+        sysUserAllService.addUser(sysUserReqVo);
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 修改用户
+     * */
+    @PutMapping("/updateUser")
+    public AjaxResponse updateUser(@RequestBody SysUserReqVo sysUserReqVo){
+        System.out.println(sysUserReqVo.toString());
+        sysUserAllService.updateUser(sysUserReqVo);
+        return AjaxResponse.success();
+    }
+
+
+    /**
+     * 删除用户
+     * */
+    @DeleteMapping("/delUser/{uId}")
+    public AjaxResponse updateUser(@PathVariable String uId){
+        sysUserAllService.delUser(uId);
+        return AjaxResponse.success();
+    }
 
 }

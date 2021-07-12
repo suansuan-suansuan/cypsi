@@ -11,3 +11,7 @@ GET http://localhost:8089/cypsi/sys/addDept/4
 Accept: application/json
 
 ###
+GET http://localhost:8089/cypsi/sys/getAllUser
+Accept: application/json
+
+###
