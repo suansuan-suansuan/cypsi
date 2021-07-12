@@ -12,6 +12,7 @@
     <result column="contact_address" jdbcType="VARCHAR" property="contactAddress" />
     <result column="contact_number" jdbcType="VARCHAR" property="contactNumber" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="product_number" jdbcType="VARCHAR" property="productNumber" />
   </resultMap>
 
   <sql id="Base_Column_List">

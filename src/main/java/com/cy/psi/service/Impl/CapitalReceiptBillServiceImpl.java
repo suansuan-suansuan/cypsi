@@ -14,8 +14,20 @@ import java.util.List;
 public class CapitalReceiptBillServiceImpl implements CapitalReceiptBillService {
     @Resource
     private CapitalReceiptBillDao capitalReceiptBillDao;
+
+
+    @Override
+    public void insert(CapitalReceiptBill bills) {
+        this.capitalReceiptBillDao.insert(bills);
+    }
+
     @Override
     public List<CapitalReceiptBill> relation(String id) {
         return this.capitalReceiptBillDao.relation(id);
+    }
+
+    @Override
+    public List<CapitalReceiptBill> queryById(String capitalReceiptId) {
+        return this.capitalReceiptBillDao.queryById(capitalReceiptId);
     }
 }

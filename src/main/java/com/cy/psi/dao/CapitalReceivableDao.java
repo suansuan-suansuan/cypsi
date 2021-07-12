@@ -16,4 +16,6 @@ public interface CapitalReceivableDao {
     int updateByPrimaryKeySelective(CapitalReceivable record);
 
     int updateByPrimaryKey(CapitalReceivable record);
+
+    CapitalReceivable receivedAdd(CapitalReceivable receivable);
 }

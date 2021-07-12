@@ -7,4 +7,10 @@ import com.cy.psi.entity.CapitalReceivable;
  */
 public interface CapitalReceivableService {
     void insert(CapitalReceivable receivable);
+
+    CapitalReceivable queryById(String saleOrderId);
+
+    CapitalReceivable receivedAdd(CapitalReceivable receivable);
+
+    void update(CapitalReceivable tf);
 }

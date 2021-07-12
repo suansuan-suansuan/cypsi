@@ -25,4 +25,6 @@ public interface SaleOrderService {
      * @return
      */
     SaleOrder queryById(String id);
+
+    void advanceadd(SaleOrder order);
 }

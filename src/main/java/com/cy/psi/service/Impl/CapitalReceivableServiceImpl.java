@@ -18,4 +18,19 @@ public class CapitalReceivableServiceImpl implements CapitalReceivableService {
     public void insert(CapitalReceivable receivable) {
         this.capitalReceivableDao.insert(receivable);
     }
+
+    @Override
+    public CapitalReceivable queryById(String saleOrderId) {
+        return this.capitalReceivableDao.selectByPrimaryKey(saleOrderId);
+    }
+
+    @Override
+    public CapitalReceivable receivedAdd(CapitalReceivable receivable) {
+        return this.capitalReceivableDao.receivedAdd(receivable);
+    }
+
+    @Override
+    public void update(CapitalReceivable tf) {
+        this.capitalReceivableDao.updateByPrimaryKey(tf);
+    }
 }

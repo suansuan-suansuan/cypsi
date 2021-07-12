@@ -29,4 +29,9 @@ public class SaleOrderServiceImpl implements SaleOrderService {
     public SaleOrder queryById(String id) {
         return this.saleOrderDao.queryById(id);
     }
+
+    @Override
+    public void advanceadd(SaleOrder order) {
+        this.saleOrderDao.advanceadd(order);
+    }
 }

@@ -85,7 +85,6 @@ public class SaleDeliveryController {
             //如果存在销售订单，修改订单状态--绑定出库单
             if (delivery.getSaleOrderId() != null) {
                 SaleOrder saleOrder = new SaleOrder();
-                saleOrder.setSaleDeliveryId(delivery.getDeliveryOrderId());
                 saleOrder.setUpdateTime(new Date());
                 saleOrder.setSaleOrderId(delivery.getSaleOrderId());
                 saleOrderService.update(saleOrder);
