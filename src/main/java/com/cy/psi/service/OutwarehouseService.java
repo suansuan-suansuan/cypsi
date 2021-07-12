@@ -23,7 +23,7 @@ public interface OutwarehouseService {
     List<SaleDelivery> selectBylikeOutwarehouse(String Starttime, String Endtime, String salesmen, String remarks);
 
     //审核   出库单
-    Integer OutwarehouseAudit( Integer approvalState,String approvalTime,String deliveryOrderId);
+    Integer OutwarehouseAudit( Integer deliveryState,String deliveryOrderId);
 
 
     /**

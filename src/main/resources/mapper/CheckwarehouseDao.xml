@@ -16,7 +16,7 @@
         <result property="productId" column="product_id" jdbcType="INTEGER"/>
     </resultMap>
 
-    <!--查询出库表 -->
+    <!--查询盘点表 -->
     <select id="selectCheckwarehouse" resultMap="CheckwarehouseMap">
      select * from cypsi.Checkwarehouse
       where TimeLiness=0

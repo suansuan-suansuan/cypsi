@@ -233,7 +233,7 @@
 
   <!--审核  出库单-->
   <update id="OutwarehouseAudit" parameterType="com.cy.psi.entity.SaleDelivery">
-    update cypsi.sale_delivery  set approval_state=#{approvalState},approval_time=#{approvalTime} where delivery_order_id=#{deliveryOrderId}
+    update cypsi.sale_delivery  set delivery_state=#{deliveryState} where delivery_order_id=#{deliveryOrderId}
   </update>
 
   <!--通过主键删除-->

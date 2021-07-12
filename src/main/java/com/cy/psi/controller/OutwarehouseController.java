@@ -40,7 +40,7 @@ public class OutwarehouseController {
         return classtypeVoPageInfo;
     }
 
-    //     高级分页查询调拨单
+    //     高级分页查询出库单
     @GetMapping("/selectBylikeOutwarehouse")
     public PageInfo<SaleDelivery> selectBylikeOutwarehouse(@RequestParam("currentPage") int currentPage,
                                                                @RequestParam("pagesize") int pagesize,
@@ -57,12 +57,12 @@ public class OutwarehouseController {
     //    审核    出库单
     @PutMapping("/OutwarehouseAudit")
     public Integer OutwarehouseAudit(@RequestBody OutwarehouseAuditVo vo){
-        log.info("approvalTime:"+vo.getApprovalTime());
-        log.info("approvalState:"+vo.getApprovalState());
+        log.info("deliveryState:"+vo.getDeliveryState());
         log.info("deliveryOrderId:"+vo.getDeliveryOrderId());
         log.debug("修改想去");
-        return saleDeliveryService.OutwarehouseAudit(vo.getApprovalState(),vo.getApprovalTime(),vo.getDeliveryOrderId());
+        return saleDeliveryService.OutwarehouseAudit(vo.getDeliveryState(),vo.getDeliveryOrderId());
     }
+    //删除出库单
     @DeleteMapping("/delOutwarehouse")
     public String delOutwarehouse(@PathVariable("deliveryOrderId") String deliveryOrderId){
         log.debug("开始删除！");

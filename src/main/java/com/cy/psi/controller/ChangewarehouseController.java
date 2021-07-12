@@ -27,7 +27,7 @@ public class ChangewarehouseController {
      */
     @Resource
     private ChangewarehouseService inventoryService;
-    //分页查询调拨单
+    //分页查询库存
     @GetMapping("/selectChangewarehouse")
     public PageInfo<Inventory> selectChangewarehouse (@RequestParam("currentPage") Integer currentPage, @RequestParam("pagesize") Integer pagesize){
         log.debug("分页查询信息");
@@ -38,14 +38,14 @@ public class ChangewarehouseController {
         return classtypeVoPageInfo;
     }
 
-    //     高级分页查询调拨单
+    //     高级分页查询库存
     @GetMapping("/selectBylikeChangewarehouse")
     public PageInfo<Inventory> selectBylikeChangewarehouse(@RequestParam("currentPage") int currentPage,
                                                                @RequestParam("pagesize") int pagesize,
-                                                               @RequestParam(value ="serialNumber",required = false) String serialNumber,
-                                                               @RequestParam(value ="documentmaker",required = false) String documentmaker,
-                                                               @RequestParam(value ="depotName",required = false) String depotName){
-        List<Inventory> entityPage =inventoryService.selectBylikeChangewarehouse(serialNumber,documentmaker,depotName);
+                                                               @RequestParam(value ="depotName",required = false) String depotName,
+                                                               @RequestParam(value ="productName",required = false) String productName
+                                                              ){
+        List<Inventory> entityPage =inventoryService.selectBylikeChangewarehouse(depotName,productName);
         PageHelper.startPage(currentPage,pagesize);
         PageInfo<Inventory> classtypeVoPageInfo = new  PageInfo<>(entityPage);
         return classtypeVoPageInfo;

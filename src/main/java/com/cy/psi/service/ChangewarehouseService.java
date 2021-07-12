@@ -20,7 +20,7 @@ public interface ChangewarehouseService {
     /**
      高级查询
      */
-    List<Inventory> selectBylikeChangewarehouse(String serialNumber, String documentmaker, String depotName);
+    List<Inventory> selectBylikeChangewarehouse(String depotName, String productName);
 
     /**
      * 通过主键删除数据

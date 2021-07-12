@@ -37,7 +37,7 @@ public interface SaleDeliveryDao {
     List<SaleDelivery> selectBylikeOutwarehouse(@Param("Starttime") String Starttime, @Param("Endtime") String Endtime, @Param("salesmen") String salesmen, @Param("remarks") String remarks);
 
     //审核    出库单
-    Integer OutwarehouseAudit(@Param("approvalState") Integer approvalState, @Param("approvalTime")String approvalTime, @Param("deliveryOrderId")String deliveryOrderId);
+    Integer OutwarehouseAudit(@Param("deliveryState") Integer deliveryState, @Param("deliveryOrderId")String deliveryOrderId);
 
     /**
      * 通过主键删除数据

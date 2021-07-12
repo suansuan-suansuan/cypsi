@@ -37,8 +37,8 @@ public class OutwarehouseServiceImpl implements OutwarehouseService {
 
     //审核   出库单
     @Override
-    public Integer OutwarehouseAudit( Integer approvalState,String approvalTime,String deliveryOrderId){
-        return saleDeliveryDao.OutwarehouseAudit(approvalState,approvalTime,deliveryOrderId);
+    public Integer OutwarehouseAudit( Integer deliveryState,String deliveryOrderId){
+        return saleDeliveryDao.OutwarehouseAudit(deliveryState,deliveryOrderId);
     }
 
     /**
