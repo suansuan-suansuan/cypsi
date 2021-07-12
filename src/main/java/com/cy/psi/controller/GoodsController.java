@@ -7,10 +7,7 @@ import com.cy.psi.service.PuorderSerice;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,6 +17,7 @@ import java.util.List;
  */
 @RestController
 @Slf4j
+@CrossOrigin
 @RequestMapping("test")
 public class GoodsController {
 
