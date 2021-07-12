@@ -46,4 +46,10 @@ public class GoodsServiceImpl implements GoodsService {
     public Integer GoodsAudit( Integer goodsZt,String puorderTimestamp,Integer goodsId){
         return goodsDao.GoodsAudit(goodsZt,puorderTimestamp,goodsId);
     }
+    //修改   删除
+    @Override
+    public Integer DelGoods( Integer timeLiness,Integer goodsId){
+        return goodsDao.DelGoods(timeLiness,goodsId);
+    }
+
 }

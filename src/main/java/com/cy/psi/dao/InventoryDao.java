@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface InventoryDao {
@@ -28,6 +29,14 @@ public interface InventoryDao {
      */
     void expectReduce(@Param("productId") String productId, @Param("depot") String depot, @Param("productNum") Integer productNum);
 
+    /**
+     * add
+     * @param productId
+     * @param depot
+     * @param productNum
+     */
+    void expectAdd(String productId, String depot, Integer productNum);
+
 
 //    ==============================================我唐某的地盘============================================================
     /**
@@ -40,20 +49,18 @@ public interface InventoryDao {
      */
     List<Inventory> selectBylikeChangewarehouse(@Param("depotName") String depotName, @Param("productName") String productName);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param inventoryId 主键
-     * @return 影响行数
-     */
-    int deleteById(String inventoryId);
+    //逻辑删除
+    Integer DelChangewarehouse(@Param("timeLiness") Integer timeLiness, @Param("inventoryId")String inventoryId);
+
+
 
 
     /**
-     * add
-     * @param productId
-     * @param depot
-     * @param productNum
+     * 查询库存明细
+     * @param map
+     * @return
      */
-    void expectAdd(String productId, String depot, Integer productNum);
+    List<Map<String,Object>> listProduct(Map map);
+
+
 }

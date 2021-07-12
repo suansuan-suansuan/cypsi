@@ -34,15 +34,12 @@ public class ChangewarehouseServiceImpl implements ChangewarehouseService {
         return inventoryDao.selectBylikeChangewarehouse(depotName,productName);
     }
 
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param inventoryId 主键
-     * @return 是否成功
-     */
+    //修改   删除
     @Override
-    public boolean deleteById(String inventoryId) {
-        return this.inventoryDao.deleteById(inventoryId) > 0;
+    public Integer DelChangewarehouse( Integer timeLiness,String inventoryId){
+        return inventoryDao.DelChangewarehouse(timeLiness,inventoryId);
     }
+
+
+
 }

@@ -59,6 +59,8 @@ public class Goods implements Serializable {
      * 采购订单
      */
     private String puorderId;
+//删除状态
+    private Integer timeLiness;
 
     private static final long serialVersionUID = 1L;
 }
