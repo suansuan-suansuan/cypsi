@@ -42,10 +42,10 @@ public class ChangewarehouseController {
     //     高级分页查询库存
     @GetMapping("/selectBylikeChangewarehouse")
     public PageInfo<Inventory> selectBylikeChangewarehouse(@RequestParam("currentPage") int currentPage,
-                                                               @RequestParam("pagesize") int pagesize,
-                                                               @RequestParam(value ="depotName",required = false) String depotName,
-                                                               @RequestParam(value ="productName",required = false) String productName
-                                                              ){
+                                                           @RequestParam("pagesize") int pagesize,
+                                                           @RequestParam(value ="depotName",required = false) String depotName,
+                                                           @RequestParam(value ="productName",required = false) String productName
+    ){
         List<Inventory> entityPage =inventoryService.selectBylikeChangewarehouse(depotName,productName);
         PageHelper.startPage(currentPage,pagesize);
         PageInfo<Inventory> classtypeVoPageInfo = new  PageInfo<>(entityPage);
@@ -60,5 +60,6 @@ public class ChangewarehouseController {
         log.debug("修改想去");
         return inventoryService.DelChangewarehouse(vo.getTimeLiness(),vo.getInventoryId());
     }
+
 
 }

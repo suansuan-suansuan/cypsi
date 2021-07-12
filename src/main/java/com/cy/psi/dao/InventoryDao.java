@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface InventoryDao {
@@ -50,6 +51,16 @@ public interface InventoryDao {
 
     //逻辑删除
     Integer DelChangewarehouse(@Param("timeLiness") Integer timeLiness, @Param("inventoryId")String inventoryId);
+
+
+
+
+    /**
+     * 查询库存明细
+     * @param map
+     * @return
+     */
+    List<Map<String,Object>> listProduct(Map map);
 
 
 }
