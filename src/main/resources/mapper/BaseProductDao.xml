@@ -31,7 +31,7 @@
   <select id="GenJuselectAll" parameterType="list" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-     from base_product where vendor_number=2
+     from base_product
   </select>
     <sql id="BaseProductCol">
         product_id, product_number, product_name, unit_id, product_spec, purchase_money, cost_price, purchase_unit_price, remarks, expiration, state, vendor_number    </sql>
