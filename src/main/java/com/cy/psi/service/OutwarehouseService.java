@@ -1,6 +1,5 @@
 package com.cy.psi.service;
 
-import com.cy.psi.entity.Allotwarehouse;
 import com.cy.psi.entity.SaleDelivery;
 
 import java.util.List;
@@ -21,10 +20,10 @@ public interface OutwarehouseService {
     /**
      高级查询
      */
-    List<SaleDelivery> selectBylikeOutwarehouse(String Starttime, String Endtime, String remarks);
+    List<SaleDelivery> selectBylikeOutwarehouse(String Starttime, String Endtime, String salesmen, String remarks);
 
     //审核   出库单
-    Integer OutwarehouseAudit( Integer approvalState,Integer deliveryOrderId);
+    Integer OutwarehouseAudit( Integer approvalState,String approvalTime,String deliveryOrderId);
 
 
     /**
