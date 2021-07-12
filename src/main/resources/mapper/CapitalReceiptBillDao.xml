@@ -14,10 +14,11 @@
     <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
     <result column="approval_state" jdbcType="VARCHAR" property="approvalState" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="sale_order_id" jdbcType="VARCHAR" property="saleOrderId" />
   </resultMap>
   <sql id="Base_Column_List">
     id, capital_receipt_id, settlement_type, this_money, customer, payee, founder, approver, 
-    found_time, update_time, approval_state, remarks
+    found_time, update_time, approval_state, remarks,sale_order_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,7 +26,11 @@
     from capital_receipt_bill
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="relation" resultType="com.cy.psi.entity.CapitalReceiptBill">
+      select receipt_id from capital_receipt_bill
+      where sale_order_id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from capital_receipt_bill
     where id = #{id,jdbcType=INTEGER}
   </delete>

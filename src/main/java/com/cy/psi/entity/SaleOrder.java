@@ -84,6 +84,9 @@ public class SaleOrder implements Serializable {
      * 客户交的预收款
      */
     private Double advance;
-
+    /**
+     * 关联出库单
+     */
+    private String saleDeliveryId;
     private static final long serialVersionUID = 1L;
 }

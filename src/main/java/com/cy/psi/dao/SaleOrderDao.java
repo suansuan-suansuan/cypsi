@@ -30,4 +30,11 @@ public interface SaleOrderDao {
      * @param saleOrder
      */
     void update(SaleOrder saleOrder);
+
+    /**
+     * 查询销售单，通过订单号
+     * @param id
+     * @return
+     */
+    SaleOrder queryById(String id);
 }
