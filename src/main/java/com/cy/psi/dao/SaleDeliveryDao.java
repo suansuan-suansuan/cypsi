@@ -46,4 +46,8 @@ public interface SaleDeliveryDao {
      * @return 影响行数
      */
     int deleteById(String deliveryOrderId);
+
+    SaleDelivery queryByIdVo(String id);
+
+    SaleDelivery queryById(String deliveryOrderId);
 }

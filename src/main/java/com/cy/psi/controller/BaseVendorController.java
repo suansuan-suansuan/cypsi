@@ -4,15 +4,15 @@ import com.cy.psi.entity.BaseVendor;
 import com.cy.psi.service.BaseVendorService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
+@Slf4j
+@CrossOrigin
 @RequestMapping("BaseVendor")
 public class BaseVendorController {
     @Resource
@@ -27,5 +27,11 @@ public class BaseVendorController {
         List<BaseVendor> page=baseVendorService.selectAll();
         PageInfo<BaseVendor> pageInfo=new PageInfo<>();
         return pageInfo;
+    }
+
+    @GetMapping("/selectAll88")
+    public List<BaseVendor> selectAll88(){
+        List<BaseVendor> Bacv =baseVendorService.selectAll88();
+        return Bacv;
     }
 }

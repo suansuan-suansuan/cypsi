@@ -22,4 +22,9 @@ public class BaseVendorServiceImpl implements BaseVendorService {
     public List<BaseVendor> selectAll(){
         return baseVendorDao.selectAll();
     }
+
+    @Override
+    public List<BaseVendor> selectAll88(){
+        return baseVendorDao.selectAll88();
+    }
 }

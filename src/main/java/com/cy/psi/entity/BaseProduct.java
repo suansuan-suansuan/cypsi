@@ -40,5 +40,7 @@ public class BaseProduct implements Serializable {
 
     private Integer state;
 
+    private String vendorNumber;
+
     private static final long serialVersionUID = 1L;
 }

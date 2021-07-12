@@ -20,4 +20,6 @@ public interface BaseDepotDao {
     int updateByPrimaryKey(BaseDepot record);
 
     List<BaseDepot> selectAll();
+
+    List<BaseDepot> selectAll100();
 }

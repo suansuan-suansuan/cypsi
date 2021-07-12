@@ -166,6 +166,7 @@
     </update>
 
 
+
 <!--===================================================我唐某的地盘================================================================-->
   <resultMap type="com.cy.psi.entity.Inventory" id="InventoryMap">
     <id property="inventoryId" column="inventory_id" jdbcType="VARCHAR"/>
@@ -195,7 +196,17 @@
     select * from cypsi.inventory i
     left join cypsi.base_depot d on i.depot_id =d.depot_id
     left join cypsi.base_product p on i.product_id =p.product_id
-  </select>
+</select>
+    <update id="expectAdd">
+      update inventory i
+      <set>
+        <if test="inventoryQuantity != null and inventoryQuantity != ''">
+          i.inventory_quantity=i.inventory_quantity+{productNum}
+        </if>
+      </set>
+      where (select b.product_number from base_product b where b.product_id=i.product_id) = #{productId} and i.depot_name = #{depotName}
+    </update>
+    <!--连查询调拨单 -->
 
   <!--高级查询-->
   <select id="selectBylikeChangewarehouse" resultMap="InventoryMap">

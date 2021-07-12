@@ -18,4 +18,9 @@ public class InventoryServiceImpl implements InventoryService {
     public void expectReduce(String productId, String depot, Integer productNum) {
         this.inventoryDao.expectReduce(productId,depot,productNum);
     }
+
+    @Override
+    public void expectAdd(String productId, String depot, Integer productNum) {
+        this.inventoryDao.expectAdd(productId,depot,productNum);
+    }
 }

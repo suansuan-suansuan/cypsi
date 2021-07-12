@@ -48,4 +48,12 @@ public interface InventoryDao {
      */
     int deleteById(String inventoryId);
 
+
+    /**
+     * add
+     * @param productId
+     * @param depot
+     * @param productNum
+     */
+    void expectAdd(String productId, String depot, Integer productNum);
 }

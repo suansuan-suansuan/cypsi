@@ -229,6 +229,14 @@
       </if>
     </where>
   </select>
+  <select id="queryByIdVo" resultType="com.cy.psi.entity.SaleDelivery">
+    select a.*,b.* from sale_delivery a INNER JOIN base_customer b on a.customer=b.customer_number
+    where delivery_order_id = #{id}
+  </select>
+  <select id="queryById" resultType="com.cy.psi.entity.SaleDelivery">
+    select * from sale_delivery
+    where delivery_order_id = #{deliveryId}
+  </select>
 
 
   <!--审核  出库单-->
