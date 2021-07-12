@@ -12,4 +12,6 @@ public interface BaseVendorService {
      */
     List<BaseVendor> selectAll();
 
+    List<BaseVendor> selectAll88();
+
 }

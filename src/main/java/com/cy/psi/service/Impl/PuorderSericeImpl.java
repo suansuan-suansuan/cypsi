@@ -40,7 +40,7 @@ public class PuorderSericeImpl implements PuorderSerice {
         DateFormat dateFormat=new SimpleDateFormat("yyyyMMdd");//时间的精确值
         String feesname=num+dateFormat.format(new Date())+cypsiPuorder.toString().length();
         cypsiPuorder.setPuorderState(feesname);
-        cypsiPuorderDao.insert(cypsiPuorder);
+        cypsiPuorderDao.insertPu(cypsiPuorder);
         return cypsiPuorder;
     }
 }

@@ -20,4 +20,6 @@ public interface BaseVendorDao {
     int updateByPrimaryKey(BaseVendor record);
 
     List<BaseVendor> selectAll();
+
+    List<BaseVendor> selectAll88();
 }
