@@ -18,4 +18,9 @@ public class BaseProductServiceImpl implements BaseProductService {
         return baseProductDao.selectAll();
     }
 
+    @Override
+    public List<BaseProduct> GenJuselectAll() {
+        return baseProductDao.GenJuselectAll();
+    }
+
 }

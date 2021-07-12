@@ -8,5 +8,5 @@ public interface BaseProductService  {
 
     List<BaseProduct> SelectAll();
 
-
+    List<BaseProduct> GenJuselectAll();
 }

@@ -43,4 +43,11 @@ public class PuorderSericeImpl implements PuorderSerice {
         cypsiPuorderDao.insertPu(cypsiPuorder);
         return cypsiPuorder;
     }
+
+    @Override
+    public CypsiPuorder updatePuo(CypsiPuorder cypsiPuorder) {
+        log.debug("修改到了");
+        cypsiPuorderDao.updatePuo(cypsiPuorder);
+        return cypsiPuorder;
+    }
 }

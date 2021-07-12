@@ -151,19 +151,9 @@
     </set>
     where Puorder_id = #{puorderId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.CypsiPuorder">
+  <update id="updatePuo" parameterType="com.cy.psi.entity.CypsiPuorder">
     update CYpsi_Puorder
-    set Puorder_Timestamp = #{puorderTimestamp,jdbcType=TIMESTAMP},
-      Puorder_C = #{puorderC,jdbcType=VARCHAR},
-      Approval = #{approval,jdbcType=INTEGER},
-      AppTime = #{apptime,jdbcType=TIMESTAMP},
-      Puorder_Cg = #{puorderCg,jdbcType=VARCHAR},
-      Puorder_state = #{puorderState,jdbcType=VARCHAR},
-      Puorder_Total = #{puorderTotal,jdbcType=DECIMAL},
-      `Explain` = #{explain,jdbcType=VARCHAR},
-      Puorder_G = #{puorderG,jdbcType=VARCHAR},
-      depot_id = #{depotId,jdbcType=VARCHAR},
-      vendor_id = #{vendorId,jdbcType=VARCHAR}
+    set Approval = 1
     where Puorder_id = #{puorderId,jdbcType=INTEGER}
   </update>
 

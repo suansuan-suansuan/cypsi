@@ -11,13 +11,13 @@
     <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
     <result column="purchase_unit_price" jdbcType="DECIMAL" property="purchaseUnitPrice" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
-    <result column="expiration time" jdbcType="TIMESTAMP" property="expirationTime" />
+    <result column="expiration" jdbcType="TIMESTAMP" property="expiration" />
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="vendor_number" jdbcType="VARCHAR" property="vendorNumber" />
   </resultMap>
   <sql id="Base_Column_List">
     product_id, product_number, product_name, unit_id, product_spec, purchase_money, 
-    cost_price, purchase_unit_price, remarks, `expiration time`, `state`
+    cost_price, purchase_unit_price, remarks, `expiration`, `state`
   </sql>
 
   <!--查询所有产品数据  -->
@@ -25,6 +25,13 @@
     select
     <include refid="Base_Column_List" />
     from base_product
+  </select>
+
+  <!--根据供货商 查询产品  -->
+  <select id="GenJuselectAll" parameterType="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+     from base_product where vendor_number=2
   </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -40,11 +47,11 @@
   <insert id="insert" keyColumn="product_id" keyProperty="productId" parameterType="com.cy.psi.entity.BaseProduct" useGeneratedKeys="true">
     insert into base_product (product_number, product_name, unit_id, 
       product_spec, purchase_money, cost_price, 
-      purchase_unit_price, remarks, `expiration time`, 
+      purchase_unit_price, remarks, `expiration`,
       `state`)
     values (#{productNumber,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER}, 
       #{productSpec,jdbcType=VARCHAR}, #{purchaseMoney,jdbcType=DECIMAL}, #{costPrice,jdbcType=DECIMAL}, 
-      #{purchaseUnitPrice,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{expirationTime,jdbcType=TIMESTAMP}, 
+      #{purchaseUnitPrice,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{expiration,jdbcType=TIMESTAMP}, 
       #{state,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="product_id" keyProperty="productId" parameterType="com.cy.psi.entity.BaseProduct" useGeneratedKeys="true">
@@ -74,8 +81,8 @@
       <if test="remarks != null">
         remarks,
       </if>
-      <if test="expirationTime != null">
-        `expiration time`,
+      <if test="expiration != null">
+        `expiration`,
       </if>
       <if test="state != null">
         `state`,
@@ -106,8 +113,8 @@
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="expirationTime != null">
-        #{expirationTime,jdbcType=TIMESTAMP},
+      <if test="expiration != null">
+        #{expiration,jdbcType=TIMESTAMP},
       </if>
       <if test="state != null">
         #{state,jdbcType=INTEGER},
@@ -141,8 +148,8 @@
       <if test="remarks != null">
         remarks = #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="expirationTime != null">
-        `expiration time` = #{expirationTime,jdbcType=TIMESTAMP},
+      <if test="expiration != null">
+        `expiration` = #{expiration,jdbcType=TIMESTAMP},
       </if>
       <if test="state != null">
         `state` = #{state,jdbcType=INTEGER},
@@ -160,7 +167,7 @@
       cost_price = #{costPrice,jdbcType=DECIMAL},
       purchase_unit_price = #{purchaseUnitPrice,jdbcType=DECIMAL},
       remarks = #{remarks,jdbcType=VARCHAR},
-      `expiration time` = #{expirationTime,jdbcType=TIMESTAMP},
+      `expiration` = #{expiration,jdbcType=TIMESTAMP},
       `state` = #{state,jdbcType=INTEGER}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>

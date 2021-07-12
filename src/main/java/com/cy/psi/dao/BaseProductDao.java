@@ -20,4 +20,6 @@ public interface BaseProductDao {
     int updateByPrimaryKey(BaseProduct record);
 
     List<BaseProduct> selectAll();
+
+    List<BaseProduct> GenJuselectAll();
 }
