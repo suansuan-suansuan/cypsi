@@ -70,13 +70,13 @@
     delete from sale_delivery
     where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" keyColumn="delivery_order_id" keyProperty="deliveryOrderId" parameterType="com.cy.psi.entity.SaleDelivery" useGeneratedKeys="true">
-    insert into sale_delivery (delivery_order_time, customer, salesmen, 
+  <insert id="insert"  parameterType="com.cy.psi.entity.SaleDelivery" keyColumn="delivery_order_id" keyProperty="deliveryOrderId">
+    insert into sale_delivery (delivery_order_id,delivery_order_time, customer, salesmen,
       receivables, remarks, approver, 
       found_time, update_time, approval_time, 
       approval_state, delivery_state, order_state, 
       sale_order_Id)
-    values (#{deliveryOrderTime,jdbcType=TIMESTAMP}, #{customer,jdbcType=VARCHAR}, #{salesmen,jdbcType=VARCHAR}, 
+    values(#{deliveryOrderId,jdbcType=VARCHAR},#{deliveryOrderTime,jdbcType=TIMESTAMP}, #{customer,jdbcType=VARCHAR}, #{salesmen,jdbcType=VARCHAR},
       #{receivables,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR}, 
       #{foundTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{approvalTime,jdbcType=TIMESTAMP}, 
       #{approvalState,jdbcType=INTEGER}, #{deliveryState,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER}, 

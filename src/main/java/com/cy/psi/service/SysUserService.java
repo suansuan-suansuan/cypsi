@@ -42,4 +42,5 @@ public interface SysUserService {
 
     SysUser selectUserByName(String username);
 
+    List<SysUser> findhaveapproved();
 }

@@ -1,5 +1,6 @@
 package com.cy.psi.dao;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cy.psi.entity.SaleOrder;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -39,4 +40,6 @@ public interface SaleOrderDao {
     SaleOrder queryById(String id);
 
     void advanceadd(SaleOrder order);
+
+    JSONArray queryAll();
 }

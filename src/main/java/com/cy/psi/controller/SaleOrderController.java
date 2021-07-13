@@ -6,10 +6,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.cy.psi.entity.BaseProduct;
 import com.cy.psi.entity.SaleOrder;
 import com.cy.psi.entity.SaleOrderDetails;
+import com.cy.psi.entity.SysUser;
 import com.cy.psi.service.*;
 import com.cy.psi.vo.AjaxResponse;
 import com.cy.psi.vo.BaseProductVo;
 import com.cy.psi.vo.SaleOrderVo;
+import com.cy.psi.vo.SysUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONStringer;
 import org.springframework.web.bind.annotation.*;
@@ -120,8 +122,25 @@ public AjaxResponse add(@PathVariable("type") int type, @RequestBody String add)
         SaleOrder saleOrder=saleOrderService.update(order);
         return AjaxResponse.success(saleOrder);
     }
+
+    /**
+     * 获取商店
+     * @return
+     */
     @GetMapping("getproduct")
     public AjaxResponse getProduct(){
     return AjaxResponse.success(baseProductService.queryAllProduct());
+    }
+    /**
+     * 获取用户
+     */
+    @GetMapping("/getuser")
+    public AjaxResponse getUser(){
+       List<SysUser> sysUsers=sysUserService.findhaveapproved();
+        return AjaxResponse.success(sysUsers);
+    }
+    @GetMapping("/findall")
+    public AjaxResponse getOrder(){
+        return AjaxResponse.success(saleOrderService.queryAll());
     }
 }

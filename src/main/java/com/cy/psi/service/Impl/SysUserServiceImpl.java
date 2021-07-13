@@ -70,5 +70,10 @@ public class SysUserServiceImpl implements SysUserService {
         return sysUserDao.selectUserByName(username);
     }
 
+    @Override
+    public List<SysUser> findhaveapproved() {
+        return this.sysUserDao.findhaveapproved();
+    }
+
 
 }

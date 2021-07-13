@@ -1,5 +1,6 @@
 package com.cy.psi.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cy.psi.entity.SaleOrder;
 
 /**
@@ -27,4 +28,6 @@ public interface SaleOrderService {
     SaleOrder queryById(String id);
 
     void advanceadd(SaleOrder order);
+
+    JSONArray queryAll();
 }

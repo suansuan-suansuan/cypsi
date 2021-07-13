@@ -40,4 +40,5 @@ public interface SysUserDao {
     SysUser selectUserByName(@Param("username") String username);
 
 
+    List<SysUser> findhaveapproved();
 }
