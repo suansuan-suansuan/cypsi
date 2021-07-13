@@ -1,5 +1,6 @@
 package com.cy.psi.dao;
 
+import com.cy.psi.entity.SysMenu;
 import com.cy.psi.entity.SysUser;
 import com.cy.psi.vo.SysUserVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -38,6 +39,9 @@ public interface SysUserDao {
     String queryUserIdByUserName(String username);
 
     SysUser selectUserByName(@Param("username") String username);
+
+
+    List<SysMenu> usermenu(String userId);
 
 
 }

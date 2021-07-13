@@ -19,3 +19,9 @@ GET http://localhost:8089/cypsi/sys/getAllMenu
 Accept: application/json
 
 ###
+GET http://localhost:8089/cypsi/sys/getRoleAndMenu/1414646079936360448
+Accept: application/json
+
+###
+GET http://localhost:8089/cypsi/sys/getAllLog
+Accept: application/json

@@ -1,6 +1,8 @@
 package com.cy.psi.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -63,6 +65,11 @@ public class SysMenu implements Serializable {
      * 组件路径
      */
     private String component;
+
+    /**
+     * 子组件
+     */
+    private List<SysMenu> childMenu;
 
     private static final long serialVersionUID = 1L;
 }

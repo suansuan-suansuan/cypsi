@@ -1,5 +1,6 @@
 package com.cy.psi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -19,6 +20,7 @@ public class Log {
     /**
      * 创建时间
      * */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp createTime;
     /**
      * 用户ID

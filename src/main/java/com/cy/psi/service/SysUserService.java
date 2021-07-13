@@ -1,5 +1,6 @@
 package com.cy.psi.service;
 
+import com.cy.psi.entity.SysMenu;
 import com.cy.psi.entity.SysUser;
 
 import com.cy.psi.vo.SysUserVo;
@@ -41,5 +42,7 @@ public interface SysUserService {
     String queryUserIdByUserName(String username);
 
     SysUser selectUserByName(String username);
+
+    List<SysMenu> usermenu(String userId);
 
 }

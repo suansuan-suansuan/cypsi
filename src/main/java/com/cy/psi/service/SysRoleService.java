@@ -2,6 +2,7 @@ package com.cy.psi.service;
 
 
 import com.cy.psi.entity.SysRole;
+import com.cy.psi.vo.RoleMenuVo;
 
 import java.util.List;
 
@@ -25,4 +26,8 @@ public interface SysRoleService {
     int updateByPrimaryKey(SysRole record);
 
     List<SysRole> selectAllRole();
+
+    RoleMenuVo selectRoleMenuByRoleId(String roleId);
+
+    String  queryRoleNameByroleId(String roleId);
 }

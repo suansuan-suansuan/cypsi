@@ -1,20 +1,23 @@
 package com.cy.psi.controller;
 import com.cy.psi.anno.SysLog;
 import com.cy.psi.entity.BaseDept;
+import com.cy.psi.entity.SysMenu;
 import com.cy.psi.entity.SysRole;
 import com.cy.psi.entity.SysUser;
-import com.cy.psi.service.BaseDeptService;
-import com.cy.psi.service.SysMenuService;
-import com.cy.psi.service.SysRoleService;
-import com.cy.psi.service.SysUserAllService;
+import com.cy.psi.service.*;
 import com.cy.psi.utils.IdWorker;
 import com.cy.psi.vo.AjaxResponse;
+import com.cy.psi.vo.RoleMenuVo;
 import com.cy.psi.vo.SysUserReqVo;
-import org.aspectj.weaver.loadtime.Aj;
+import com.cy.psi.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Author Twx
@@ -40,7 +43,13 @@ public class SysController {
     private SysMenuService sysMenuService;
 
     @Autowired
+    private SysLogService sysLogService;
+
+    @Autowired
     private IdWorker idWorker;
+
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
 
     @SysLog("测试")
     @PostMapping("/test")
@@ -142,19 +151,43 @@ public class SysController {
     /**
      * 用户登录
      * */
+    @SysLog("登录")
     @PostMapping("/login")
-    public AjaxResponse login(@RequestBody SysUser sysUser){
+    public AjaxResponse login(@RequestBody Map map){
+        SysUser sysUser =new SysUser();
+        sysUser.setUName((String) map.get("uName"));
+        sysUser.setUPass((String) map.get("uPass"));
         SysUser loginuser = sysUserAllService.login(sysUser.getUName());
         if (loginuser == null) {
             return AjaxResponse.success("账户不存在");
         } else {
             if (loginuser.getIsdisabled() != 0) {
                 return AjaxResponse.success("账户已停用！请联系超级管理员！");
-            } else if (sysUser.getUPass() != loginuser.getUPass()) {
+            } else if (!sysUser.getUPass().equals(loginuser.getUPass())) {
                 return AjaxResponse.success("密码错误");
             } else {
                 String userid = sysUserAllService.queryUserIdByUserName(loginuser.getUName());
-                return AjaxResponse.success(loginuser);
+                //通过用户id获取角色id
+                List<String> roleId =  sysUserRoleService.queryRoleIdbyUserId(userid);
+                //通过角色id获取角色名
+                List<String> roleNames=new ArrayList<String>();
+                for (int i=0;i<roleId.size();i++) {
+                    String roleName= sysRoleService.queryRoleNameByroleId(roleId.get(i));
+                    roleNames.add(roleName);
+                }
+                List<SysMenu> usermenu = sysUserAllService.usermenu(loginuser.getUId());
+                //获取父菜单
+                List<SysMenu> treemenu = usermenu.stream().filter(m -> m.getParentId() == "0").map(
+                        (m) -> {
+                            m.setChildMenu(getChildrens(m, usermenu));
+                            return m;
+                        }
+                ).collect(Collectors.toList());
+                UserVo userVo = new UserVo();
+                userVo.setUser(loginuser);
+                userVo.setMenus(treemenu);
+                userVo.setValidate(true);
+                return AjaxResponse.success(userVo);
             }
         }
 
@@ -183,6 +216,64 @@ public class SysController {
     @GetMapping("/getAllMenu")
     public AjaxResponse getAllMenu (){
         return AjaxResponse.success(sysMenuService.selectAllMenu());
+    }
+
+    /**
+     * 添加角色以及和菜单的联系
+     * */
+    @PostMapping("/addRoleAndMenu")
+    public AjaxResponse addRoleAndMenu(@RequestBody RoleMenuVo roleMenuVo){
+        System.out.println("roleMenuVo=>"+roleMenuVo.toString());
+        sysUserAllService.addRoleAndMenu(roleMenuVo);
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 根据角色id获取角色和菜单信息
+     * */
+    @GetMapping("/getRoleAndMenu/{roleId}")
+    public AjaxResponse getRoleAndMenu(@PathVariable String roleId){
+        return AjaxResponse.success(sysRoleService.selectRoleMenuByRoleId(roleId));
+    }
+
+    /**
+     * 修改角色和菜单信息
+     * */
+    @PutMapping("/updateRoleAndMenu")
+    public AjaxResponse updateRoleAndMenu(@RequestBody RoleMenuVo roleMenuVo){
+        sysUserAllService.updateRoleAndMenu(roleMenuVo);
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 递归查询子菜单
+     * @param root 根菜单
+     * @param all  所有菜单
+     * @return 菜单信息
+     */
+    public List<SysMenu> getChildrens(SysMenu root, List<SysMenu> all) {
+        List<SysMenu> children = all.stream().filter(m -> {
+            return Objects.equals(m.getParentId(), root.getMenuId());
+        }).map(
+                (m) -> {
+                    m.setChildMenu(getChildrens(m, all));
+                    return m;
+                }
+        ).collect(Collectors.toList());
+        return children;
+    }
+
+    /**
+     * @Author Twx
+     * @Date 2021/7/13 13:16
+     * @Description 打印所有操作日志
+     * @Param []
+     * @Return com.cy.psi.vo.AjaxResponse
+     * @Since version-1.0
+     */
+    @GetMapping("/getAllLog")
+    public AjaxResponse getAllLog(){
+        return AjaxResponse.success(sysLogService.findAllLog());
     }
 
 }
