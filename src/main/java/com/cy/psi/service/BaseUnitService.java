@@ -14,13 +14,9 @@ import com.github.pagehelper.PageInfo;
  * @since 2021-07-12 17:48:11
  */
 public interface BaseUnitService {
-    
     /**
-     * 查询所有数据
-     *
-     * @param baseUnitQueryForm 实例对象
-     * @return 实例对象
+     * 下拉框查询所有单位数据
+     * @return
      */
-    PageInfo<BaseUnit> queryAll(BaseUnitQueryForm baseUnitQueryForm);
-    
+    List<BaseUnit> selectAll();
 }
