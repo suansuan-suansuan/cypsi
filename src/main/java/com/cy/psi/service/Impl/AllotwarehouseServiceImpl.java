@@ -60,6 +60,7 @@ public class AllotwarehouseServiceImpl implements AllotwarehouseService {
     //调拨新增入库单
     @Override
     public Integer insertGoods(Goods goods) {
+        System.out.println(goods);
         return allotwarehouseDao.insertGoods(goods);
     }
 

@@ -10,6 +10,7 @@
         <result property="bringupthewarehouse" column="bring_up_the_warehouse" jdbcType="VARCHAR"/>
         <result property="documentmaker" column="documentMaker" jdbcType="VARCHAR"/>
         <result property="operator" column="operator" jdbcType="VARCHAR"/>
+        <result property="approval" column="approval" jdbcType="INTEGER"/>
         <result property="auditor" column="auditor" jdbcType="VARCHAR"/>
         <result property="auditData" column="audit_data" jdbcType="TIMESTAMP"/>
         <result property="auditSign" column="audit_sign" jdbcType="VARCHAR"/>
@@ -107,7 +108,7 @@
     <!--  调拨新增调出库单-->
     <insert id="insertSaleDelivery" parameterType="com.cy.psi.entity.SaleDelivery" >
         insert into cypsi.sale_delivery(remarks,delivery_order_id)
-        values (#{remarks},11)
+        values (#{remarks},#{deliveryOrderId})
     </insert>
 <!--    入库-->
     <resultMap id="RutMap" type="com.cy.psi.entity.Goods">
@@ -118,15 +119,15 @@
         <result column="AppTime" jdbcType="TIMESTAMP" property="apptime" />
         <result column="Goods_state" jdbcType="VARCHAR" property="goodsState" />
         <result column="Explain" jdbcType="VARCHAR" property="explain" />
-        <result column="depot_id" jdbcType="VARCHAR" property="depotId" />
-        <result column="Puorder_id" jdbcType="VARCHAR" property="puorderId" />
+        <result column="depot_id" jdbcType="INTEGER" property="depotId" />
+        <result column="Puorder_id" jdbcType="INTEGER" property="puorderId" />
         <result column="TimeLiness" jdbcType="INTEGER" property="timeLiness" />
     </resultMap>
 
     <!-- 调拨新增调入库单-->
-    <insert id="insertGoods" parameterType="com.cy.psi.entity.Goods">
-        insert into cypsi.Goods(Puorder_id,depot_id,Explain,Goods_state,Goods_id)
-        values (#{puorderId},#{depotId},#{explain},#{goodsState},#{goodsId})
+    <insert id="insertGoods" parameterType="com.cy.psi.entity.Goods" useGeneratedKeys="true" keyProperty="goodsId">
+        insert into cypsi.Goods(Puorder_id,depot_id)
+        values (#{puorderId},#{depotId})
     </insert>
 
     <!--审核  调拨单-->
