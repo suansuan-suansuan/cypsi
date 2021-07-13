@@ -40,8 +40,9 @@ public interface SysUserDao {
 
     SysUser selectUserByName(@Param("username") String username);
 
+    List<SysUser> selectAll();
 
+    List<SysUser> findhaveapproved();
     List<SysMenu> usermenu(String userId);
-
 
 }

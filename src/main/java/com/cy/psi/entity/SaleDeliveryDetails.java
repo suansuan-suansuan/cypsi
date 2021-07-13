@@ -35,7 +35,7 @@ public class SaleDeliveryDetails implements Serializable {
      * 所属仓库
 
      */
-    private String depot;
+    private String depotId;
 
     /**
      * 单价（元）

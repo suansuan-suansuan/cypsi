@@ -72,8 +72,18 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+
+    public List<SysUser> findhaveapproved() {
+        return this.sysUserDao.findhaveapproved();
+    }
+    @Override
     public List<SysMenu> usermenu(String userId) {
         return sysUserDao.usermenu(userId);
+    }
+
+    @Override
+    public List<SysUser> selectAll() {
+        return sysUserDao.selectAll();
     }
 
 

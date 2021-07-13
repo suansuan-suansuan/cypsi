@@ -28,7 +28,12 @@
              INNER JOIN base_unit c on b.unit_id=c.unit_id
       where sale_order_id = #{saleOrderId}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="queryByorderId" resultType="map">
+    select d.* ,b.* from sale_order_details d
+                           inner join  base_product b on b.product_id=d.product_id
+    where d.sale_order_Id=#{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sale_order_details
     where id = #{id,jdbcType=INTEGER}
   </delete>
