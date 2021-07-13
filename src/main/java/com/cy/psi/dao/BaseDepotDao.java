@@ -64,7 +64,6 @@ public interface BaseDepotDao {
      */
     int update(BaseDepot baseDepot);
 
-    int updateBatch(List<BaseDepot> baseDepotList);
 
     /**
      * 通过主键删除数据

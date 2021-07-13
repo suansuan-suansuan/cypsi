@@ -6,6 +6,7 @@ import com.cy.psi.service.SysUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author 酸酸
@@ -22,5 +23,10 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public String queryUserIdByUserName(String username) {
         return this.sysUserDao.queryUserIdByUserName(username);
+    }
+
+    @Override
+    public List<SysUser> selectAll() {
+        return this.sysUserDao.selectAll();
     }
 }

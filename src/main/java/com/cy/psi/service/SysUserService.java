@@ -3,6 +3,7 @@ package com.cy.psi.service;
 import com.cy.psi.entity.SysUser;
 
 import java.awt.print.PrinterJob;
+import java.util.List;
 
 /**
  * @author 酸酸
@@ -21,4 +22,6 @@ public interface SysUserService {
      * @return
      */
     String queryUserIdByUserName(String username);
+
+    List<SysUser> selectAll();
 }

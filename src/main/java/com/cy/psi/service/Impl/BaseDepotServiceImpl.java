@@ -12,6 +12,7 @@ import java.util.List;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * (BaseDepot)表服务实现类
@@ -80,6 +81,7 @@ public class BaseDepotServiceImpl implements BaseDepotService {
      * @param baseDepot 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public BaseDepot insert(BaseDepot baseDepot) {
         this.baseDepotDao.insert(baseDepot);
@@ -92,6 +94,7 @@ public class BaseDepotServiceImpl implements BaseDepotService {
      * @param baseDepot 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public BaseDepot update(BaseDepot baseDepot) {
         this.baseDepotDao.update(baseDepot);
@@ -104,6 +107,7 @@ public class BaseDepotServiceImpl implements BaseDepotService {
      * @param depotId 主键
      * @return 是否成功
      */
+    @Transactional
     @Override
     public boolean deleteById(String depotId) {
         return this.baseDepotDao.deleteById(depotId) > 0;
@@ -115,6 +119,7 @@ public class BaseDepotServiceImpl implements BaseDepotService {
      * @param ids 主键列表
      * @return 影响行数
      */
+    @Transactional
     @Override
     public boolean deleteBatch(List<Integer> ids) {
         int row = this.baseDepotDao.deleteBatch(ids);

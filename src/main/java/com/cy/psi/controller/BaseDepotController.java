@@ -1,6 +1,8 @@
 package com.cy.psi.controller;
 
 import com.cy.psi.entity.BaseDepot;
+import com.cy.psi.entity.SysUser;
+import com.cy.psi.service.SysUserService;
 import com.cy.psi.vo.form.BaseDepotQueryForm;
 import com.cy.psi.service.BaseDepotService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,9 @@ public class BaseDepotController {
     @Resource
     private BaseDepotService baseDepotService;
 
+    @Resource
+    private SysUserService sysUserService;
+
     /**
      * 通过主键查询单条数据
      *
@@ -49,6 +54,11 @@ public class BaseDepotController {
     public PageInfo<BaseDepot> queryAll(BaseDepotQueryForm baseDepotQueryForm) {
 
         return this.baseDepotService.queryAll(baseDepotQueryForm);
+    }
+
+    @GetMapping("/user")
+    public List<SysUser> selectAll(){
+        return this.sysUserService.selectAll();
     }
 
     /**
@@ -83,8 +93,11 @@ public class BaseDepotController {
      */
     @PostMapping("/baseDepot")
     public BaseDepot insert(@RequestBody BaseDepot baseDepot) {
-
-        return this.baseDepotService.insert(baseDepot);
+        //log.debug(baseDepot.getDepotId());
+        //log.debug(baseDepot.toString());
+        System.out.println(baseDepot);
+       return this.baseDepotService.insert(baseDepot);
+        //return baseDepot;
     }
 
     /**

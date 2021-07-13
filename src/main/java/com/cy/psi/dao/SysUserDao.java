@@ -3,6 +3,8 @@ package com.cy.psi.dao;
 import com.cy.psi.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface SysUserDao {
     int deleteByPrimaryKey(String uId);
@@ -18,4 +20,6 @@ public interface SysUserDao {
     int updateByPrimaryKey(SysUser record);
 
     String queryUserIdByUserName(String username);
+
+    List<SysUser> selectAll();
 }

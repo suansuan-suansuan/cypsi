@@ -12,11 +12,19 @@
   <sql id="Base_Column_List">
     u_id, u_code, u_name, u_pass, u_dept, isDisabled
   </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="list">
+    select
+    <include refid="Base_Column_List" />
+    from
+    sys_user
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_user
     where u_id = #{uId,jdbcType=VARCHAR}
+    sys_user
   </select>
     <select id="queryUserIdByUserName" resultType="java.lang.String">
       select u_id
