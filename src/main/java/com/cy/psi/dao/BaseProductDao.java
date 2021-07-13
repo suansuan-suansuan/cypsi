@@ -1,6 +1,8 @@
 package com.cy.psi.dao;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cy.psi.entity.BaseProduct;
+import com.cy.psi.vo.BaseProductVo;
 import com.cy.psi.vo.form.BaseProductQueryForm;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -109,4 +111,6 @@ public interface BaseProductDao {
     List<BaseProduct> selectAll();
 
     List<BaseProduct> GenJuselectAll();
+
+    JSONArray queryAllProduct();
 }
