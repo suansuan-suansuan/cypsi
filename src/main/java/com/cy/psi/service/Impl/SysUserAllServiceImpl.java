@@ -37,6 +37,9 @@ public class SysUserAllServiceImpl implements SysUserAllService {
     private SysRoleMenuService sysRoleMenuService;
 
     @Autowired
+    private SysUserRoleService sysUserRoleService;
+
+    @Autowired
     private IdWorker idWorker;
 
 
@@ -56,6 +59,12 @@ public class SysUserAllServiceImpl implements SysUserAllService {
         SysUser user=new SysUser(sysUserReqVo);
         //保存用户对象
         sysUserService.insert(user);
+
+        //保存用户角色
+        SysUserRole sysUserRole=new SysUserRole();
+        sysUserRole.setUId(user.getUId());
+        sysUserRole.setRoleId(sysUserReqVo.getRole());
+        sysUserRoleService.insert(sysUserRole);
 
         //批量保存用户审批对象
         for (String approvedId : sysUserReqVo.getApprovedIds()) {
@@ -81,6 +90,14 @@ public class SysUserAllServiceImpl implements SysUserAllService {
         SysUser sysUser = new SysUser(sysUserReqVo);
         //修改用户信息
         sysUserService.updateByPrimaryKeySelective(sysUser);
+
+        //查询出该用户的角色
+        List<SysUserRole> sysUserRoles = sysUserRoleService.selectUserAllRole(sysUser.getUId());
+
+        for (SysUserRole sysUserRole : sysUserRoles) {
+            //删除该用户的角色
+            sysUserRoleService.delUserRole(sysUserRole);
+        }
 
         List<SysApproved> sysApproveds = sysApprovedService.selectApproByUid(sysUser.getUId());
         //删除当前用户所有的可审批的人
@@ -115,6 +132,14 @@ public class SysUserAllServiceImpl implements SysUserAllService {
     @Transactional
     @Override
     public void delUser(String uId) {
+
+        //查询出该用户的角色
+        List<SysUserRole> sysUserRoles = sysUserRoleService.selectUserAllRole(uId);
+
+        for (SysUserRole sysUserRole : sysUserRoles) {
+            //删除该用户的角色
+            sysUserRoleService.delUserRole(sysUserRole);
+        }
 
         List<SysApproved> sysApproveds = sysApprovedService.selectApproByUid(uId);
         //删除当前用户所有的可审批的人
@@ -180,13 +205,14 @@ public class SysUserAllServiceImpl implements SysUserAllService {
 
         //找到之前角色与菜单的关联，删除
         RoleMenuVo roleMenuVo1 = sysRoleService.selectRoleMenuByRoleId(sysRole.getRoleId());
-        List<SysMenu> menus1=roleMenuVo1.getMenus();
-
-        for (SysMenu sysMenu : menus1) {
-            SysRoleMenu sysRoleMenu=new SysRoleMenu();
-            sysRoleMenu.setRoleId(sysRole.getRoleId());
-            sysRoleMenu.setMenuId(sysMenu.getMenuId());
-            sysRoleMenuService.delRoleMenu(sysRoleMenu);
+        if(roleMenuVo1!=null){
+            List<SysMenu> menus1=roleMenuVo1.getMenus();
+            for (SysMenu sysMenu : menus1) {
+                SysRoleMenu sysRoleMenu = new SysRoleMenu();
+                sysRoleMenu.setRoleId(sysRole.getRoleId());
+                sysRoleMenu.setMenuId(sysMenu.getMenuId());
+                sysRoleMenuService.delRoleMenu(sysRoleMenu);
+            }
         }
 
         List<SysMenu> menus2 =roleMenuVo.getMenus();
@@ -203,5 +229,21 @@ public class SysUserAllServiceImpl implements SysUserAllService {
     @Override
     public List<SysMenu> usermenu(String userId) {
         return sysUserService.usermenu(userId);
+    }
+
+    @Override
+    public void delRoleAndMenu(String roleId) {
+        //找到之前角色与菜单的关联，删除
+        RoleMenuVo roleMenuVo1 = sysRoleService.selectRoleMenuByRoleId(roleId);
+        if(roleMenuVo1!=null){
+            List<SysMenu> menus1=roleMenuVo1.getMenus();
+            for (SysMenu sysMenu : menus1) {
+                SysRoleMenu sysRoleMenu = new SysRoleMenu();
+                sysRoleMenu.setRoleId(roleId);
+                sysRoleMenu.setMenuId(sysMenu.getMenuId());
+                sysRoleMenuService.delRoleMenu(sysRoleMenu);
+            }
+        }
+        sysRoleService.deleteByPrimaryKey(roleId);
     }
 }

@@ -34,4 +34,6 @@ public interface SysUserAllService {
     void updateRoleAndMenu(RoleMenuVo roleMenuVo);
 
     List<SysMenu> usermenu(String userId);
+
+    void delRoleAndMenu(String roleId);
 }

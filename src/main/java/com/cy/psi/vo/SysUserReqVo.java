@@ -26,6 +26,10 @@ public class SysUserReqVo {
      * 用户密码
      */
     private String upass;
+    /**
+     * 角色
+     * */
+    private String role;
 
     /**
      * 所属部门

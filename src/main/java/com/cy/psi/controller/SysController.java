@@ -10,6 +10,7 @@ import com.cy.psi.vo.AjaxResponse;
 import com.cy.psi.vo.RoleMenuVo;
 import com.cy.psi.vo.SysUserReqVo;
 import com.cy.psi.vo.UserVo;
+import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -118,7 +119,7 @@ public class SysController {
 
 
     /**
-     * 添加所有用户
+     * 添加用户
      * */
     @PostMapping("/addUserInfo")
     public AjaxResponse addUserInfo(@RequestBody SysUserReqVo sysUserReqVo){
@@ -177,15 +178,9 @@ public class SysController {
                 }
                 List<SysMenu> usermenu = sysUserAllService.usermenu(loginuser.getUId());
                 //获取父菜单
-                List<SysMenu> treemenu = usermenu.stream().filter(m -> m.getParentId() == "0").map(
-                        (m) -> {
-                            m.setChildMenu(getChildrens(m, usermenu));
-                            return m;
-                        }
-                ).collect(Collectors.toList());
                 UserVo userVo = new UserVo();
                 userVo.setUser(loginuser);
-                userVo.setMenus(treemenu);
+                userVo.setMenus(usermenu);
                 userVo.setValidate(true);
                 return AjaxResponse.success(userVo);
             }
@@ -201,14 +196,6 @@ public class SysController {
         return AjaxResponse.success(sysRoleService.selectAllRole());
     }
 
-    /**
-     * 添加角色
-     * */
-    @PostMapping("/addRole")
-    public AjaxResponse addRole(SysRole sysRole){
-
-        return AjaxResponse.success();
-    }
 
     /**
      * 查询所有菜单
@@ -274,6 +261,14 @@ public class SysController {
     @GetMapping("/getAllLog")
     public AjaxResponse getAllLog(){
         return AjaxResponse.success(sysLogService.findAllLog());
+    }
+
+
+    @DeleteMapping("/delRoleAndMenu/{roleId}")
+    public AjaxResponse delRoleAndMenu(@PathVariable String roleId){
+        System.out.println(roleId);
+        sysUserAllService.delRoleAndMenu(roleId);
+        return AjaxResponse.success();
     }
 
 }

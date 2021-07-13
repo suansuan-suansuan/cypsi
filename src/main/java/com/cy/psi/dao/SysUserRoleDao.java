@@ -2,6 +2,7 @@ package com.cy.psi.dao;
 
 import com.cy.psi.entity.SysUserRole;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,5 +14,9 @@ public interface SysUserRoleDao {
 
     int insertSelective(SysUserRole record);
 
+    List<SysUserRole> selectUserAllRole(@Param("userId") String userId);
+
     List<String> queryRoleIdbyUserId(String userId);
+
+    void delUserRole(SysUserRole sysUserRole);
 }
