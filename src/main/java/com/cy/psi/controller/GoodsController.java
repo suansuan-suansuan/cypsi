@@ -1,11 +1,9 @@
 package com.cy.psi.controller;
 
 import com.cy.psi.entity.Goods;
-import com.cy.psi.entity.SaleDelivery;
 import com.cy.psi.service.GoodsService;
 import com.cy.psi.vo.GoodsRukuVo;
 import com.cy.psi.vo.GoodsVo;
-import com.cy.psi.vo.OutwarehouseAuditVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -63,11 +61,10 @@ public PageInfo<Goods> selectBylikeGoods(@RequestParam("currentPage") int curren
     //    审核    入库单
     @PutMapping("/GoodsAudit")
     public Integer GoodsAudit(@RequestBody GoodsRukuVo vo){
-        log.info("puorderTimestamp:"+vo.getPuorderTimestamp());
         log.info("goodsZt:"+vo.getGoodsZt());
         log.info("goodsId:"+vo.getGoodsId());
         log.debug("修改想去");
-        return goodsService.GoodsAudit(vo.getGoodsZt(),vo.getPuorderTimestamp(),vo.getGoodsId());
+        return goodsService.GoodsAudit(vo.getGoodsZt(),vo.getGoodsId());
     }
 
 
