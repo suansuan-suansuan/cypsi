@@ -81,5 +81,10 @@ public class SysUserServiceImpl implements SysUserService {
         return sysUserDao.usermenu(userId);
     }
 
+    @Override
+    public List<SysUser> selectAll() {
+        return sysUserDao.selectAll();
+    }
+
 
 }

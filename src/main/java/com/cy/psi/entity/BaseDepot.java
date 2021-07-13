@@ -26,7 +26,5 @@ public class BaseDepot implements Serializable {
 
     private String remarks;
 
-    private Integer state;
-
     private static final long serialVersionUID = 1L;
 }

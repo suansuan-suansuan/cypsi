@@ -46,4 +46,5 @@ public interface SysUserService {
     List<SysUser> findhaveapproved();
     List<SysMenu> usermenu(String userId);
 
+    List<SysUser> selectAll();
 }

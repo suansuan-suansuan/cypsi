@@ -112,72 +112,10 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert">
-        insert into cypsi.base_customer
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-
-            <if test="customerNumber != null">
-                customer_number,
-            </if>
-            <if test="customerName != null">
-                customer_name,
-            </if>
-            <if test="customerType != null">
-                customer_type,
-            </if>
-            <if test="ratio != null">
-                ratio,
-            </if>
-            <if test="uId != null">
-                u_id,
-            </if>
-            <if test="contact != null">
-                contact,
-            </if>
-            <if test="contactAddress != null">
-                contact_address,
-            </if>
-            <if test="contactNumber != null">
-                contact_number,
-            </if>
-            <if test="remarks != null">
-                remarks,
-            </if>
-        </trim>
-        values
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-
-            <if test="customerNumber != null">
-                #{customerNumber},
-            </if>
-            <if test="customerName != null">
-                #{customerName},
-            </if>
-            <if test="customerType != null">
-                #{customerType},
-            </if>
-            <if test="ratio != null">
-                #{ratio},
-            </if>
-            <if test="uId != null">
-                #{uId},
-            </if>
-            <if test="contact != null">
-                #{contact},
-            </if>
-            <if test="contactAddress != null">
-                #{contactAddress},
-            </if>
-            <if test="contactNumber != null">
-                #{contactNumber},
-            </if>
-            <if test="remarks != null">
-                #{remarks},
-            </if>
-        </trim>
-
-    </insert>
-
+    <insert id="insert" keyColumn="customer_id" keyProperty="customerId" parameterType="com.cy.psi.entity.BaseCustomer" useGeneratedKeys="true">
+    insert into base_customer (customer_number, customer_name, customer_type,ratio, u_id, contact,contact_address, contact_number, remarks)
+    values (#{customerNumber,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{customerType,jdbcType=VARCHAR},#{ratio,jdbcType=DECIMAL}, #{uId,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR},#{contactAddress,jdbcType=VARCHAR}, #{contactNumber,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
     <!--通过主键修改数据-->
     <update id="update">
         update cypsi.base_customer

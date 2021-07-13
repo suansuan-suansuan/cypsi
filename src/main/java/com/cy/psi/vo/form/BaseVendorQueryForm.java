@@ -24,8 +24,6 @@ public class BaseVendorQueryForm implements Serializable {
 
     private String uId;
 
-    private Double accountsPayable;
-
     private String contactName;
 
     private String contactAddress;

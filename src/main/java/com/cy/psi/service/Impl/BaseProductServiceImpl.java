@@ -14,6 +14,7 @@ import java.util.List;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * (BaseProduct)表服务实现类
@@ -87,6 +88,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @param baseProduct 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public BaseProduct insert(BaseProduct baseProduct) {
         this.baseProductDao.insert(baseProduct);
@@ -100,6 +102,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @return 影响行数
      */
     @Override
+    @Transactional
     public boolean insertBatch(List<BaseProduct> BaseProductList) {
         return this.baseProductDao.insertBatch(BaseProductList) == -1;
     }
@@ -110,6 +113,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @param baseProduct 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public BaseProduct update(BaseProduct baseProduct) {
         this.baseProductDao.update(baseProduct);
@@ -123,6 +127,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @return 影响行数
      */
     @Override
+    @Transactional
     public boolean updateBatch(List<BaseProduct> baseProductList) {
         return this.baseProductDao.updateBatch(baseProductList) == -1;
     }
@@ -133,6 +138,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @param productId 主键
      * @return 是否成功
      */
+    @Transactional
     @Override
     public boolean deleteById(Integer productId) {
         return this.baseProductDao.deleteById(productId) > 0;
@@ -145,6 +151,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @return 影响行数
      */
     @Override
+    @Transactional
     public boolean deleteBatch(List<Integer> ids) {
         int row = this.baseProductDao.deleteBatch(ids);
         return ids.size() == row;

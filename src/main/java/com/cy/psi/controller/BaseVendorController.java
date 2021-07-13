@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @Slf4j
 @CrossOrigin
-@RequestMapping("BaseVendor")
 public class BaseVendorController {
     @Resource
     private BaseVendorService baseVendorService;
