@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.SysRoleDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.SysRole">
+    <id column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="founder" jdbcType="VARCHAR" property="founder" />
+    <result column="found_time" jdbcType="TIMESTAMP" property="foundTime" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <resultMap id="roleMenuMap" type="com.cy.psi.vo.RoleMenuVo">
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="founder" jdbcType="VARCHAR" property="founder" />
+    <result column="found_time" jdbcType="TIMESTAMP" property="foundTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <collection property="menus" ofType="com.cy.psi.entity.SysMenu">
+        <id column="menu_id" jdbcType="VARCHAR" property="menuId" />
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+        <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+        <result column="menu_type" jdbcType="VARCHAR" property="menuType" />
+        <result column="path" jdbcType="VARCHAR" property="path" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="perms" jdbcType="VARCHAR" property="perms" />
+        <result column="visible" jdbcType="INTEGER" property="visible" />
+        <result column="component" jdbcType="VARCHAR" property="component" />
+    </collection>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    role_id, role_name, founder, found_time, del_flag, update_by, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </select>
+
+    <select id="selectAllRole" resultMap="BaseResultMap">
+      select * from sys_role
+    </select>
+
+  <select id="selectRoleMenuByRoleId" resultMap="roleMenuMap">
+    select r.*,m.* from sys_role r,sys_role_menu rm,sys_menu m
+    where r.role_id =rm.role_id and m.menu_id =rm.menu_id and r.role_id=#{roleId}
+  </select>
+
+  <select id="queryRoleNameByroleId" resultType="java.lang.String">
+   select role_name
+     from sys_role
+     where role_id=#{roleId,jdbcType=INTEGER}
+ </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_role
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="role_id" keyProperty="roleId" parameterType="com.cy.psi.entity.SysRole" useGeneratedKeys="true">
+    insert into sys_role (role_id,role_name, founder, found_time,
+      del_flag, update_by, update_time
+      )
+    values (#{roleId,jdbcType=VARCHAR},#{roleName,jdbcType=VARCHAR}, #{founder,jdbcType=VARCHAR}, #{foundTime,jdbcType=TIMESTAMP},
+      #{delFlag,jdbcType=INTEGER}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="role_id" keyProperty="roleId" parameterType="com.cy.psi.entity.SysRole" useGeneratedKeys="true">
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="founder != null">
+        founder,
+      </if>
+      <if test="foundTime != null">
+        found_time,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="founder != null">
+        #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null">
+        #{foundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.SysRole">
+    update sys_role
+    <set>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="founder != null">
+        founder = #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null">
+        found_time = #{foundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.SysRole">
+    update sys_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      founder = #{founder,jdbcType=VARCHAR},
+      found_time = #{foundTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

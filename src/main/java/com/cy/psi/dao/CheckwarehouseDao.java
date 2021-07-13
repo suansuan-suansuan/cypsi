@@ -3,6 +3,7 @@ package com.cy.psi.dao;
 
 import com.cy.psi.entity.Checkwarehouse;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,13 +21,8 @@ public interface CheckwarehouseDao {
     List<Checkwarehouse> selectCheckwarehouse();
 
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param checkid 主键
-     * @return 影响行数
-     */
-    int deleteById(Integer checkid);
+    //逻辑删除
+    Integer DelCheckwarehouse(@Param("timeLiness") Integer timeLiness, @Param("checkid")Integer checkid);
 
 }
 

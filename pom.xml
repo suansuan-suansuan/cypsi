@@ -16,6 +16,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+        </dependency>
+
         <!-- 阿里巴巴json-->
         <dependency>
             <groupId>com.alibaba</groupId>

@@ -47,4 +47,6 @@ public interface InventoryService {
      * @param productNum
      */
     void expectAdd(String productId, String depot, Integer productNum);
+
+    
 }

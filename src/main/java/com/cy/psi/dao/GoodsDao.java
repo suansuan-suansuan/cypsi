@@ -36,4 +36,7 @@ public interface GoodsDao {
     //审核    出库单
     Integer GoodsAudit(@Param("goodsZt") Integer goodsZt, @Param("puorderTimestamp")String puorderTimestamp, @Param("goodsId")Integer goodsId);
 
+    //逻辑删除
+    Integer DelGoods(@Param("timeLiness") Integer timeLiness, @Param("goodsId")Integer goodsId);
+
 }

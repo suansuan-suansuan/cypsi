@@ -18,6 +18,7 @@ public interface PuorderSerice {
 
     CypsiPuorder insertPu(CypsiPuorder cypsiPuorder);
 
+
     /**
      * 查询供应商供货明细
      * @param map
@@ -32,4 +33,6 @@ public interface PuorderSerice {
      */
     PageInfo<Map<String, Object>> PurchaseOrder(Map map);
 
+
+    CypsiPuorder updatePuo(CypsiPuorder cypsiPuorder);
 }

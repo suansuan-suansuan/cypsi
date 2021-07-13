@@ -11,6 +11,7 @@
     <result column="Explain" jdbcType="VARCHAR" property="explain" />
     <result column="depot_id" jdbcType="VARCHAR" property="depotId" />
     <result column="Puorder_id" jdbcType="VARCHAR" property="puorderId" />
+    <result column="TimeLiness" jdbcType="INTEGER" property="timeLiness" />
   </resultMap>
   <sql id="Base_Column_List">
     Goods_id, Puorder_Timestamp, Approval, Goods_Zt, AppTime, Goods_state, `Explain`, 
@@ -145,8 +146,8 @@
     select
     <include refid="Base_Column_List" />
     from Goods
-    where Approval=1
-    order by Goods_id desc
+    where Approval=1 and TimeLiness=0
+    order by Goods_id
   </select>
   <!--高级查询-->
   <select id="selectBylikeGoods" resultMap="BaseResultMap">
@@ -162,6 +163,8 @@
         and Puorder_Timestamp between #{Starttime} and #{Endtime}
       </if>
     </where>
+    where Approval=1 and TimeLiness=0
+    order by Goods_id
   </select>
 
 
@@ -169,5 +172,10 @@
   <update id="GoodsAudit" parameterType="com.cy.psi.entity.Goods">
     update cypsi.Goods  set Goods_Zt=#{goodsZt},Puorder_Timestamp=#{puorderTimestamp} where Goods_id=#{goodsId}
   </update>
+
+  <!--逻辑删除 -->
+  <update id="DelGoods" parameterType="com.cy.psi.entity.Goods">
+        update cypsi.Goods set TimeLiness=#{timeLiness} where Goods_id=#{goodsId}
+     </update>
 
 </mapper>

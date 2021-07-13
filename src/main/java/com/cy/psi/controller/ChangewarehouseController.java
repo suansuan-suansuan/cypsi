@@ -3,6 +3,7 @@ package com.cy.psi.controller;
 import com.cy.psi.entity.Allotwarehouse;
 import com.cy.psi.entity.Inventory;
 import com.cy.psi.service.ChangewarehouseService;
+import com.cy.psi.vo.ChangewarehouseVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,15 @@ public class ChangewarehouseController {
         PageHelper.startPage(currentPage,pagesize);
         PageInfo<Inventory> classtypeVoPageInfo = new  PageInfo<>(entityPage);
         return classtypeVoPageInfo;
+    }
+
+    //    逻辑删除
+    @PutMapping("/DelChangewarehouse")
+    public Integer DelChangewarehouse(@RequestBody ChangewarehouseVo vo){
+        log.info("inventoryId:"+vo.getInventoryId());
+        log.info("timeLiness:"+vo.getTimeLiness());
+        log.debug("修改想去");
+        return inventoryService.DelChangewarehouse(vo.getTimeLiness(),vo.getInventoryId());
     }
 
 

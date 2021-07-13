@@ -22,12 +22,7 @@ public interface ChangewarehouseService {
      */
     List<Inventory> selectBylikeChangewarehouse(String depotName, String productName);
 
-    /**
-     * 通过主键删除数据
-     *
-     * @param inventoryId 主键
-     * @return 是否成功
-     */
-    boolean deleteById(String inventoryId);
+    //逻辑删除
+    Integer DelChangewarehouse( Integer timeLiness,String inventoryId);
 
 }

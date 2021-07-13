@@ -8,6 +8,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -79,6 +80,7 @@ public class BaseCustomerServiceImpl implements BaseCustomerService {
      * @param baseCustomer 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public BaseCustomer insert(BaseCustomer baseCustomer) {
         this.baseCustomerDao.insert(baseCustomer);
@@ -91,6 +93,7 @@ public class BaseCustomerServiceImpl implements BaseCustomerService {
      * @param baseCustomer 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public BaseCustomer update(BaseCustomer baseCustomer) {
         this.baseCustomerDao.update(baseCustomer);
@@ -103,6 +106,7 @@ public class BaseCustomerServiceImpl implements BaseCustomerService {
      * @param customerId 主键
      * @return 是否成功
      */
+    @Transactional
     @Override
     public boolean deleteById(Integer customerId) {
         return this.baseCustomerDao.deleteById(customerId) > 0;

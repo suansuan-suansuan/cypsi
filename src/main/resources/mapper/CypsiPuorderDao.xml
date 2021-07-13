@@ -169,6 +169,157 @@
             vendor_id         = #{vendorId,jdbcType=VARCHAR}
         where Puorder_id = #{puorderId,jdbcType=INTEGER}
     </update>
+  <resultMap id="BaseResultMap2" type="com.cy.psi.entity.CypsiPuorder">
+    <id column="Puorder_id" jdbcType="INTEGER" property="puorderId" />
+    <result column="Puorder_Timestamp" jdbcType="TIMESTAMP" property="puorderTimestamp" />
+    <result column="Puorder_C" jdbcType="VARCHAR" property="puorderC" />
+    <result column="Approval" jdbcType="INTEGER" property="approval" />
+    <result column="AppTime" jdbcType="TIMESTAMP" property="apptime" />
+    <result column="Puorder_Cg" jdbcType="VARCHAR" property="puorderCg" />
+    <result column="Puorder_state" jdbcType="VARCHAR" property="puorderState" />
+    <result column="Puorder_Total" jdbcType="DECIMAL" property="puorderTotal" />
+    <result column="Explain" jdbcType="VARCHAR" property="explain" />
+    <result column="Puorder_G" jdbcType="VARCHAR" property="puorderG" />
+    <result column="depot_id" jdbcType="VARCHAR" property="depotId" />
+    <result column="vendor_id" jdbcType="VARCHAR" property="vendorId" />
+  </resultMap>
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
+<!--    select -->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from CYpsi_Puorder-->
+<!--    where Puorder_id = #{puorderId,jdbcType=INTEGER}-->
+<!--  </select>-->
+<!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+<!--    delete from CYpsi_Puorder-->
+<!--    where Puorder_id = #{puorderId,jdbcType=INTEGER}-->
+<!--  </delete>-->
+<!--  <insert id="insertPu" keyColumn="Puorder_id" keyProperty="puorderId" parameterType="com.cy.psi.entity.CypsiPuorder" useGeneratedKeys="true">-->
+<!--    insert into CYpsi_Puorder (Puorder_Timestamp, Puorder_C, Approval, -->
+<!--      AppTime, Puorder_state,-->
+<!--      Puorder_Total, `Explain`, Puorder_G, -->
+<!--      depot_id, vendor_id)-->
+<!--    values (#{puorderTimestamp,jdbcType=TIMESTAMP}, #{puorderC,jdbcType=VARCHAR}, #{approval,jdbcType=INTEGER}, -->
+<!--      #{apptime,jdbcType=TIMESTAMP}, #{puorderState,jdbcType=VARCHAR},-->
+<!--      #{puorderTotal,jdbcType=DECIMAL}, #{explain,jdbcType=VARCHAR}, #{puorderG,jdbcType=VARCHAR}, -->
+<!--      #{depotId,jdbcType=VARCHAR}, #{vendorId,jdbcType=VARCHAR})-->
+<!--  </insert>-->
+<!--  <insert id="insertSelective" keyColumn="Puorder_id" keyProperty="puorderId" parameterType="com.cy.psi.entity.CypsiPuorder" useGeneratedKeys="true">-->
+<!--    insert into CYpsi_Puorder-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides=",">-->
+<!--      <if test="puorderTimestamp != null">-->
+<!--        Puorder_Timestamp,-->
+<!--      </if>-->
+<!--      <if test="puorderC != null">-->
+<!--        Puorder_C,-->
+<!--      </if>-->
+<!--      <if test="approval != null">-->
+<!--        Approval,-->
+<!--      </if>-->
+<!--      <if test="apptime != null">-->
+<!--        AppTime,-->
+<!--      </if>-->
+<!--      <if test="puorderCg != null">-->
+<!--        Puorder_Cg,-->
+<!--      </if>-->
+<!--      <if test="puorderState != null">-->
+<!--        Puorder_state,-->
+<!--      </if>-->
+<!--      <if test="puorderTotal != null">-->
+<!--        Puorder_Total,-->
+<!--      </if>-->
+<!--      <if test="explain != null">-->
+<!--        `Explain`,-->
+<!--      </if>-->
+<!--      <if test="puorderG != null">-->
+<!--        Puorder_G,-->
+<!--      </if>-->
+<!--      <if test="depotId != null">-->
+<!--        depot_id,-->
+<!--      </if>-->
+<!--      <if test="vendorId != null">-->
+<!--        vendor_id,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides=",">-->
+<!--      <if test="puorderTimestamp != null">-->
+<!--        #{puorderTimestamp,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="puorderC != null">-->
+<!--        #{puorderC,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="approval != null">-->
+<!--        #{approval,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="apptime != null">-->
+<!--        #{apptime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="puorderCg != null">-->
+<!--        #{puorderCg,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="puorderState != null">-->
+<!--        #{puorderState,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="puorderTotal != null">-->
+<!--        #{puorderTotal,jdbcType=DECIMAL},-->
+<!--      </if>-->
+<!--      <if test="explain != null">-->
+<!--        #{explain,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="puorderG != null">-->
+<!--        #{puorderG,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="depotId != null">-->
+<!--        #{depotId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="vendorId != null">-->
+<!--        #{vendorId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+<!--  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.CypsiPuorder">-->
+<!--    update CYpsi_Puorder-->
+<!--    <set>-->
+<!--      <if test="puorderTimestamp != null">-->
+<!--        Puorder_Timestamp = #{puorderTimestamp,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="puorderC != null">-->
+<!--        Puorder_C = #{puorderC,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="approval != null">-->
+<!--        Approval = #{approval,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--      <if test="apptime != null">-->
+<!--        AppTime = #{apptime,jdbcType=TIMESTAMP},-->
+<!--      </if>-->
+<!--      <if test="puorderCg != null">-->
+<!--        Puorder_Cg = #{puorderCg,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="puorderState != null">-->
+<!--        Puorder_state = #{puorderState,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="puorderTotal != null">-->
+<!--        Puorder_Total = #{puorderTotal,jdbcType=DECIMAL},-->
+<!--      </if>-->
+<!--      <if test="explain != null">-->
+<!--        `Explain` = #{explain,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="puorderG != null">-->
+<!--        Puorder_G = #{puorderG,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="depotId != null">-->
+<!--        depot_id = #{depotId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="vendorId != null">-->
+<!--        vendor_id = #{vendorId,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where Puorder_id = #{puorderId,jdbcType=INTEGER}-->
+<!--  </update>-->
+  <update id="updatePuo" parameterType="com.cy.psi.entity.CypsiPuorder">
+    update CYpsi_Puorder
+    set Approval = 1
+    where Puorder_id = #{puorderId,jdbcType=INTEGER}
+  </update>
 
     <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select

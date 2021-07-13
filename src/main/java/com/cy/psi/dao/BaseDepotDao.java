@@ -32,6 +32,8 @@ public interface BaseDepotDao {
      */
     List<BaseDepot> queryAll(BaseDepotQueryForm baseDepotQueryForm);
 
+
+    List<BaseDepot> queryAllWWWW();
     /**
      * 通过实体作为或者条件查询
      *
@@ -64,7 +66,6 @@ public interface BaseDepotDao {
      */
     int update(BaseDepot baseDepot);
 
-    int updateBatch(List<BaseDepot> baseDepotList);
 
     /**
      * 通过主键删除数据

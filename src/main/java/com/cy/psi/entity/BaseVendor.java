@@ -27,8 +27,6 @@ public class BaseVendor implements Serializable {
 
     private String uId;
 
-    private BigDecimal accountsPayable;
-
     private String contactName;
 
     private String contactAddress;

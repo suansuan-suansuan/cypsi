@@ -171,22 +171,17 @@
         i.depot_name = #{depotName}
     </update>
 
+  <update id="expectAdd">
+    update inventory i
+    <set>
+      <if test="inventoryQuantity != null and inventoryQuantity != ''">
+        i.inventory_quantity=i.inventory_quantity+{productNum}
+      </if>
+    </set>
+    where (select b.product_number from base_product b where b.product_id=i.product_id) = #{productId} and i.depot_name = #{depotName}
+  </update>
 
-    <!--高级查询-->
-    <select id="selectBylikeChangewarehouse" resultMap="BaseResultMap">
-        select * from cypsi.inventory
-        <where>
-            <if test="serialNumber!=null || serialNumber!=''">
-                and a.serial_number like concat('%',#{serialNumber},'%')
-            </if>
-            <if test="documentmaker!=null and documentmaker!=''">
-                and a.documentMaker like concat('%',#{documentmaker},'%')
-            </if>
-            <if test="depotName!=null || depotName!=''">
-                and b.depot_name like concat('%',#{depotName},'%')
-            </if>
-        </where>
-    </select>
+
 
 
     <!--===================================================我唐某的地盘================================================================-->
@@ -275,24 +270,11 @@
     </select>
 
 
-    <update id="expectAdd">
-        update inventory i
-        <set>
-            <if test="inventoryQuantity != null and inventoryQuantity != ''">
-                i.inventory_quantity=i.inventory_quantity+{productNum}
-            </if>
-        </set>
-        where (select b.product_number from base_product b where b.product_id=i.product_id) = #{productId} and
-        i.depot_name = #{depotName}
-    </update>
-    <!--连查询调拨单 -->
 
 
-    <!--通过主键删除-->
-    <delete id="deleteById">
-        delete
-        from cypsi.inventory
-        where inventory_id = #{inventoryId}
-    </delete>
+  <!--逻辑删除 -->
+  <update id="DelChangewarehouse" parameterType="com.cy.psi.entity.Inventory">
+        update cypsi.inventory set TimeLiness=#{timeLiness} where inventory_id=#{inventoryId}
+     </update>
 
 </mapper>

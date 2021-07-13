@@ -24,6 +24,15 @@ public interface SaleDeliveryDao {
 
     int updateByPrimaryKey(SaleDelivery record);
 
+
+
+    SaleDelivery queryByIdVo(String id);
+
+    SaleDelivery queryById(String deliveryOrderId);
+    
+    
+//    ========================================我唐某的地盘=============================================================
+
     /**
      * 查询全部
      */
@@ -37,6 +46,10 @@ public interface SaleDeliveryDao {
 
     //审核    出库单
     Integer OutwarehouseAudit(@Param("deliveryState") Integer deliveryState, @Param("deliveryOrderId")String deliveryOrderId);
+
+
+    //逻辑删除
+    Integer DelOutwarehouse(@Param("timeLiness") Integer timeLiness, @Param("deliveryOrderId")String deliveryOrderId);
 
 
     /**
@@ -72,7 +85,6 @@ public interface SaleDeliveryDao {
      */
     List<Map<String,Object>> listSalesGross(Map map);
 
-    SaleDelivery queryByIdVo(String id);
 
-    SaleDelivery queryById(String deliveryOrderId);
+
 }

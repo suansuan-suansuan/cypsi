@@ -1,9 +1,12 @@
 package com.cy.psi.dao;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cy.psi.entity.SaleOrderDetails;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 酸酸
@@ -39,5 +42,7 @@ public interface SaleOrderDetailsDao {
      * 新增多条数据
      * @param orderdetails
      */
-    void insertBatch(List<SaleOrderDetails> orderdetails);
+    void insertBatch(@Param("entities") List<SaleOrderDetails> orderdetails);
+
+    List<Map<String,Object>> queryByorderId(String id);
 }

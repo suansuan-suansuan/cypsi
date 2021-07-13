@@ -22,7 +22,7 @@ public interface CypsiPuorderDao {
 
     int updateByPrimaryKeySelective(CypsiPuorder record);
 
-    int updateByPrimaryKey(CypsiPuorder record);
+    int updatePuo(CypsiPuorder record);
 
     List<CypsiPuorder> selectAll();
 

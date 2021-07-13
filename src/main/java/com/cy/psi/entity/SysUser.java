@@ -1,13 +1,19 @@
 package com.cy.psi.entity;
 
 import java.io.Serializable;
+
+import com.cy.psi.vo.SysUserReqVo;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * sys_user
  * @author 
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SysUser implements Serializable {
     /**
      * 用户id
@@ -32,7 +38,7 @@ public class SysUser implements Serializable {
     /**
      * 所属部门
      */
-    private String uDept;
+    private Integer uDept;
 
     /**
      * 是否禁用
@@ -40,4 +46,15 @@ public class SysUser implements Serializable {
     private Integer isdisabled;
 
     private static final long serialVersionUID = 1L;
+
+    public SysUser(SysUserReqVo sysUserReqVo){
+        this.uId=sysUserReqVo.getUId();
+        this.uCode=sysUserReqVo.getUcode();
+        this.uName=sysUserReqVo.getUname();
+        this.uPass=sysUserReqVo.getUpass();
+        this.uDept =sysUserReqVo.getUdept();
+        this.isdisabled=sysUserReqVo.getIsdisabled();
+    }
+
+    
 }

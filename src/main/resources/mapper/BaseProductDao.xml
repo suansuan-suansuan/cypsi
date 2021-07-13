@@ -1,27 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cy.psi.dao.BaseProductDao">
-
-    <resultMap type="com.cy.psi.entity.BaseProduct" id="BaseProductMap">
-        <result property="productId" column="product_id" jdbcType="INTEGER"/>
-        <result property="productNumber" column="product_number" jdbcType="VARCHAR"/>
-        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
-        <result property="unitId" column="unit_id" jdbcType="INTEGER"/>
-        <result property="productSpec" column="product_spec" jdbcType="VARCHAR"/>
-        <result property="purchaseMoney" column="purchase_money" jdbcType="NUMERIC"/>
-        <result property="costPrice" column="cost_price" jdbcType="NUMERIC"/>
-        <result property="purchaseUnitPrice" column="purchase_unit_price" jdbcType="NUMERIC"/>
-        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
-        <result property="expirationTime" column="expiration_time" jdbcType="TIMESTAMP"/>
-        <result property="state" column="state" jdbcType="INTEGER"/>
-        <result property="vendorNumber" column="vendor_number" jdbcType="VARCHAR"/>
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.BaseProduct">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_number" jdbcType="VARCHAR" property="productNumber" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="unit_id" jdbcType="INTEGER" property="unitId" />
+    <result column="product_spec" jdbcType="VARCHAR" property="productSpec" />
+    <result column="purchase_money" jdbcType="DECIMAL" property="purchaseMoney" />
+    <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+    <result column="purchase_unit_price" jdbcType="DECIMAL" property="purchaseUnitPrice" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="expiration" jdbcType="TIMESTAMP" property="expiration" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="vendor_number" jdbcType="VARCHAR" property="vendorNumber" />
+  </resultMap>
+    <resultMap id="BaseProductVo" type="com.cy.psi.vo.BaseProductVo">
+        <id column="product_id" jdbcType="INTEGER" property="productId" />
+        <result column="product_number" jdbcType="VARCHAR" property="productNumber" />
+        <result column="product_name" jdbcType="VARCHAR" property="productName" />
+        <result column="unit_id" jdbcType="INTEGER" property="unitId" />
+        <result column="product_spec" jdbcType="VARCHAR" property="productSpec" />
+        <result column="purchase_money" jdbcType="DECIMAL" property="purchaseMoney" />
+        <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+        <result column="purchase_unit_price" jdbcType="DECIMAL" property="purchaseUnitPrice" />
+        <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+        <result column="expiration" jdbcType="TIMESTAMP" property="expiration" />
+        <result column="state" jdbcType="INTEGER" property="state" />
+        <result column="vendor_number" jdbcType="VARCHAR" property="vendorNumber" />
+        <result column="inventory_quantity" jdbcType="VARCHAR" property="inventoryQuantity" />
     </resultMap>
+  <sql id="Base_Column_List">
+    product_id, product_number, product_name, unit_id, product_spec, purchase_money, 
+    cost_price, purchase_unit_price, remarks, `expiration`, `state`
+  </sql>
 
+  <!--查询所有产品数据  -->
+  <select id="selectAll" parameterType="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from base_product
+  </select>
+
+  <!--根据供货商 查询产品  -->
+  <select id="GenJuselectAll" parameterType="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+     from base_product
+  </select>
     <sql id="BaseProductCol">
-        product_id, product_number, product_name, unit_id, product_spec, purchase_money, cost_price, purchase_unit_price, remarks, expiration_time, state, vendor_number    </sql>
+        product_id, product_number, product_name, unit_id, product_spec, purchase_money, cost_price, purchase_unit_price, remarks, expiration, state, vendor_number    </sql>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="BaseProductMap">
+    <select id="queryById" resultMap="BaseResultMap">
         select
         <include refid="BaseProductCol"></include>
         from cypsi.base_product
@@ -29,14 +60,14 @@
     </select>
 
     <!--查询所有-->
-    <select id="queryAll" resultMap="BaseProductMap">
+    <select id="queryAll" resultMap="BaseResultMap">
         select
         <include refid="BaseProductCol"></include>
         from cypsi.base_product
     </select>
 
     <!--通过实体作为或者条件查询-->
-    <select id="queryOrByPojo" resultMap="BaseProductMap">
+    <select id="queryOrByPojo" resultMap="BaseResultMap">
         select
         <include refid="BaseProductCol"></include>
         from cypsi.base_product
@@ -68,8 +99,8 @@
             <if test="remarks != null and remarks != ''">
                 or remarks like CONCAT('%',#{remarks},'%')
             </if>
-            <if test="expirationTime != null">
-                or expiration_time like CONCAT('%',#{expirationTime},'%')
+            <if test="expiration != null">
+                or expiration like CONCAT('%',#{expiration},'%')
             </if>
             <if test="state != null">
                 or state like CONCAT('%',#{state},'%')
@@ -81,7 +112,7 @@
     </select>
 
     <!--通过实体作为并且条件查询-->
-    <select id="queryAndByPojo" resultMap="BaseProductMap">
+    <select id="queryAndByPojo" resultMap="BaseResultMap">
         select
         <include refid="BaseProductCol"></include>
         from cypsi.base_product
@@ -113,8 +144,8 @@
             <if test="remarks != null and remarks != ''">
                 and remarks = #{remarks}
             </if>
-            <if test="expirationTime != null">
-                and expiration_time = #{expirationTime}
+            <if test="expiration != null">
+                and expiration = #{expiration}
             </if>
             <if test="state != null">
                 and state = #{state}
@@ -124,85 +155,23 @@
             </if>
         </where>
     </select>
+    <select id="queryAllProduct" resultType="com.alibaba.fastjson.JSONObject">
+        select  i.*,b.product_number,b.remarks,b.product_spec from base_product b
+                                                                       inner join inventory i on i.product_id=b.product_id
+        where i.inventory_quantity>0
+    </select>
 
     <!--新增所有列-->
-    <insert id="insert">
-        insert into cypsi.base_product
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-
-            <if test="productNumber != null">
-                product_number,
-            </if>
-            <if test="productName != null">
-                product_name,
-            </if>
-            <if test="unitId != null">
-                unit_id,
-            </if>
-            <if test="productSpec != null">
-                product_spec,
-            </if>
-            <if test="purchaseMoney != null">
-                purchase_money,
-            </if>
-            <if test="costPrice != null">
-                cost_price,
-            </if>
-            <if test="purchaseUnitPrice != null">
-                purchase_unit_price,
-            </if>
-            <if test="remarks != null">
-                remarks,
-            </if>
-            <if test="expirationTime != null">
-                expiration_time,
-            </if>
-            <if test="state != null">
-                state,
-            </if>
-            <if test="vendorNumber != null">
-                vendor_number,
-            </if>
-        </trim>
-        values
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-
-            <if test="productNumber != null">
-                #{productNumber},
-            </if>
-            <if test="productName != null">
-                #{productName},
-            </if>
-            <if test="unitId != null">
-                #{unitId},
-            </if>
-            <if test="productSpec != null">
-                #{productSpec},
-            </if>
-            <if test="purchaseMoney != null">
-                #{purchaseMoney},
-            </if>
-            <if test="costPrice != null">
-                #{costPrice},
-            </if>
-            <if test="purchaseUnitPrice != null">
-                #{purchaseUnitPrice},
-            </if>
-            <if test="remarks != null">
-                #{remarks},
-            </if>
-            <if test="expirationTime != null">
-                #{expirationTime},
-            </if>
-            <if test="state != null">
-                #{state},
-            </if>
-            <if test="vendorNumber != null">
-                #{vendorNumber},
-            </if>
-        </trim>
-
-    </insert>
+    <insert id="insert" keyColumn="product_id" keyProperty="productId" parameterType="com.cy.psi.entity.BaseProduct" useGeneratedKeys="true">
+    insert into base_product (product_number, product_name, unit_id,
+      product_spec, purchase_money, cost_price,
+      purchase_unit_price, remarks, expiration,
+      `state`, vendor_number)
+    values (#{productNumber,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{unitId,jdbcType=INTEGER},
+      #{productSpec,jdbcType=VARCHAR}, #{purchaseMoney,jdbcType=DECIMAL}, #{costPrice,jdbcType=DECIMAL},
+      #{purchaseUnitPrice,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{expiration,jdbcType=TIMESTAMP},
+      #{state,jdbcType=INTEGER}, #{vendorNumber,jdbcType=VARCHAR})
+  </insert>
 
     <!--批量新增数据 -->
     <insert id="insertBatch">
@@ -234,8 +203,8 @@
                 <if test="entity.remarks != null">
                     remarks,
                 </if>
-                <if test="entity.expirationTime != null">
-                    expiration_time,
+                <if test="entity.expiration != null">
+                    expiration,
                 </if>
                 <if test="entity.state != null">
                     state,
@@ -271,8 +240,8 @@
                 <if test="entity.remarks != null">
                     #{entity.remarks},
                 </if>
-                <if test="entity.expirationTime != null">
-                    #{entity.expiration_time},
+                <if test="entity.expiration != null">
+                    #{entity.expiration},
                 </if>
                 <if test="entity.state != null">
                     #{entity.state},
@@ -312,8 +281,8 @@
             <if test="remarks != null">
                 remarks = #{remarks},
             </if>
-            <if test="expirationTime != null">
-                expiration_time = #{expirationTime},
+            <if test="expiration != null">
+                expiration = #{expiration},
             </if>
             <if test="state != null">
                 state = #{state},
@@ -354,8 +323,8 @@
                 <if test="entity.remarks != null">
                     remarks = #{entity.remarks},
                 </if>
-                <if test="entity.expirationTime != null">
-                    expiration_time = #{entity.expirationTime},
+                <if test="entity.expiration != null">
+                    expiration = #{entity.expiration},
                 </if>
                 <if test="entity.state != null">
                     state = #{entity.state},
@@ -389,4 +358,8 @@
         </foreach>
     </delete>
 </mapper>
+
+
+
+
 

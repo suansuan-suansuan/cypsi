@@ -8,6 +8,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -87,6 +88,7 @@ public class BaseVendorServiceImpl implements BaseVendorService {
      * @param baseVendor 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public BaseVendor insert(BaseVendor baseVendor) {
         this.baseVendorDao.insert(baseVendor);
@@ -99,6 +101,7 @@ public class BaseVendorServiceImpl implements BaseVendorService {
      * @param baseVendor 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public BaseVendor update(BaseVendor baseVendor) {
         this.baseVendorDao.update(baseVendor);
@@ -111,6 +114,7 @@ public class BaseVendorServiceImpl implements BaseVendorService {
      * @param vendorId 主键
      * @return 是否成功
      */
+    @Transactional
     @Override
     public boolean deleteById(String vendorId) {
         return this.baseVendorDao.deleteById(vendorId) > 0;
@@ -123,6 +127,7 @@ public class BaseVendorServiceImpl implements BaseVendorService {
      * @return 影响行数
      */
     @Override
+    @Transactional
     public boolean deleteBatch(List<Integer> ids) {
         int row = this.baseVendorDao.deleteBatch(ids);
         return ids.size() == row;
