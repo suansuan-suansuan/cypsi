@@ -3,6 +3,7 @@ package com.cy.psi.service.Impl;
 import com.cy.psi.dao.SysRoleDao;
 import com.cy.psi.entity.SysRole;
 import com.cy.psi.service.SysRoleService;
+import com.cy.psi.vo.RoleMenuVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -108,5 +109,24 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public List<SysRole> selectAllRole() {
         return sysRoleDao.selectAllRole();
+    }
+
+    /**
+     * @Author Twx
+     * @Date 2021/7/13 8:22
+     * @Description 根据角色ID查询角色和菜单
+     * @Param [roleId]
+     * @Return java.util.List<com.cy.psi.vo.RoleMenuVo>
+     * @Since version-1.0
+     */
+    @Override
+    public RoleMenuVo selectRoleMenuByRoleId(String roleId) {
+        return sysRoleDao.selectRoleMenuByRoleId(roleId);
+    }
+
+
+    @Override
+    public String queryRoleNameByroleId(String roleId) {
+        return sysRoleDao.queryRoleNameByroleId(roleId);
     }
 }

@@ -1,7 +1,10 @@
 package com.cy.psi.service;
 
 import com.cy.psi.entity.Log;
+import com.cy.psi.vo.SysLogVo;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * @Author Twx
@@ -13,6 +16,6 @@ public interface SysLogService {
 
     int addSysLog(Log log);
 
-    PageInfo<Log> findAllLog(int page, int size);
+    List<SysLogVo> findAllLog();
 
 }

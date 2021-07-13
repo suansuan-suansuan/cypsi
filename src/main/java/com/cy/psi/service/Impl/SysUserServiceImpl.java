@@ -1,6 +1,7 @@
 package com.cy.psi.service.Impl;
 
 import com.cy.psi.dao.SysUserDao;
+import com.cy.psi.entity.SysMenu;
 import com.cy.psi.entity.SysUser;
 import com.cy.psi.service.SysUserService;
 import com.cy.psi.vo.SysUserVo;
@@ -71,8 +72,13 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+
     public List<SysUser> findhaveapproved() {
         return this.sysUserDao.findhaveapproved();
+    }
+    @Override
+    public List<SysMenu> usermenu(String userId) {
+        return sysUserDao.usermenu(userId);
     }
 
 

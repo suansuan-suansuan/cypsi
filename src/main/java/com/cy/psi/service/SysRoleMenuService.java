@@ -1,5 +1,7 @@
 package com.cy.psi.service;
 
+import com.cy.psi.entity.SysRoleMenu;
+
 /**
  * @Author Twx
  * @Date 2021/7/12 22:06
@@ -7,5 +9,9 @@ package com.cy.psi.service;
  * @Since version-1.0
  */
 public interface SysRoleMenuService {
+    int insert(SysRoleMenu record);
 
+    int insertSelective(SysRoleMenu record);
+
+    void delRoleMenu(SysRoleMenu sysRoleMenu);
 }

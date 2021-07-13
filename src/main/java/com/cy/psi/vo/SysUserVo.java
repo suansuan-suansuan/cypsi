@@ -1,6 +1,7 @@
 package com.cy.psi.vo;
 
 import com.cy.psi.entity.BaseDept;
+import com.cy.psi.entity.SysRole;
 import lombok.Data;
 
 import java.util.List;
@@ -32,6 +33,11 @@ public class SysUserVo {
      * 用户密码
      */
     private String upass;
+
+    /**
+     * 用户职务
+     * */
+    private SysRole role;
 
     /**
      * 所属部门

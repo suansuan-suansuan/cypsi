@@ -14,6 +14,7 @@
     <result column="Puorder_G" jdbcType="VARCHAR" property="puorderG" />
     <result column="depot_id" jdbcType="VARCHAR" property="depotId" />
     <result column="vendor_id" jdbcType="VARCHAR" property="vendorId" />
+  
   </resultMap>
   <sql id="Base_Column_List">
     Puorder_id, Puorder_Timestamp, Puorder_C, Approval, AppTime, Puorder_Cg, Puorder_state, 

@@ -1,6 +1,7 @@
 package com.cy.psi.dao;
 
 import com.cy.psi.entity.SysRole;
+import com.cy.psi.vo.RoleMenuVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -29,4 +30,8 @@ public interface SysRoleDao {
     int updateByPrimaryKey(SysRole record);
 
     List<SysRole> selectAllRole();
+
+    RoleMenuVo selectRoleMenuByRoleId(String roleId);
+
+    String  queryRoleNameByroleId(String roleId);
 }

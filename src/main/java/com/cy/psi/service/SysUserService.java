@@ -1,5 +1,6 @@
 package com.cy.psi.service;
 
+import com.cy.psi.entity.SysMenu;
 import com.cy.psi.entity.SysUser;
 
 import com.cy.psi.vo.SysUserVo;
@@ -43,4 +44,6 @@ public interface SysUserService {
     SysUser selectUserByName(String username);
 
     List<SysUser> findhaveapproved();
+    List<SysMenu> usermenu(String userId);
+
 }

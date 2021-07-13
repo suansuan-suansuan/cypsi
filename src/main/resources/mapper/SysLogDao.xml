@@ -22,7 +22,7 @@
     </insert>
 
     <select id="findAllLog" resultMap="logMap">
-        select l.*,u.name from sys_log l,sys_user u
-        where l.u_id=u.id
+        select l.*,u.u_name from sys_log l,sys_user u
+        where l.u_id=u.u_id
     </select>
 </mapper>

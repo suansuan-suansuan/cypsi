@@ -1,10 +1,13 @@
 package com.cy.psi.service;
 
+import com.cy.psi.entity.SysMenu;
 import com.cy.psi.entity.SysUser;
+import com.cy.psi.vo.RoleMenuVo;
 import com.cy.psi.vo.SysUserReqVo;
 import com.cy.psi.vo.SysUserVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author Twx
@@ -24,4 +27,13 @@ public interface SysUserAllService {
     String queryUserIdByUserName(String username);
 
     SysUser login(String username);
+
+
+    void addRoleAndMenu(RoleMenuVo roleMenuVo);
+
+    void updateRoleAndMenu(RoleMenuVo roleMenuVo);
+
+    List<SysMenu> usermenu(String userId);
+
+    void delRoleAndMenu(String roleId);
 }

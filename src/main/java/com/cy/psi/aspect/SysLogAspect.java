@@ -49,16 +49,15 @@ public class SysLogAspect {
     /**
      * 定义切点l
      */
-//    @Pointcut("execution(public * com.cy.psi.controller.SysController.login(..))")
+    @Pointcut("execution(public * com.cy.psi.controller.SysController.login(..))")
     public void getuserByUserName(){
-        // this.
     }
 
     /**
      * 用户名密码登录时
      * @param joinPoint
      */
-  //  @Before("getuserByUserName()")
+    @Before("getuserByUserName()")
     public void doBefore(JoinPoint joinPoint){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
@@ -67,10 +66,10 @@ public class SysLogAspect {
         log.info("HTTP_METHOD : " + request.getMethod());
         log.info("REQUEST：" + joinPoint.getArgs().toString());
         String xx= JSONObject.toJSONString(joinPoint.getArgs());
-        System.out.println(xx);
         int index=xx.indexOf("uName");//{uanem:ssss,upass}
         int index2=xx.indexOf('"'+","+'"'+"uPass");
-        String cha=xx.substring(index+11,index2);
+        String cha=xx.substring(index+8,index2);
+        username =cha;
         userId=sysUserService.queryUserIdByUserName(cha);
     }
     
