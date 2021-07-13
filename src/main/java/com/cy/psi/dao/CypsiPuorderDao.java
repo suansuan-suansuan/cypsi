@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 皮皮虾
@@ -27,4 +28,17 @@ public interface CypsiPuorderDao {
 
     List<CypsiPuorder> selectAllSJ(@Param("Starttime") String Starttime, @Param("Endtime") String Endtime);
 
+    /**
+     * 查询供应商供货明细
+     * @param map
+     * @return
+     */
+    List<Map<String, Object>> SupplierSupply(Map map);
+
+    /**
+     * 采购订单明细
+     * @param map
+     * @return
+     */
+    List<Map<String,Object>> PurchaseOrder(Map map);
 }

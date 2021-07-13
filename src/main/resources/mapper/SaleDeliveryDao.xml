@@ -31,41 +31,6 @@
     </select>
 
 
-
-
-
-
-    <!--查询销售商品明细-->
-    <select id="listStatistical" resultType="java.util.Map" parameterType="map">
-        select bc.customer_name,
-        bp.product_number,
-        bp.product_name,
-        s.delivery_order_time,
-        s.delivery_order_id,
-        bd.depot_name,
-        bu.unit_name,
-        sdd.sale_unit_price,
-        sdd.product_num,
-        su.u_name
-        from sale_delivery s
-        join sale_delivery_details sdd on s.delivery_order_id = sdd.delivery_order_id
-        join base_depot bd on bd.depot_id = sdd.depot
-        join base_customer bc on bc.customer_id = s.customer
-        join base_product bp on bp.product_id = sdd.product_id
-        join base_unit bu on bu.unit_id = bp.unit_id
-        join sys_user su on su.u_id = s.salesmen
-        where 1 = 1
-        <if test="startTime!='' and endTime!=''">
-            and (s.delivery_order_time between #{startTime} and DATE_ADD(#{endTime},INTERVAL 1 DAY))
-        </if>
-        <if test="code!=''">
-            and bp.product_number = #{code}
-        </if>
-        <if test="name!=''">
-            and bc.customer_name = #{name}
-        </if>
-    </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sale_delivery
     where delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR}
@@ -282,6 +247,38 @@
     update cypsi.sale_delivery  set delivery_state=#{deliveryState} where delivery_order_id=#{deliveryOrderId}
   </update>
 
+
+    <!--查询销售商品明细-->
+    <select id="listStatistical" resultType="java.util.Map" parameterType="map">
+        select bc.customer_name,
+        bp.product_number,
+        bp.product_name,
+        s.delivery_order_time,
+        s.delivery_order_id,
+        bd.depot_name,
+        bu.unit_name,
+        sdd.sale_unit_price,
+        sdd.product_num,
+        su.u_name
+        from sale_delivery s
+        join sale_delivery_details sdd on s.delivery_order_id = sdd.delivery_order_id
+        join base_depot bd on bd.depot_id = sdd.depot
+        join base_customer bc on bc.customer_id = s.customer
+        join base_product bp on bp.product_id = sdd.product_id
+        join base_unit bu on bu.unit_id = bp.unit_id
+        join sys_user su on su.u_id = s.salesmen
+        where 1 = 1
+        <if test="startTime!='' and endTime!=''">
+            and (s.delivery_order_time between #{startTime} and DATE_ADD(#{endTime},INTERVAL 1 DAY))
+        </if>
+        <if test="code!=''">
+            and bp.product_number like concat('%',trim(#{code}),'%')
+        </if>
+        <if test="name!=''">
+            and bp.product_name like  concat('%',trim(#{name}),'%')
+        </if>
+    </select>
+
     <!--查询销售订单明细-->
     <select id="listStatisticalOrder" resultType="java.util.Map" parameterType="map">
         select so.sale_order_Id,
@@ -307,10 +304,10 @@
             and (so.sale_order_time between #{startTime} and DATE_ADD(#{endTime},INTERVAL 1 DAY))
         </if>
         <if test="code!=''">
-            and bp.product_number = #{code}
+            and bp.product_number like concat('%',trim(#{code}),'%')
         </if>
         <if test="name!=''">
-            and bp.product_name = #{name}
+            and bp.product_name like  concat('%',trim(#{name}),'%')
         </if>
     </select>
 
@@ -336,10 +333,10 @@
             and (sd.delivery_order_time between #{startTime} and DATE_ADD(#{endTime},INTERVAL 1 DAY))
         </if>
         <if test="code!=''">
-            and bp.product_number = #{code}
+            and bp.product_number like concat('%',trim(#{code}),'%')
         </if>
         <if test="name!=''">
-            and bp.product_name = #{name}
+            and bp.product_name like  concat('%',trim(#{name}),'%')
         </if>
     </select>
 
@@ -352,8 +349,6 @@
         join base_depot bd on i.depot_id = bd.depot_id
         join base_unit bu on bp.unit_id = bu.unit_id
     </select>
-
-
 
     <!--通过主键删除-->
     <delete id="deleteById">

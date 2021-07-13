@@ -1,6 +1,7 @@
 package com.cy.psi.dao;
 
 import com.cy.psi.entity.Inventory;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -56,6 +57,20 @@ public interface InventoryDao {
      */
     List<Map<String,Object>> listProduct(Map map);
 
+    /**
+     * 查询过期商品
+     * @param map
+     * @return
+     */
+    List<Map<String,Object>> listGood(Map map);
+
+    /**
+     * 库存商品报警
+     * @param map
+     * @return
+     */
+    List<Map<String,Object>> inventoryAlarm(Map map);
+
 
     /**
      * add
@@ -64,4 +79,6 @@ public interface InventoryDao {
      * @param productNum
      */
     void expectAdd(String productId, String depot, Integer productNum);
+
+
 }

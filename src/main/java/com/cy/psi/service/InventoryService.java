@@ -1,5 +1,7 @@
 package com.cy.psi.service;
 
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +23,22 @@ public interface InventoryService {
      * @param map
      * @return
      */
-    List<Map<String,Object>> listProduct(Map map);
+    PageInfo<Map<String,Object>> listProduct(Map map);
+
+    /**
+     * 库存商品报警
+     * @param map
+     * @return
+     */
+    PageInfo<Map<String,Object>> findInventoryAlarm(Map map);
+
+
+    /**
+     * 查询过期商品
+     * @param map
+     * @return
+     */
+    PageInfo<Map<String,Object>> findGoodOut(Map map);
 
 
      /**添加库存
