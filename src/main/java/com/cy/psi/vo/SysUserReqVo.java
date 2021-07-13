@@ -1,11 +1,16 @@
 package com.cy.psi.vo;
 
 import com.cy.psi.entity.BaseDept;
+import com.cy.psi.entity.SysRole;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SysUserReqVo {
     /**
      * 用户id
@@ -29,7 +34,7 @@ public class SysUserReqVo {
     /**
      * 角色
      * */
-    private String role;
+    private SysRole role;
 
     /**
      * 所属部门

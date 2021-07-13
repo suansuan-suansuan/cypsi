@@ -63,7 +63,7 @@ public class SysUserAllServiceImpl implements SysUserAllService {
         //保存用户角色
         SysUserRole sysUserRole=new SysUserRole();
         sysUserRole.setUId(user.getUId());
-        sysUserRole.setRoleId(sysUserReqVo.getRole());
+        sysUserRole.setRoleId(sysUserReqVo.getRole().getRoleId());
         sysUserRoleService.insert(sysUserRole);
 
         //批量保存用户审批对象

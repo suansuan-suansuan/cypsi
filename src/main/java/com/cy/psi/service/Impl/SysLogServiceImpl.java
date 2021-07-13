@@ -44,9 +44,11 @@ public class SysLogServiceImpl implements SysLogService {
      * @Since version-1.0
      */
     @Override
-    public List<SysLogVo> findAllLog(){
+    public PageInfo<SysLogVo>findAllLog(int page,int size){
+        PageHelper.startPage(page, size);
         List<SysLogVo> logList = sysLogDao.findAllLog();
-        return logList;
+        PageInfo<SysLogVo> pageInfo =new PageInfo<>(logList);
+        return pageInfo;
     }
 
 
