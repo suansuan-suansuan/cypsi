@@ -1,12 +1,9 @@
 package com.cy.psi.controller;
 
 import com.cy.psi.entity.BaseDepot;
-<<<<<<< HEAD
 import com.cy.psi.entity.SysUser;
 import com.cy.psi.service.SysUserService;
-=======
 import com.cy.psi.entity.BaseVendor;
->>>>>>> 683c2068df6ece1590c8e123d4891f3436e2ea86
 import com.cy.psi.vo.form.BaseDepotQueryForm;
 import com.cy.psi.service.BaseDepotService;
 import lombok.extern.slf4j.Slf4j;

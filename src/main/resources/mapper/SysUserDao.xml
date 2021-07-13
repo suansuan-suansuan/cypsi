@@ -57,6 +57,10 @@
     where u_id = #{uId,jdbcType=VARCHAR}
   </select>
 
+  <select id="selectAll" parameterType="list" resultMap="BaseResultMap">
+    select * from sys_user
+  </select>
+
     <select id="findAllUser" resultMap="BaseResultMap">
       select u.*,d.* ,r.*
       from sys_user u,base_dept d,sys_user_role ur ,sys_role r
