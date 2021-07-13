@@ -34,7 +34,7 @@ public interface GoodsDao {
     List<Goods> selectBylikeGoods(@Param("Starttime") String Starttime, @Param("Endtime") String Endtime, @Param("goodsZt") String goodsZt, @Param("goodsState") Integer goodsState);
 
     //审核    出库单
-    Integer GoodsAudit(@Param("goodsZt") Integer goodsZt, @Param("puorderTimestamp")String puorderTimestamp, @Param("goodsId")Integer goodsId);
+    Integer GoodsAudit(@Param("goodsZt") Integer goodsZt, @Param("goodsId")Integer goodsId);
 
     //逻辑删除
     Integer DelGoods(@Param("timeLiness") Integer timeLiness, @Param("goodsId")Integer goodsId);

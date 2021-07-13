@@ -102,12 +102,13 @@ public class SaleDeliveryController {
             System.out.println("水水水水"+deliverydetails);
             saleDeliveryDetailsService.insertBatch(deliverydetails);
             //出库单生成减去预计库存数量--关联订单为空状态下
-            if (type == 0 && delivery.getSaleOrderId() == null) {
+
                 List<SaleDeliveryDetails> deliveryDetails = saleDeliveryDetailsService.queryById(delivery.getDeliveryOrderId());
+            System.out.println("aaaaaaaaa"+deliveryDetails);
                 for (SaleDeliveryDetails sdd : deliveryDetails) {
                     inventoryService.expectReduce(sdd.getProductId(), sdd.getDepotId(), sdd.getProductNum());
                 }
-            }
+
 
         }
         return AjaxResponse.success(delivery.getDeliveryOrderId());

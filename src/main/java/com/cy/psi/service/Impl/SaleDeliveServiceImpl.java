@@ -2,6 +2,8 @@ package com.cy.psi.service.Impl;
 
 import com.cy.psi.dao.SaleDeliveryDao;
 import com.cy.psi.service.SaleDeliveService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +25,11 @@ public class SaleDeliveServiceImpl implements SaleDeliveService {
      * @return
      */
     @Override
-    public List<Map<String, Object>> listStatistical(Map map) {
+    public PageInfo<Map<String, Object>> listStatistical(Map map) {
+        PageHelper.startPage((int)map.get("page"),(int)map.get("pageSize"));
         List<Map<String, Object>> maps = saleDeliveryDao.listStatistical(map);
-        return maps;
+        PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(maps);
+        return mapPageInfo;
     }
 
     /**
@@ -34,20 +38,23 @@ public class SaleDeliveServiceImpl implements SaleDeliveService {
      * @return
      */
     @Override
-    public List<Map<String, Object>> listStatisticalOrder(Map map) {
+    public PageInfo<Map<String, Object>> listStatisticalOrder(Map map) {
+        PageHelper.startPage((int)map.get("page"),(int)map.get("pageSize"));
         List<Map<String, Object>> maps = saleDeliveryDao.listStatisticalOrder(map);
-        return maps;
+        PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(maps);
+        return mapPageInfo;
     }
 
     /**
-     * 前十畅销商品
+     * 查询前十畅销商品
+     *
      * @return
      */
     @Override
-    public List<Map<String, Object>> listStatisticalProduct() {
-        List<Map<String, Object>> maps = saleDeliveryDao.listStatisticalProduct();
-        return maps;
+    public PageInfo<Map<String, Object>> listStatisticalProduct() {
+        return null;
     }
+
 
     /**
      * 销售毛利明细
@@ -55,10 +62,11 @@ public class SaleDeliveServiceImpl implements SaleDeliveService {
      * @return
      */
     @Override
-    public List<Map<String, Object>> listSalesGross(Map map) {
+    public PageInfo<Map<String, Object>> listSalesGross(Map map) {
+        PageHelper.startPage((int)map.get("page"),(int)map.get("pageSize"));
         List<Map<String, Object>> maps = saleDeliveryDao.listSalesGross(map);
-        return maps;
+        PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(maps);
+        return mapPageInfo;
     }
-
 
 }

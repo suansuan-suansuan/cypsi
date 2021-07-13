@@ -16,6 +16,6 @@ public interface SysLogService {
 
     int addSysLog(Log log);
 
-    List<SysLogVo> findAllLog();
+    PageInfo<SysLogVo> findAllLog(int page,int size);
 
 }

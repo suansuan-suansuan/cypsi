@@ -10,6 +10,5 @@ import lombok.Data;
 @Data
 public class GoodsRukuVo {
     private  Integer goodsId;
-    private  String puorderTimestamp;
     private Integer goodsZt;
 }

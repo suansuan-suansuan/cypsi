@@ -1,5 +1,6 @@
 package com.cy.psi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,9 @@ public class Allotwarehouse implements Serializable {
     private BaseDepot basedepot;
     private Integer depotId;
 
+    private String transferredtothewarehouse;
+    private String bringupthewarehouse;
+
     private String operator;
 
     private String auditor;
@@ -44,6 +48,7 @@ public class Allotwarehouse implements Serializable {
     private Integer timeliness;
 
     private Integer productId;
+    private Integer approval;
 
     //删除状态
     private Integer timeLiness;
@@ -64,7 +69,7 @@ public class Allotwarehouse implements Serializable {
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getDocumentationDate() {
         return documentationDate;
     }
@@ -88,6 +93,21 @@ public class Allotwarehouse implements Serializable {
     public void setDepotId(Integer depotId) {
         this.depotId = depotId;
     }
+    public String getbringupthewarehouse() {
+        return bringupthewarehouse;
+    }
+
+    public void setBringupthewarehouse(String bringupthewarehouse) {
+        this.bringupthewarehouse = bringupthewarehouse;
+    }
+
+    public String getTransferredtothewarehouse() {
+        return transferredtothewarehouse;
+    }
+
+    public void setTransferredtothewarehouse(String transferredtothewarehouse) {
+        this.transferredtothewarehouse = transferredtothewarehouse;
+    }
 
     public String getOperator() {
         return operator;
@@ -104,7 +124,7 @@ public class Allotwarehouse implements Serializable {
     public void setAuditor(String auditor) {
         this.auditor = auditor;
     }
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getAuditData() {
         return auditData;
     }
@@ -143,6 +163,14 @@ public class Allotwarehouse implements Serializable {
 
     public void setTimeLiness(Integer timeLiness) {
         this.timeLiness = timeLiness;
+    }
+
+    public Integer getApproval() {
+        return approval;
+    }
+
+    public void setApproval(Integer approval) {
+        this.approval = approval;
     }
 
 }

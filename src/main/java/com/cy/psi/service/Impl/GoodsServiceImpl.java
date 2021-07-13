@@ -43,8 +43,8 @@ public class GoodsServiceImpl implements GoodsService {
 
     //审核   出库单
     @Override
-    public Integer GoodsAudit( Integer goodsZt,String puorderTimestamp,Integer goodsId){
-        return goodsDao.GoodsAudit(goodsZt,puorderTimestamp,goodsId);
+    public Integer GoodsAudit( Integer goodsZt,Integer goodsId){
+        return goodsDao.GoodsAudit(goodsZt,goodsId);
     }
     //修改   删除
     @Override

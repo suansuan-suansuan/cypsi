@@ -1,8 +1,10 @@
 package com.cy.psi.controller;
 
-import com.cy.psi.entity.Allotwarehouse;
+import com.cy.psi.entity.*;
 import com.cy.psi.service.AllotwarehouseService;
+import com.cy.psi.vo.AllotwarehouseAuditVo;
 import com.cy.psi.vo.AllotwarehouseVo;
+import com.cy.psi.vo.GoodsRukuVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,18 @@ public class AllotwarehouseController {
     @Resource
     private AllotwarehouseService allotwarehouseService;
 
+    //查询仓库
+    @GetMapping("/selectCangku")
+    public List<BaseDepot> selectCangku(){
+        return allotwarehouseService.selectCangku();
+    }
+
+    //查询产品
+    @GetMapping("/selectProduct")
+    public List<BaseProduct> selectProduct(){
+        return allotwarehouseService.selectProduct();
+    }
+
     //分页查询调拨单
     @GetMapping("/selectAllotwarehouse")
     public PageInfo<Allotwarehouse>selectAllotwarehouse (@RequestParam("currentPage") Integer currentPage, @RequestParam("pagesize") Integer pagesize){
@@ -50,6 +64,31 @@ public class AllotwarehouseController {
         PageHelper.startPage(currentPage,pagesize);
         PageInfo<Allotwarehouse> classtypeVoPageInfo = new  PageInfo<>(entityPage);
         return classtypeVoPageInfo;
+    }
+
+    //    新增调拨单
+    @PostMapping("/insertAllotwarehouse")
+    public Integer insertAllotwarehouse(@RequestBody Allotwarehouse allotwarehouse){
+        return allotwarehouseService.insertAllotwarehouse(allotwarehouse);
+    }
+    //调拨新增出库单
+    @PostMapping("/insertSaleDelivery")
+    public Integer insertSaleDelivery(@RequestBody SaleDelivery saleDelivery){
+        return allotwarehouseService.insertSaleDelivery(saleDelivery);
+    }
+    //调拨新增入库单
+    @PostMapping("/insertGoods")
+    public Integer insertGoods(@RequestBody Goods goods){
+        return allotwarehouseService.insertGoods(goods);
+    }
+
+    //调拨单审核
+    @PutMapping("/AllotwarehouseAudit")
+    public Integer AllotwarehouseAudit(@RequestBody AllotwarehouseAuditVo vo){
+        log.info("approval:"+vo.getApproval());
+        log.info("channelid:"+vo.getChannelid());
+        log.debug("修改想去");
+        return allotwarehouseService.AllotwarehouseAudit(vo.getApproval(),vo.getChannelid());
     }
 
     //    逻辑删除

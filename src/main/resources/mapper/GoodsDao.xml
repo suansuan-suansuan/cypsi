@@ -170,7 +170,7 @@
 
   <!--审核  入库单-->
   <update id="GoodsAudit" parameterType="com.cy.psi.entity.Goods">
-    update cypsi.Goods  set Goods_Zt=#{goodsZt},Puorder_Timestamp=#{puorderTimestamp} where Goods_id=#{goodsId}
+    update cypsi.Goods  set Goods_Zt=#{goodsZt} where Goods_id=#{goodsId}
   </update>
 
   <!--逻辑删除 -->

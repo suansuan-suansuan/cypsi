@@ -42,11 +42,6 @@
                 #{vendorName,jdbcType=VARCHAR})
     </insert>
 
-
-
-
-
-
     <insert id="insertSelective" keyColumn="inventory_id" keyProperty="inventoryId"
             parameterType="com.cy.psi.entity.Inventory" useGeneratedKeys="true">
         insert into inventory
@@ -166,14 +161,12 @@
         where inventory_id = #{inventoryId,jdbcType=VARCHAR}
     </update>
     <update id="expectReduce">
-        update inventory i
-        <set>
-            <if test="inventoryQuantity != null and inventoryQuantity != ''">
-                i.inventory_quantity=i.inventory_quantity-{productNum}
-            </if>
-        </set>
-        where (select b.product_number from base_product b where b.product_id=i.product_id) = #{productId} and
-        i.depot_name = #{depotName}
+        update inventory
+        set
+            inventory_quantity=inventory_quantity-#{productNum}
+
+        where product_id=#{productId} and
+            depot_id = #{depot}
     </update>
 
   <update id="expectAdd">
@@ -187,6 +180,39 @@
   </update>
 
 
+
+
+    <!--===================================================我唐某的地盘================================================================-->
+    <resultMap type="com.cy.psi.entity.Inventory" id="InventoryMap">
+        <id property="inventoryId" column="inventory_id" jdbcType="VARCHAR"/>
+        <result property="depotId" column="depot_id" jdbcType="VARCHAR"/>
+        <result property="depotName" column="depot_name" jdbcType="VARCHAR"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="purchaseUnitPrice" column="purchase_unit_price" jdbcType="NUMERIC"/>
+        <result property="purchaseMoney" column="purchase_money" jdbcType="NUMERIC"/>
+        <result property="inventoryQuantity" column="inventory_quantity" jdbcType="INTEGER"/>
+        <result property="totalCost" column="total_cost" jdbcType="VARCHAR"/>
+        <result property="vendorId" column="vendor_id" jdbcType="INTEGER"/>
+        <result property="vendorName" column="vendor_name" jdbcType="VARCHAR"/>
+        <association property="baseDepot" javaType="com.cy.psi.entity.BaseDepot">
+            <id property="depotId" column="depot_id" jdbcType="VARCHAR"/>
+            <result property="depotName" column="depot_name" jdbcType="VARCHAR"/>
+        </association>
+        <association property="baseProduct" javaType="com.cy.psi.entity.BaseProduct">
+            <id property="productId" column="product_id" jdbcType="VARCHAR"/>
+            <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+
+    <!--连查询库存 -->
+    <select id="selectChangewarehouse" resultMap="InventoryMap">
+        select *
+        from cypsi.inventory i
+                 left join cypsi.base_depot d on i.depot_id = d.depot_id
+                 left join cypsi.base_product p on i.product_id = p.product_id
+    </select>
 
     <!--查询库存明细-->
     <select id="listProduct" resultType="java.util.Map">
@@ -206,69 +232,42 @@
         join base_unit bu on bp.unit_id = bu.unit_id
         where 1 = 1
         <if test="code!=''">
-            and bp.product_number = #{code}
+            and bp.product_number like concat('%',trim(#{code}),'%')
         </if>
         <if test="name!=''">
-            and bp.product_name = #{name}
+            and bp.product_name like  concat('%',trim(#{name}),'%')
+        </if>
+    </select>
+
+    <!--商品过期查询-->
+    <select id="listGood" resultType="java.util.Map" parameterType="map">
+        select bp.product_name,bp.product_number,bp.expiration,i.depot_name,i.inventory_quantity from inventory i
+        join base_product bp on i.product_id = bp.product_id
+        where bp.expiration &lt; now()
+        <if test="code!=''">
+            and bp.product_number like concat('%',trim(#{code}),'%')
+        </if>
+        <if test="name!=''">
+            and bp.product_name like  concat('%',trim(#{name}),'%')
+        </if>
+    </select>
+
+    <!--商品库存报警-->
+    <select id="inventoryAlarm" resultType="java.util.Map" parameterType="map">
+        select bp.product_name, bp.product_number, i.depot_name, i.inventory_quantity, bv.vendor_name, bv.contact_number
+        from inventory i
+        join base_product bp on i.product_id = bp.product_id
+        join base_vendor bv on i.vendor_id = bv.vendor_id
+        where i.inventory_quantity &lt; 10
+        <if test="code!=''">
+            and bp.product_number like concat('%',trim(#{code}),'%')
+        </if>
+        <if test="name!=''">
+            and bp.product_name like  concat('%',trim(#{name}),'%')
         </if>
     </select>
 
 
-
-
-
-<!--===================================================我唐某的地盘================================================================-->
-  <resultMap type="com.cy.psi.entity.Inventory" id="InventoryMap">
-    <id property="inventoryId" column="inventory_id" jdbcType="VARCHAR"/>
-    <result property="depotId" column="depot_id" jdbcType="VARCHAR"/>
-    <result property="depotName" column="depot_name" jdbcType="VARCHAR"/>
-    <result property="productId" column="product_id" jdbcType="INTEGER"/>
-    <result property="productName" column="product_name" jdbcType="VARCHAR"/>
-    <result property="purchaseUnitPrice" column="purchase_unit_price" jdbcType="NUMERIC"/>
-    <result property="purchaseMoney" column="purchase_money" jdbcType="NUMERIC"/>
-    <result property="inventoryQuantity" column="inventory_quantity" jdbcType="INTEGER"/>
-    <result property="totalCost" column="total_cost" jdbcType="VARCHAR"/>
-    <result property="vendorId" column="vendor_id" jdbcType="INTEGER"/>
-    <result property="vendorName" column="vendor_name" jdbcType="VARCHAR"/>
-    <result property="timeLiness" column="TimeLiness" jdbcType="INTEGER"/>
-    <association property="baseDepot" javaType="com.cy.psi.entity.BaseDepot">
-      <id property="depotId" column="depot_id" jdbcType="VARCHAR"/>
-      <result property="depotName" column="depot_name" jdbcType="VARCHAR"/>
-    </association>
-    <association property="baseProduct" javaType="com.cy.psi.entity.BaseProduct">
-      <id property="productId" column="product_id" jdbcType="VARCHAR"/>
-      <result property="productName" column="product_name" jdbcType="VARCHAR"/>
-    </association>
-  </resultMap>
-
-
-  <!--连查询库存 -->
-  <select id="selectChangewarehouse" resultMap="InventoryMap">
-    select * from cypsi.inventory i
-    left join cypsi.base_depot d on i.depot_id =d.depot_id
-    left join cypsi.base_product p on i.product_id =p.product_id
-    where i.TimeLiness=0
-    order by i.inventory_id
-
-</select>
-
-
-  <!--高级查询-->
-  <select id="selectBylikeChangewarehouse" resultMap="InventoryMap">
-    select * from cypsi.inventory i
-    left join cypsi.base_depot d on i.depot_id =d.depot_id
-    left join cypsi.base_product p on i.product_id =p.product_id
-    <where>
-      <if test="depotName!=null || depotName!=''">
-        and d.depot_name like concat('%',#{depotName},'%')
-      </if>
-      <if test="productName!=null || productName!=''">
-        and p.product_name like concat('%',#{productName},'%')
-      </if>
-    </where>
-    where i.TimeLiness=0
-    order by i.inventory_id
-  </select>
 
 
   <!--逻辑删除 -->
