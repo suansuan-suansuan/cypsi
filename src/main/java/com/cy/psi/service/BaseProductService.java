@@ -1,6 +1,8 @@
 package com.cy.psi.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cy.psi.entity.BaseProduct;
+import com.cy.psi.vo.BaseProductVo;
 import com.cy.psi.vo.form.BaseProductQueryForm;
 
 import java.util.List;
@@ -14,6 +16,9 @@ import com.github.pagehelper.PageInfo;
  * @since 2021-07-12 17:52:37
  */
 public interface BaseProductService {
+
+
+    List<BaseProduct> GenJuselectAll();
 
     /**
      * 通过ID查询单条数据
@@ -94,4 +99,6 @@ public interface BaseProductService {
      * @return 是否成功
      */
     boolean deleteBatch(List<Integer> ids);
+
+    JSONArray queryAllProduct();
 }

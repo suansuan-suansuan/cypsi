@@ -1,5 +1,6 @@
 package com.cy.psi.service.Impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cy.psi.dao.SaleOrderDetailsDao;
 import com.cy.psi.entity.SaleOrderDetails;
 import com.cy.psi.service.SaleOrderDetailsService;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 酸酸
@@ -28,5 +30,10 @@ public class SaleOrderDetailsServiceImpl implements SaleOrderDetailsService {
     @Override
     public void insertBatch(List<SaleOrderDetails> orderdetails) {
         this.saleOrderDetailsDao.insertBatch(orderdetails);
+    }
+
+    @Override
+    public List<Map<String,Object>> queryByorderId(String id) {
+        return this.saleOrderDetailsDao.queryByorderId(id);
     }
 }

@@ -1,8 +1,12 @@
 package com.cy.psi.controller;
 
 import com.cy.psi.entity.BaseDepot;
+<<<<<<< HEAD
 import com.cy.psi.entity.SysUser;
 import com.cy.psi.service.SysUserService;
+=======
+import com.cy.psi.entity.BaseVendor;
+>>>>>>> 683c2068df6ece1590c8e123d4891f3436e2ea86
 import com.cy.psi.vo.form.BaseDepotQueryForm;
 import com.cy.psi.service.BaseDepotService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +27,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @Slf4j
+@RequestMapping("BaseDepotController")
 public class BaseDepotController {
     /**
      * 服务对象
@@ -44,6 +49,12 @@ public class BaseDepotController {
         return this.baseDepotService.queryById(id);
     }
 
+
+    @GetMapping("/queryAllWWWW")
+    public List<BaseDepot> selectAll100(){
+        List<BaseDepot> Bacv =baseDepotService.queryAllWWWW();
+        return Bacv;
+    }
     /**
      * 查询所有数据
      *

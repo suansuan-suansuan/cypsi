@@ -32,6 +32,8 @@ public interface BaseDepotDao {
      */
     List<BaseDepot> queryAll(BaseDepotQueryForm baseDepotQueryForm);
 
+
+    List<BaseDepot> queryAllWWWW();
     /**
      * 通过实体作为或者条件查询
      *

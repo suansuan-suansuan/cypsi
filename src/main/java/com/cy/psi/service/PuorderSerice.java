@@ -15,4 +15,6 @@ public interface PuorderSerice {
     List<CypsiPuorder> selectAllSJ(String Starttime,String Endtime );
 
     CypsiPuorder insertPu(CypsiPuorder cypsiPuorder);
+
+    CypsiPuorder updatePuo(CypsiPuorder cypsiPuorder);
 }

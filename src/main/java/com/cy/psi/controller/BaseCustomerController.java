@@ -21,6 +21,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @Slf4j
+@RequestMapping("BaseCustomer")
 public class BaseCustomerController {
     /**
      * 服务对象

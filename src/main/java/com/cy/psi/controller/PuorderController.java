@@ -2,6 +2,7 @@ package com.cy.psi.controller;
 
 import com.cy.psi.entity.CypsiPuorder;
 import com.cy.psi.service.PuorderSerice;
+import com.cy.psi.vo.AjaxResponse;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +47,12 @@ public class PuorderController {
     public CypsiPuorder insertBack(@RequestBody CypsiPuorder cypsiPuorder){
         puorderSerice.insertPu(cypsiPuorder);
         return cypsiPuorder;
+    }
+
+
+    @PutMapping("/updatePuo")
+    public AjaxResponse updatePuo(@RequestBody CypsiPuorder cypsiPuorder){
+        puorderSerice.updatePuo(cypsiPuorder);
+        return AjaxResponse.success(cypsiPuorder);
     }
 }

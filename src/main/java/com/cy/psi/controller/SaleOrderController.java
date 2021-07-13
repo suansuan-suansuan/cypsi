@@ -3,15 +3,21 @@ package com.cy.psi.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.cy.psi.entity.BaseProduct;
 import com.cy.psi.entity.SaleOrder;
 import com.cy.psi.entity.SaleOrderDetails;
+import com.cy.psi.entity.SysUser;
 import com.cy.psi.service.*;
 import com.cy.psi.vo.AjaxResponse;
+import com.cy.psi.vo.BaseProductVo;
 import com.cy.psi.vo.SaleOrderVo;
+import com.cy.psi.vo.SysUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONStringer;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.sql.SQLOutput;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("SaleOrder")
+@CrossOrigin
 public class SaleOrderController {
     @Resource
     private SaleOrderDetailsService saleOrderDetailsService;
@@ -29,7 +36,8 @@ public class SaleOrderController {
     private SaleOrderService saleOrderService;
     @Resource
     private SysUserService sysUserService;
-
+    @Resource
+    private BaseProductService baseProductService;
 
     /**
  * 新增销售订单
@@ -50,9 +58,11 @@ public AjaxResponse add(@PathVariable("type") int type, @RequestBody String add)
     //订单详情绑定订单id
     for(int i=0;i<orderdetails.size();i++){
         orderdetails.get(i).setSaleOrderId(saleOrder.getSaleOrderId());
+        orderdetails.get(i).setSaleUnitPrice(orderdetails.get(i).getSaleMoney()/orderdetails.get(i).getProductNum());
     }
         //添加订单信息
         saleOrder.setFoundTime(new Date());
+        saleOrder.setUpdateTime(new Date());
         saleOrder.setOrderState(0);
         saleOrder.setDeliveryState(0);
         saleOrder.setAdvance(0.00);
@@ -65,7 +75,7 @@ public AjaxResponse add(@PathVariable("type") int type, @RequestBody String add)
     if(type == 0) {
         List<SaleOrderDetails> orderDetails=saleOrderDetailsService.queryById(saleOrder.getSaleOrderId());
         for(SaleOrderDetails sod:orderDetails){
-            inventoryService.expectReduce(sod.getProductId(),sod.getDepot(),sod.getProductNum());
+            inventoryService.expectReduce(sod.getProductId(),sod.getDepotId(),sod.getProductNum());
         }
     }
     return AjaxResponse.success(saleOrder.getSaleOrderId());
@@ -106,10 +116,31 @@ public AjaxResponse add(@PathVariable("type") int type, @RequestBody String add)
         if(type == -1){
             List<SaleOrderDetails> orderDetails=saleOrderDetailsService.queryById(order.getSaleOrderId());
             for(SaleOrderDetails sod:orderDetails){
-                inventoryService.expectAdd(sod.getProductId(),sod.getDepot(),sod.getProductNum());
+                inventoryService.expectAdd(sod.getProductId(),sod.getDepotId(),sod.getProductNum());
             }
         }
         SaleOrder saleOrder=saleOrderService.update(order);
         return AjaxResponse.success(saleOrder);
+    }
+
+    /**
+     * 获取商店
+     * @return
+     */
+    @GetMapping("getproduct")
+    public AjaxResponse getProduct(){
+    return AjaxResponse.success(baseProductService.queryAllProduct());
+    }
+    /**
+     * 获取用户
+     */
+    @GetMapping("/getuser")
+    public AjaxResponse getUser(){
+       List<SysUser> sysUsers=sysUserService.findhaveapproved();
+        return AjaxResponse.success(sysUsers);
+    }
+    @GetMapping("/findall")
+    public AjaxResponse getOrder(){
+        return AjaxResponse.success(saleOrderService.queryAll());
     }
 }

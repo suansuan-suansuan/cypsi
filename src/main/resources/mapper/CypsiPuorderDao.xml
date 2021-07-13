@@ -14,6 +14,7 @@
     <result column="Puorder_G" jdbcType="VARCHAR" property="puorderG" />
     <result column="depot_id" jdbcType="VARCHAR" property="depotId" />
     <result column="vendor_id" jdbcType="VARCHAR" property="vendorId" />
+  
   </resultMap>
   <sql id="Base_Column_List">
     Puorder_id, Puorder_Timestamp, Puorder_C, Approval, AppTime, Puorder_Cg, Puorder_state, 
@@ -151,19 +152,9 @@
     </set>
     where Puorder_id = #{puorderId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.CypsiPuorder">
+  <update id="updatePuo" parameterType="com.cy.psi.entity.CypsiPuorder">
     update CYpsi_Puorder
-    set Puorder_Timestamp = #{puorderTimestamp,jdbcType=TIMESTAMP},
-      Puorder_C = #{puorderC,jdbcType=VARCHAR},
-      Approval = #{approval,jdbcType=INTEGER},
-      AppTime = #{apptime,jdbcType=TIMESTAMP},
-      Puorder_Cg = #{puorderCg,jdbcType=VARCHAR},
-      Puorder_state = #{puorderState,jdbcType=VARCHAR},
-      Puorder_Total = #{puorderTotal,jdbcType=DECIMAL},
-      `Explain` = #{explain,jdbcType=VARCHAR},
-      Puorder_G = #{puorderG,jdbcType=VARCHAR},
-      depot_id = #{depotId,jdbcType=VARCHAR},
-      vendor_id = #{vendorId,jdbcType=VARCHAR}
+    set Approval = 1
     where Puorder_id = #{puorderId,jdbcType=INTEGER}
   </update>
 
