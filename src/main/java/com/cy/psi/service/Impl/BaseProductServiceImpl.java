@@ -1,6 +1,8 @@
 package com.cy.psi.service.Impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cy.psi.entity.BaseProduct;
+import com.cy.psi.vo.BaseProductVo;
 import com.cy.psi.vo.form.BaseProductQueryForm;
 import com.cy.psi.dao.BaseProductDao;
 import com.cy.psi.service.BaseProductService;
@@ -146,5 +148,10 @@ public class BaseProductServiceImpl implements BaseProductService {
     public boolean deleteBatch(List<Integer> ids) {
         int row = this.baseProductDao.deleteBatch(ids);
         return ids.size() == row;
+    }
+
+    @Override
+    public JSONArray queryAllProduct() {
+        return this.baseProductDao.queryAllProduct();
     }
 }

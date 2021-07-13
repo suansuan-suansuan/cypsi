@@ -1,6 +1,8 @@
 package com.cy.psi.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cy.psi.entity.BaseProduct;
+import com.cy.psi.vo.BaseProductVo;
 import com.cy.psi.vo.form.BaseProductQueryForm;
 
 import java.util.List;
@@ -97,4 +99,6 @@ public interface BaseProductService {
      * @return 是否成功
      */
     boolean deleteBatch(List<Integer> ids);
+
+    JSONArray queryAllProduct();
 }

@@ -38,12 +38,12 @@
     where sale_order_Id = #{saleOrderId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" keyColumn="sale_order_Id" keyProperty="saleOrderId" parameterType="com.cy.psi.entity.SaleOrder" useGeneratedKeys="true">
-    insert into sale_order (sale_order_time, customer, salesmen, 
+    insert into sale_order (sale_order_id,sale_order_time, customer, salesmen,
       receivables, remarks, approver, 
       found_time, update_time, approval_time, 
       approval_state, delivery_state, order_state, 
       delivery_time, advance)
-    values (#{saleOrderTime,jdbcType=TIMESTAMP}, #{customer,jdbcType=VARCHAR}, #{salesmen,jdbcType=VARCHAR}, 
+    values (#{saleOrderId,jdbcType=VARCHAR},#{saleOrderTime,jdbcType=TIMESTAMP}, #{customer,jdbcType=VARCHAR}, #{salesmen,jdbcType=VARCHAR},
       #{receivables,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR}, 
       #{foundTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{approvalTime,jdbcType=TIMESTAMP}, 
       #{approvalState,jdbcType=INTEGER}, #{deliveryState,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER}, 

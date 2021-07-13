@@ -15,6 +15,21 @@
     <result column="state" jdbcType="INTEGER" property="state" />
     <result column="vendor_number" jdbcType="VARCHAR" property="vendorNumber" />
   </resultMap>
+    <resultMap id="BaseProductVo" type="com.cy.psi.vo.BaseProductVo">
+        <id column="product_id" jdbcType="INTEGER" property="productId" />
+        <result column="product_number" jdbcType="VARCHAR" property="productNumber" />
+        <result column="product_name" jdbcType="VARCHAR" property="productName" />
+        <result column="unit_id" jdbcType="INTEGER" property="unitId" />
+        <result column="product_spec" jdbcType="VARCHAR" property="productSpec" />
+        <result column="purchase_money" jdbcType="DECIMAL" property="purchaseMoney" />
+        <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+        <result column="purchase_unit_price" jdbcType="DECIMAL" property="purchaseUnitPrice" />
+        <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+        <result column="expiration" jdbcType="TIMESTAMP" property="expiration" />
+        <result column="state" jdbcType="INTEGER" property="state" />
+        <result column="vendor_number" jdbcType="VARCHAR" property="vendorNumber" />
+        <result column="inventory_quantity" jdbcType="VARCHAR" property="inventoryQuantity" />
+    </resultMap>
   <sql id="Base_Column_List">
     product_id, product_number, product_name, unit_id, product_spec, purchase_money, 
     cost_price, purchase_unit_price, remarks, `expiration`, `state`
@@ -139,6 +154,11 @@
                 and vendor_number = #{vendorNumber}
             </if>
         </where>
+    </select>
+    <select id="queryAllProduct" resultType="com.alibaba.fastjson.JSONObject">
+        select  i.*,b.product_number,b.remarks,b.product_spec from base_product b
+                                                                       inner join inventory i on i.product_id=b.product_id
+        where i.inventory_quantity>0
     </select>
 
     <!--新增所有列-->
