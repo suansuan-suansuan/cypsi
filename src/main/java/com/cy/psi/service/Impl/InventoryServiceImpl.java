@@ -29,7 +29,7 @@ public class InventoryServiceImpl implements InventoryService {
      * @return
      */
     @Override
-    public PageInfo<Map<String, Object>> listProduct(Map map) {
+    public PageInfo<Map<String, Object>> findProduct(Map map) {
         PageHelper.startPage((int)map.get("page"),(int)map.get("pageSize"));
         List<Map<String, Object>> maps = inventoryDao.listProduct(map);
         PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(maps);

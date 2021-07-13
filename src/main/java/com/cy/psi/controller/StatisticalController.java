@@ -40,15 +40,8 @@ public class StatisticalController {
      */
     @PostMapping("/listSales")
     public AjaxResponse listSales(@RequestBody Map map) {
-        String s = (String) map.get("startTime");
-        String s1 = (String) map.get("endTime");
-        if (!StringUtils.isEmpty(s) && !StringUtils.isEmpty(s1)) {
-            String startTime = s.substring(0, 10);
-            map.put("startTime", startTime);
-            String endTime = s1.substring(0, 10);
-            map.put("endTime", endTime);
-        }
-        PageInfo<Map<String, Object>> maps = saleDeliveService.listStatistical(map);
+        Map map1 = interceptionDate(map);
+        PageInfo<Map<String, Object>> maps = saleDeliveService.findStatistical(map1);
         return AjaxResponse.success(maps);
     }
 
@@ -60,46 +53,36 @@ public class StatisticalController {
      */
     @PostMapping("/listSalesOrder")
     public AjaxResponse listSalesOrder(@RequestBody Map map) {
-        String s = (String) map.get("startTime");
-        String s1 = (String) map.get("endTime");
-        if (!StringUtils.isEmpty(s) && !StringUtils.isEmpty(s1)) {
-            String startTime = s.substring(0, 10);
-            map.put("startTime", startTime);
-            String endTime = s1.substring(0, 10);
-            map.put("endTime", endTime);
-        }
-        PageInfo<Map<String, Object>> maps = saleDeliveService.listStatisticalOrder(map);
+        Map map1 = interceptionDate(map);
+        PageInfo<Map<String, Object>> maps = saleDeliveService.findStatisticalOrder(map1);
         return AjaxResponse.success(maps);
     }
 
 
     /**
      * 销售毛利明细
-     *
      * @param map
      * @return
      */
     @PostMapping("/listSalesGross")
     public AjaxResponse listSalesGross(@RequestBody Map map) {
-        PageInfo<Map<String, Object>> maps = saleDeliveService.listSalesGross(map);
+        PageInfo<Map<String, Object>> maps = saleDeliveService.findSalesGross(map);
         return AjaxResponse.success(maps);
     }
 
     /**
      * 库存明细
-     *
      * @param map
      * @return
      */
     @PostMapping("/listProduct")
     public AjaxResponse listProduct(@RequestBody Map map) {
-        PageInfo<Map<String, Object>> maps = inventoryService.listProduct(map);
+        PageInfo<Map<String, Object>> maps = inventoryService.findProduct(map);
         return AjaxResponse.success(maps);
     }
 
     /**
      * 查询过期商品
-     *
      * @param map
      * @return
      */
@@ -111,7 +94,6 @@ public class StatisticalController {
 
     /**
      * 库存商品预警
-     *
      * @param map
      * @return
      */
@@ -128,15 +110,8 @@ public class StatisticalController {
      */
     @PostMapping("/puorderSerice")
     public AjaxResponse puorderSerice(@RequestBody Map map) {
-        String s = (String) map.get("startTime");
-        String s1 = (String) map.get("endTime");
-        if (!StringUtils.isEmpty(s) && !StringUtils.isEmpty(s1)) {
-            String startTime = s.substring(0, 10);
-            map.put("startTime", startTime);
-            String endTime = s1.substring(0, 10);
-            map.put("endTime", endTime);
-        }
-        PageInfo<Map<String, Object>> supplierSupply = puorderSerice.findSupplierSupply(map);
+        Map map1 = interceptionDate(map);
+        PageInfo<Map<String, Object>> supplierSupply = puorderSerice.findSupplierSupply(map1);
         return AjaxResponse.success(supplierSupply);
     }
 
@@ -147,6 +122,28 @@ public class StatisticalController {
      */
     @PostMapping("/PurchaseOrder")
     public AjaxResponse PurchaseOrder(@RequestBody Map map) {
+        Map map1 = interceptionDate(map);
+        PageInfo<Map<String, Object>> supplierSupply = puorderSerice.findPurchaseOrder(map1);
+        return AjaxResponse.success(supplierSupply);
+    }
+
+
+    /**
+     * 查询收付款
+     * @return
+     */
+    @GetMapping("/findCollectionAndPayment")
+    public AjaxResponse findCollectionAndPayment() {
+        List<Map<String, Object>> collectionAndPayment = saleDeliveService.findCollectionAndPayment();
+        return AjaxResponse.success(collectionAndPayment);
+    }
+
+    /**
+     * 截取前10位字符串
+     * @param map
+     * @return
+     */
+    private Map interceptionDate(Map map) {
         String s = (String) map.get("startTime");
         String s1 = (String) map.get("endTime");
         if (!StringUtils.isEmpty(s) && !StringUtils.isEmpty(s1)) {
@@ -155,7 +152,7 @@ public class StatisticalController {
             String endTime = s1.substring(0, 10);
             map.put("endTime", endTime);
         }
-        PageInfo<Map<String, Object>> supplierSupply = puorderSerice.PurchaseOrder(map);
-        return AjaxResponse.success(supplierSupply);
+        return map;
     }
+
 }

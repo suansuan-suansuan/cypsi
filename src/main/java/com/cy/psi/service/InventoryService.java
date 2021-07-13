@@ -23,7 +23,7 @@ public interface InventoryService {
      * @param map
      * @return
      */
-    PageInfo<Map<String,Object>> listProduct(Map map);
+    PageInfo<Map<String,Object>> findProduct(Map map);
 
     /**
      * 库存商品报警
