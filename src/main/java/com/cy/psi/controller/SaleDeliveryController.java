@@ -105,7 +105,7 @@ public class SaleDeliveryController {
             if (type == 0 && delivery.getSaleOrderId() == null) {
                 List<SaleDeliveryDetails> deliveryDetails = saleDeliveryDetailsService.queryById(delivery.getDeliveryOrderId());
                 for (SaleDeliveryDetails sdd : deliveryDetails) {
-                    inventoryService.expectReduce(sdd.getProductId(), sdd.getDepot(), sdd.getProductNum());
+                    inventoryService.expectReduce(sdd.getProductId(), sdd.getDepotId(), sdd.getProductNum());
                 }
             }
 
@@ -131,7 +131,7 @@ public class SaleDeliveryController {
             saleDelivery.setUpdateTime(new Date());
             List<SaleDeliveryDetails> deliveryDetails=saleDeliveryDetailsService.queryById(orderid);
             for(SaleDeliveryDetails sdd:deliveryDetails){
-                inventoryService.expectAdd(sdd.getProductId(),sdd.getDepot(),sdd.getProductNum());
+                inventoryService.expectAdd(sdd.getProductId(),sdd.getDepotId(),sdd.getProductNum());
             }
         }
         if(type == 1){
@@ -142,7 +142,7 @@ public class SaleDeliveryController {
         if(type == 1) {
             List<SaleDeliveryDetails> deliveryDetails=saleDeliveryDetailsService.queryById(orderid);
             for(SaleDeliveryDetails sdd:deliveryDetails){
-                inventoryService.expectReduce(sdd.getProductId(),sdd.getDepot(),sdd.getProductNum());
+                inventoryService.expectReduce(sdd.getProductId(),sdd.getDepotId(),sdd.getProductNum());
             }
             //新增应收单据
             CapitalReceivable receivable=new CapitalReceivable();
