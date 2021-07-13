@@ -1,5 +1,6 @@
 package com.cy.psi.service.Impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cy.psi.dao.SaleOrderDao;
 import com.cy.psi.entity.SaleOrder;
 import com.cy.psi.service.SaleOrderService;
@@ -33,5 +34,10 @@ public class SaleOrderServiceImpl implements SaleOrderService {
     @Override
     public void advanceadd(SaleOrder order) {
         this.saleOrderDao.advanceadd(order);
+    }
+
+    @Override
+    public JSONArray queryAll() {
+        return this.saleOrderDao.queryAll();
     }
 }

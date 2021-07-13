@@ -21,4 +21,6 @@ public interface BaseDeptService {
 
 
     Object findMaxId(int parent);
+
+
 }

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.SysMenuDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.SysMenu">
+    <id column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="menu_type" jdbcType="VARCHAR" property="menuType" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="perms" jdbcType="VARCHAR" property="perms" />
+    <result column="visible" jdbcType="INTEGER" property="visible" />
+    <result column="component" jdbcType="VARCHAR" property="component" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    menu_id, menu_name, parent_id, order_num, menu_type, `path`, `name`, icon, perms, 
+    visible, component
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </select>
+    <select id="selectAllMenu" resultMap="BaseResultMap">
+      select * from sys_menu
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="menu_id" keyProperty="menuId" parameterType="com.cy.psi.entity.SysMenu" useGeneratedKeys="true">
+    insert into sys_menu (menu_name, parent_id, order_num, 
+      menu_type, `path`, `name`, 
+      icon, perms, visible, 
+      component)
+    values (#{menuName,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{orderNum,jdbcType=INTEGER}, 
+      #{menuType,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{perms,jdbcType=VARCHAR}, #{visible,jdbcType=INTEGER}, 
+      #{component,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="menu_id" keyProperty="menuId" parameterType="com.cy.psi.entity.SysMenu" useGeneratedKeys="true">
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuName != null">
+        menu_name,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="orderNum != null">
+        order_num,
+      </if>
+      <if test="menuType != null">
+        menu_type,
+      </if>
+      <if test="path != null">
+        `path`,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="perms != null">
+        perms,
+      </if>
+      <if test="visible != null">
+        visible,
+      </if>
+      <if test="component != null">
+        component,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null">
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="menuType != null">
+        #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="perms != null">
+        #{perms,jdbcType=VARCHAR},
+      </if>
+      <if test="visible != null">
+        #{visible,jdbcType=INTEGER},
+      </if>
+      <if test="component != null">
+        #{component,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.SysMenu">
+    update sys_menu
+    <set>
+      <if test="menuName != null">
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null">
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="menuType != null">
+        menu_type = #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        `path` = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="perms != null">
+        perms = #{perms,jdbcType=VARCHAR},
+      </if>
+      <if test="visible != null">
+        visible = #{visible,jdbcType=INTEGER},
+      </if>
+      <if test="component != null">
+        component = #{component,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.SysMenu">
+    update sys_menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      menu_type = #{menuType,jdbcType=VARCHAR},
+      `path` = #{path,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      perms = #{perms,jdbcType=VARCHAR},
+      visible = #{visible,jdbcType=INTEGER},
+      component = #{component,jdbcType=VARCHAR}
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+</mapper>

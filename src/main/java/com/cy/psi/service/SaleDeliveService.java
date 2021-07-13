@@ -1,5 +1,7 @@
 package com.cy.psi.service;
 
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,24 +15,24 @@ public interface SaleDeliveService {
      *查询销售商品明细
      * @return
      */
-    List<Map<String, Object>> listStatistical(Map map);
+    PageInfo<Map<String, Object>> listStatistical(Map map);
     /**
      *查询销售订单明细
      * @return
      */
-    List<Map<String,Object>> listStatisticalOrder(Map map);
+    PageInfo<Map<String,Object>> listStatisticalOrder(Map map);
 
     /**
      *查询前十畅销商品
      * @return
      */
-    List<Map<String,Object>> listStatisticalProduct();
+    PageInfo<Map<String,Object>> listStatisticalProduct();
 
 
     /**
      *销售毛利明细
      * @return
      */
-    List<Map<String,Object>> listSalesGross(Map map);
+    PageInfo<Map<String,Object>> listSalesGross(Map map);
 
 }

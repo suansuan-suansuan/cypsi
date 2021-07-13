@@ -9,11 +9,10 @@
         <result property="ontactNumber" column="ontact_number" jdbcType="VARCHAR"/>
         <result property="depotAddress" column="depot_address" jdbcType="VARCHAR"/>
         <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
-        <result property="state" column="state" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="BaseDepotCol">
-        depot_id, depot_name, u_id, ontact_number, depot_address, remarks, state    </sql>
+        depot_id, depot_name, u_id, ontact_number, depot_address, remarks    </sql>
 
     <!--查询单个-->
     <select id="queryById" resultMap="BaseDepotMap">
@@ -25,6 +24,13 @@
 
     <!--查询所有-->
     <select id="queryAll" resultMap="BaseDepotMap">
+        select
+        <include refid="BaseDepotCol"></include>
+        from cypsi.base_depot
+    </select>
+
+    <!--查询所有-->
+    <select id="queryAllWWWW" resultMap="BaseDepotMap">
         select
         <include refid="BaseDepotCol"></include>
         from cypsi.base_depot
@@ -54,9 +60,6 @@
             <if test="remarks != null and remarks != ''">
                 or remarks like CONCAT('%',#{remarks},'%')
             </if>
-            <if test="state != null">
-                or state like CONCAT('%',#{state},'%')
-            </if>
         </where>
     </select>
 
@@ -84,60 +87,17 @@
             <if test="remarks != null and remarks != ''">
                 and remarks = #{remarks}
             </if>
-            <if test="state != null">
-                and state = #{state}
-            </if>
         </where>
     </select>
 
-    <!--新增所有列-->
+    <!--新增所有列 -->  <!--useGeneratedKeys允许使用自动生成的主键  keyProperty实体类中的主键属性名  -->
     <insert id="insert">
-        insert into cypsi.base_depot
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-
-            <if test="depotName != null">
-                depot_name,
-            </if>
-            <if test="uId != null">
-                u_id,
-            </if>
-            <if test="ontactNumber != null">
-                ontact_number,
-            </if>
-            <if test="depotAddress != null">
-                depot_address,
-            </if>
-            <if test="remarks != null">
-                remarks,
-            </if>
-            <if test="state != null">
-                state,
-            </if>
-        </trim>
-        values
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-
-            <if test="depotName != null">
-                #{depotName},
-            </if>
-            <if test="uId != null">
-                #{uId},
-            </if>
-            <if test="ontactNumber != null">
-                #{ontactNumber},
-            </if>
-            <if test="depotAddress != null">
-                #{depotAddress},
-            </if>
-            <if test="remarks != null">
-                #{remarks},
-            </if>
-            <if test="state != null">
-                #{state},
-            </if>
-        </trim>
+        insert into base_depot (depot_id ,depot_name ,u_id,ontact_number,depot_address ,remarks) values (#{depotId},#{depotName},#{uId},#{ontactNumber},#{depotAddress},#{remarks});
 
     </insert>
+
+
+
 
     <!--通过主键修改数据-->
     <update id="update">
@@ -158,12 +118,13 @@
             <if test="remarks != null">
                 remarks = #{remarks},
             </if>
-            <if test="state != null">
-                state = #{state},
-            </if>
         </set>
         where depot_id = #{depotId}
     </update>
+    <update id="updateBatch"></update>
+
+
+
 
     <!--通过主键删除数据-->
     <delete id="deleteById">

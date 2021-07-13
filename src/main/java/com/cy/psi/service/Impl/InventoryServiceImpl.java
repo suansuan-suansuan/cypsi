@@ -2,6 +2,8 @@ package com.cy.psi.service.Impl;
 
 import com.cy.psi.dao.InventoryDao;
 import com.cy.psi.service.InventoryService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,14 +24,43 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
 
-
     /**
-     * dfy查询库存明细
+     * 查询库存明细
      * @return
      */
     @Override
-    public List<Map<String, Object>> listProduct(Map map) {
-        return inventoryDao.listProduct(map);
+    public PageInfo<Map<String, Object>> listProduct(Map map) {
+        PageHelper.startPage((int)map.get("page"),(int)map.get("pageSize"));
+        List<Map<String, Object>> maps = inventoryDao.listProduct(map);
+        PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(maps);
+        return mapPageInfo;
+    }
+
+    /**
+     * 库存商品报警
+     *
+     * @param map
+     * @return
+     */
+    @Override
+    public PageInfo<Map<String, Object>> findInventoryAlarm(Map map) {
+        PageHelper.startPage((int)map.get("page"),(int)map.get("pageSize"));
+        List<Map<String, Object>> maps = inventoryDao.inventoryAlarm(map);
+        PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(maps);
+        return mapPageInfo;
+    }
+
+    /**
+     * 查询过期商品
+     * @param map
+     * @return
+     */
+    @Override
+    public PageInfo<Map<String, Object>> findGoodOut(Map map) {
+        PageHelper.startPage((int)map.get("page"),(int)map.get("pageSize"));
+        List<Map<String, Object>> maps = inventoryDao.listGood(map);
+        PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(maps);
+        return mapPageInfo;
     }
 
     @Override

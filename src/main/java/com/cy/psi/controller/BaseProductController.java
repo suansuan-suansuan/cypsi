@@ -1,7 +1,9 @@
 package com.cy.psi.controller;
 
 import com.cy.psi.entity.BaseProduct;
+
 import com.cy.psi.vo.form.BaseProductQueryForm;
+
 import com.cy.psi.service.BaseProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,9 @@ import java.util.List;
  * @since 2021-07-12 17:52:38
  */
 @RestController
-@CrossOrigin
 @Slf4j
+@CrossOrigin
+@RequestMapping("baseProduct")
 public class BaseProductController {
     /**
      * 服务对象
@@ -119,5 +122,11 @@ public class BaseProductController {
     @DeleteMapping("/baseProduct/batch")
     public boolean deleteBatch(@RequestBody List<Integer> ids) {
         return this.baseProductService.deleteBatch(ids);
+    }
+
+    @GetMapping("/GenJuselectAll")
+    public List<BaseProduct> GenJuselectAll(){
+        List<BaseProduct> Bacv =baseProductService.GenJuselectAll();
+        return Bacv;
     }
 }

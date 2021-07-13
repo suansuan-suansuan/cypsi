@@ -1,6 +1,8 @@
-package com.cy.psi.service.impl;
+package com.cy.psi.service.Impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.cy.psi.entity.BaseProduct;
+import com.cy.psi.vo.BaseProductVo;
 import com.cy.psi.vo.form.BaseProductQueryForm;
 import com.cy.psi.dao.BaseProductDao;
 import com.cy.psi.service.BaseProductService;
@@ -12,6 +14,7 @@ import java.util.List;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * (BaseProduct)表服务实现类
@@ -23,6 +26,11 @@ import com.github.pagehelper.PageInfo;
 public class BaseProductServiceImpl implements BaseProductService {
     @Resource
     private BaseProductDao baseProductDao;
+
+    @Override
+    public List<BaseProduct> GenJuselectAll() {
+        return baseProductDao.GenJuselectAll();
+    }
 
     /**
      * 通过ID查询单条数据
@@ -80,6 +88,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @param baseProduct 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public BaseProduct insert(BaseProduct baseProduct) {
         this.baseProductDao.insert(baseProduct);
@@ -93,6 +102,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @return 影响行数
      */
     @Override
+    @Transactional
     public boolean insertBatch(List<BaseProduct> BaseProductList) {
         return this.baseProductDao.insertBatch(BaseProductList) == -1;
     }
@@ -103,6 +113,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @param baseProduct 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public BaseProduct update(BaseProduct baseProduct) {
         this.baseProductDao.update(baseProduct);
@@ -116,6 +127,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @return 影响行数
      */
     @Override
+    @Transactional
     public boolean updateBatch(List<BaseProduct> baseProductList) {
         return this.baseProductDao.updateBatch(baseProductList) == -1;
     }
@@ -126,6 +138,7 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @param productId 主键
      * @return 是否成功
      */
+    @Transactional
     @Override
     public boolean deleteById(Integer productId) {
         return this.baseProductDao.deleteById(productId) > 0;
@@ -138,8 +151,14 @@ public class BaseProductServiceImpl implements BaseProductService {
      * @return 影响行数
      */
     @Override
+    @Transactional
     public boolean deleteBatch(List<Integer> ids) {
         int row = this.baseProductDao.deleteBatch(ids);
         return ids.size() == row;
+    }
+
+    @Override
+    public JSONArray queryAllProduct() {
+        return this.baseProductDao.queryAllProduct();
     }
 }

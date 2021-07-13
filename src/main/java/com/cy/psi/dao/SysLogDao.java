@@ -1,6 +1,7 @@
 package com.cy.psi.dao;
 
 import com.cy.psi.entity.Log;
+import com.cy.psi.vo.SysLogVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +19,5 @@ public interface SysLogDao {
 
     int addSysLog(Log log);
 
-    List<Log> findAllLog();
+    List<SysLogVo> findAllLog();
 }

@@ -26,8 +26,6 @@ public class BaseDepotQueryForm implements Serializable {
 
     private String remarks;
 
-    private Integer state;
-
     private Integer pageNum;    //当前页
     private Integer pageSize;   //页大小
 

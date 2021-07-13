@@ -3,6 +3,7 @@ package com.cy.psi.service.Impl;
 import com.cy.psi.dao.SysLogDao;
 import com.cy.psi.entity.Log;
 import com.cy.psi.service.SysLogService;
+import com.cy.psi.vo.SysLogVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +44,10 @@ public class SysLogServiceImpl implements SysLogService {
      * @Since version-1.0
      */
     @Override
-    public PageInfo<Log> findAllLog(int page, int size) {
-        PageHelper.startPage(page,size);
-        List<Log> logList = sysLogDao.findAllLog();
-        PageInfo<Log> pageInfo=new PageInfo<>(logList);
+    public PageInfo<SysLogVo>findAllLog(int page,int size){
+        PageHelper.startPage(page, size);
+        List<SysLogVo> logList = sysLogDao.findAllLog();
+        PageInfo<SysLogVo> pageInfo =new PageInfo<>(logList);
         return pageInfo;
     }
 

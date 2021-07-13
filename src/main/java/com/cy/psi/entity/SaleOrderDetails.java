@@ -34,17 +34,17 @@ public class SaleOrderDetails implements Serializable {
     /**
      * 所属仓库id
      */
-    private String depot;
+    private String depotId;
 
     /**
      * 单价（元）
      */
-    private BigDecimal saleUnitPrice;
+    private Double saleUnitPrice;
 
     /**
      * 金额（元）
      */
-    private BigDecimal saleMoney;
+    private Double saleMoney;
 
     private static final long serialVersionUID = 1L;
 }
