@@ -1,4 +1,4 @@
-package com.cy.psi.service.impl;
+package com.cy.psi.service.Impl;
 
 import com.cy.psi.entity.BaseDepot;
 import com.cy.psi.vo.form.BaseDepotQueryForm;
@@ -46,6 +46,11 @@ public class BaseDepotServiceImpl implements BaseDepotService {
         Page<BaseDepot> page = PageHelper.startPage(baseDepotQueryForm.getPageNum(), baseDepotQueryForm.getPageSize());
         List<BaseDepot> baseDepotList = this.baseDepotDao.queryAll(baseDepotQueryForm);
         return new PageInfo<>(baseDepotList);
+    }
+
+    @Override
+    public List<BaseDepot> queryAllWWWW() {
+        return baseDepotDao.queryAllWWWW();
     }
 
     /**

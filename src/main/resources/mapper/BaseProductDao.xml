@@ -1,27 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cy.psi.dao.BaseProductDao">
-
-    <resultMap type="com.cy.psi.entity.BaseProduct" id="BaseProductMap">
-        <result property="productId" column="product_id" jdbcType="INTEGER"/>
-        <result property="productNumber" column="product_number" jdbcType="VARCHAR"/>
-        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
-        <result property="unitId" column="unit_id" jdbcType="INTEGER"/>
-        <result property="productSpec" column="product_spec" jdbcType="VARCHAR"/>
-        <result property="purchaseMoney" column="purchase_money" jdbcType="NUMERIC"/>
-        <result property="costPrice" column="cost_price" jdbcType="NUMERIC"/>
-        <result property="purchaseUnitPrice" column="purchase_unit_price" jdbcType="NUMERIC"/>
-        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
-        <result property="expiration" column="expiration" jdbcType="TIMESTAMP"/>
-        <result property="state" column="state" jdbcType="INTEGER"/>
-        <result property="vendorNumber" column="vendor_number" jdbcType="VARCHAR"/>
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.BaseProduct">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_number" jdbcType="VARCHAR" property="productNumber" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="unit_id" jdbcType="INTEGER" property="unitId" />
+    <result column="product_spec" jdbcType="VARCHAR" property="productSpec" />
+    <result column="purchase_money" jdbcType="DECIMAL" property="purchaseMoney" />
+    <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+    <result column="purchase_unit_price" jdbcType="DECIMAL" property="purchaseUnitPrice" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="expiration" jdbcType="TIMESTAMP" property="expiration" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="vendor_number" jdbcType="VARCHAR" property="vendorNumber" />
+  </resultMap>
+    <resultMap id="BaseProductVo" type="com.cy.psi.vo.BaseProductVo">
+        <id column="product_id" jdbcType="INTEGER" property="productId" />
+        <result column="product_number" jdbcType="VARCHAR" property="productNumber" />
+        <result column="product_name" jdbcType="VARCHAR" property="productName" />
+        <result column="unit_id" jdbcType="INTEGER" property="unitId" />
+        <result column="product_spec" jdbcType="VARCHAR" property="productSpec" />
+        <result column="purchase_money" jdbcType="DECIMAL" property="purchaseMoney" />
+        <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+        <result column="purchase_unit_price" jdbcType="DECIMAL" property="purchaseUnitPrice" />
+        <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+        <result column="expiration" jdbcType="TIMESTAMP" property="expiration" />
+        <result column="state" jdbcType="INTEGER" property="state" />
+        <result column="vendor_number" jdbcType="VARCHAR" property="vendorNumber" />
+        <result column="inventory_quantity" jdbcType="VARCHAR" property="inventoryQuantity" />
     </resultMap>
+  <sql id="Base_Column_List">
+    product_id, product_number, product_name, unit_id, product_spec, purchase_money, 
+    cost_price, purchase_unit_price, remarks, `expiration`, `state`
+  </sql>
 
+  <!--查询所有产品数据  -->
+  <select id="selectAll" parameterType="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from base_product
+  </select>
+
+  <!--根据供货商 查询产品  -->
+  <select id="GenJuselectAll" parameterType="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+     from base_product
+  </select>
     <sql id="BaseProductCol">
         product_id, product_number, product_name, unit_id, product_spec, purchase_money, cost_price, purchase_unit_price, remarks, expiration, state, vendor_number    </sql>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="BaseProductMap">
+    <select id="queryById" resultMap="BaseResultMap">
         select
         <include refid="BaseProductCol"></include>
         from cypsi.base_product
@@ -29,14 +60,14 @@
     </select>
 
     <!--查询所有-->
-    <select id="queryAll" resultMap="BaseProductMap">
+    <select id="queryAll" resultMap="BaseResultMap">
         select
         <include refid="BaseProductCol"></include>
         from cypsi.base_product
     </select>
 
     <!--通过实体作为或者条件查询-->
-    <select id="queryOrByPojo" resultMap="BaseProductMap">
+    <select id="queryOrByPojo" resultMap="BaseResultMap">
         select
         <include refid="BaseProductCol"></include>
         from cypsi.base_product
@@ -81,7 +112,7 @@
     </select>
 
     <!--通过实体作为并且条件查询-->
-    <select id="queryAndByPojo" resultMap="BaseProductMap">
+    <select id="queryAndByPojo" resultMap="BaseResultMap">
         select
         <include refid="BaseProductCol"></include>
         from cypsi.base_product
@@ -123,6 +154,11 @@
                 and vendor_number = #{vendorNumber}
             </if>
         </where>
+    </select>
+    <select id="queryAllProduct" resultType="com.alibaba.fastjson.JSONObject">
+        select  i.*,b.product_number,b.remarks,b.product_spec from base_product b
+                                                                       inner join inventory i on i.product_id=b.product_id
+        where i.inventory_quantity>0
     </select>
 
     <!--新增所有列-->
@@ -389,4 +425,8 @@
         </foreach>
     </delete>
 </mapper>
+
+
+
+
 

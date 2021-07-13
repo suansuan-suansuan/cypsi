@@ -2,6 +2,7 @@ package com.cy.psi.dao;
 
 import com.cy.psi.entity.SaleOrderDetails;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -39,5 +40,5 @@ public interface SaleOrderDetailsDao {
      * 新增多条数据
      * @param orderdetails
      */
-    void insertBatch(List<SaleOrderDetails> orderdetails);
+    void insertBatch(@Param("entities") List<SaleOrderDetails> orderdetails);
 }
