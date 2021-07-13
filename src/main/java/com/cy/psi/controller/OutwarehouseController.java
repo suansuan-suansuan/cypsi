@@ -43,8 +43,8 @@ public class OutwarehouseController {
 
     //     高级分页查询出库单
     @GetMapping("/selectBylikeOutwarehouse")
-    public PageInfo<SaleDelivery> selectBylikeOutwarehouse(@RequestParam("currentPage") int currentPage,
-                                                               @RequestParam("pagesize") int pagesize,
+    public PageInfo<SaleDelivery> selectBylikeOutwarehouse(@RequestParam("currentPage") Integer currentPage,
+                                                               @RequestParam("pagesize") Integer pagesize,
                                                                @RequestParam(value ="Starttime",required = false) String Starttime,
                                                                @RequestParam(value ="Endtime",required = false) String Endtime,
                                                                @RequestParam(value ="salesmen",required = false) String salesmen,

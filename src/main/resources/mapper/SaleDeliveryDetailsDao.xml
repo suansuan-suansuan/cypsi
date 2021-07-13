@@ -19,13 +19,10 @@
     from sale_delivery_details
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="queryById" resultType="com.cy.psi.entity.SaleDeliveryDetails">
-    select a.id, a.delivery_order_id,   a.product_id, b.product_name, a.product_num,
-           b.product_spec,
-            a.depot_id,  a.sale_unit_price,  a.sale_money
-    from sale_delivery_details a
-           INNER JOIN base_product b on a.product_id=b.product_number
-    where delivery_id = #{deliveryId}
+  <select id="queryById" resultMap="BaseResultMap">
+    select *
+    from sale_delivery_details
+    where delivery_order_id = #{id}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sale_delivery_details

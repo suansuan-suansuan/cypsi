@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * GoodsService
@@ -53,12 +55,12 @@ public class Goods implements Serializable {
     /**
      * 仓库ID
      */
-    private String depotId;
+    private Integer depotId;
 
     /**
      * 采购订单
      */
-    private String puorderId;
+    private Integer puorderId;
 //删除状态
     private Integer timeLiness;
 

@@ -259,8 +259,8 @@ public class SysController {
      * @Since version-1.0
      */
     @GetMapping("/getAllLog")
-    public AjaxResponse getAllLog(){
-        return AjaxResponse.success(sysLogService.findAllLog());
+    public AjaxResponse getAllLog(int page,int size){
+        return AjaxResponse.success(sysLogService.findAllLog(page,size));
     }
 
 

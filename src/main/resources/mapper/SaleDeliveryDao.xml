@@ -231,7 +231,7 @@
   <select id="selectBylikeOutwarehouse" resultMap="SaleDeliveryMap">
     select * from cypsi.sale_delivery
     <where>
-      <if test="Starttime!=null and Endtime!=null">
+      <if test="Starttime!=null || Endtime!=null">
         and delivery_order_time between #{Starttime} and #{Endtime}
       </if>
       <if test="salesmen!=null || salesmen!=''">

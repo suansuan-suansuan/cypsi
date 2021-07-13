@@ -1,27 +1,37 @@
-POST http://localhost:8089/cypsi/sys/test
-Content-Type: application/json
+#POST http://localhost:8089/cypsi/sys/test
+#Content-Type: application/json
+#
+#{}
+#
+####
+#GET http://localhost:8089/cypsi/sys/getAllDept
+#Content-Type: application/json
+####
+#GET http://localhost:8089/cypsi/sys/addDept/4
+#Accept: application/json
+#
+####
+#GET http://localhost:8089/cypsi/sys/getAllUser
+#Accept: application/json
 
-{}
+####
+#GET http://localhost:8089/cypsi/sys/getAllMenu
+#Accept: application/json
+#
+####
+#GET http://localhost:8089/cypsi/sys/getRoleAndMenu/1414646079936360448
+#Accept: application/json
+#
+####
+#GET http://localhost:8089/cypsi/sys/getAllLog
+#Accept: application/json
 
 ###
-GET http://localhost:8089/cypsi/sys/getAllDept
-Content-Type: application/json
-###
-GET http://localhost:8089/cypsi/sys/addDept/4
+GET http://localhost:8089/cypsi/sys/getAllLog?page=1&size =3
 Accept: application/json
 
 ###
-GET http://localhost:8089/cypsi/sys/getAllUser
+GET http://localhost:8089/cypsi/sys/getRoleAndMenu/1414759088503418880
 Accept: application/json
 
 ###
-GET http://localhost:8089/cypsi/sys/getAllMenu
-Accept: application/json
-
-###
-GET http://localhost:8089/cypsi/sys/getRoleAndMenu/1414646079936360448
-Accept: application/json
-
-###
-GET http://localhost:8089/cypsi/sys/getAllLog
-Accept: application/json

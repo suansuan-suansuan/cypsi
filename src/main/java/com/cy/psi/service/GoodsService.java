@@ -23,7 +23,7 @@ public interface GoodsService {
     List<Goods> selectBylikeGoods(String Starttime, String Endtime, String goodsZt, Integer goodsState);
 
     //审核   出库单
-    Integer GoodsAudit( Integer goodsZt,String puorderTimestamp,Integer goodsId);
+    Integer GoodsAudit( Integer goodsZt,Integer goodsId);
 
     //逻辑删除
     Integer DelGoods( Integer timeLiness,Integer goodsId);
