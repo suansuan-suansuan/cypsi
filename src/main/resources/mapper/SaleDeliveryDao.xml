@@ -37,14 +37,14 @@
   </delete>
   <insert id="insert"  parameterType="com.cy.psi.entity.SaleDelivery" keyColumn="delivery_order_id" keyProperty="deliveryOrderId">
     insert into sale_delivery (delivery_order_id,delivery_order_time, customer, salesmen,
-      receivables, remarks, approver, 
-      found_time, update_time, approval_time, 
-      approval_state, delivery_state, order_state, 
+      receivables, remarks, approver,
+      found_time, update_time, approval_time,
+      approval_state, delivery_state, order_state,
       sale_order_Id)
     values(#{deliveryOrderId,jdbcType=VARCHAR},#{deliveryOrderTime,jdbcType=TIMESTAMP}, #{customer,jdbcType=VARCHAR}, #{salesmen,jdbcType=VARCHAR},
-      #{receivables,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR}, 
-      #{foundTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{approvalTime,jdbcType=TIMESTAMP}, 
-      #{approvalState,jdbcType=INTEGER}, #{deliveryState,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER}, 
+      #{receivables,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR},
+      #{foundTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{approvalTime,jdbcType=TIMESTAMP},
+      #{approvalState,jdbcType=INTEGER}, #{deliveryState,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER},
       #{saleOrderId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="delivery_order_id" keyProperty="deliveryOrderId" parameterType="com.cy.psi.entity.SaleDelivery" useGeneratedKeys="true">
@@ -250,10 +250,9 @@
     update cypsi.sale_delivery  set delivery_state=#{deliveryState} where delivery_order_id=#{deliveryOrderId}
   </update>
 
-
     <!--查询销售商品明细-->
     <select id="listStatistical" resultType="java.util.Map" parameterType="map">
-        select bc.customer_name,
+        select s.customer,
         bp.product_number,
         bp.product_name,
         s.delivery_order_time,
@@ -265,8 +264,7 @@
         su.u_name
         from sale_delivery s
         join sale_delivery_details sdd on s.delivery_order_id = sdd.delivery_order_id
-        join base_depot bd on bd.depot_id = sdd.depot
-        join base_customer bc on bc.customer_id = s.customer
+        join base_depot bd on bd.depot_id = sdd.depot_id
         join base_product bp on bp.product_id = sdd.product_id
         join base_unit bu on bu.unit_id = bp.unit_id
         join sys_user su on su.u_id = s.salesmen
@@ -278,7 +276,7 @@
             and bp.product_number like concat('%',trim(#{code}),'%')
         </if>
         <if test="name!=''">
-            and bp.product_name like  concat('%',trim(#{name}),'%')
+            and s.customer like  concat('%',trim(#{name}),'%')
         </if>
     </select>
 
@@ -297,16 +295,13 @@
                bu.unit_name,
                bc.customer_name,
                sod.product_num,
-               sod.sale_money,
-               sdd.product_num ycxnum,
-               sdd.sale_money ycxmoney
+               sod.sale_money
         from sale_order so
-                 join sale_order_details sod on so.sale_order_Id = sod.sale_order_Id
-                 join base_product bp on bp.product_id = sod.product_id
-                 join base_unit bu on bp.unit_id = bu.unit_id
-                 join base_customer bc on so.customer = bc.customer_id
-                 join sale_delivery sd on sd.sale_order_Id = so.sale_order_Id
-                 join sale_delivery_details sdd on sdd.delivery_order_id = sd.delivery_order_id
+        join  sale_order_details sod on so.sale_order_Id = sod.sale_order_Id
+        join base_product bp on bp.product_id = sod.product_id
+        join base_unit bu on bp.unit_id = bu.unit_id
+        join base_customer bc on so.customer = bc.customer_number
+        join sale_delivery sd on sd.sale_order_Id = so.sale_order_Id
         where 1 = 1
         <if test="startTime!='' and endTime!=''">
             and (so.sale_order_time between #{startTime} and DATE_ADD(#{endTime},INTERVAL 1 DAY))
@@ -333,7 +328,7 @@
         from sale_delivery sd
         join sale_delivery_details sdd on sd.delivery_order_id = sdd.delivery_order_id
         join base_product bp on sdd.product_id = bp.product_id
-        join base_customer bc on sd.customer = bc.customer_id
+        join base_customer bc on sd.customer = bc.customer_name
         join base_unit bu on bp.unit_id = bu.unit_id
         join inventory i on bp.product_id = i.product_id
         where 1 = 1
@@ -348,15 +343,13 @@
         </if>
     </select>
 
-    <!--查询前10畅销商品-->
-    <select id="listStatisticalProduct" resultType="java.util.Map">
-        select bp.product_number,bd.depot_name,sdd.product_num,bp.product_name,bp.product_spec,bu.unit_name
-        from sale_delivery_details sdd
-        join base_product bp on sdd.product_id = bp.product_id
-        join inventory i on bp.product_id = i.product_id
-        join base_depot bd on i.depot_id = bd.depot_id
-        join base_unit bu on bp.unit_id = bu.unit_id
+    <!--收付款-->
+    <select id="CollectionAndPayment" resultType="map">
+        select (select sum(sd.sale_money) zsr from sale_delivery_details sd) sk,
+               (select sum(Puorders_num * Puorders_Price) fz from Warehousings)  fk
+        from dual
     </select>
+
 
     <!--通过主键删除-->
     <delete id="deleteById">

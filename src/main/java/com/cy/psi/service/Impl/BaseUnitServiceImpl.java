@@ -22,16 +22,13 @@ import java.util.List;
 public class BaseUnitServiceImpl implements BaseUnitService {
     @Resource
     private BaseUnitDao baseUnitDao;
+
     /**
-     * 查询所有数据
-     *
-     * @param baseUnitQueryForm 实例对象
-     * @return 实例对象
+     * 下拉框查询所有单位数据
+     * @return
      */
     @Override
-    public PageInfo<BaseUnit> queryAll(BaseUnitQueryForm baseUnitQueryForm) {
-        Page<BaseUnit> page = PageHelper.startPage(baseUnitQueryForm.getPageNum(), baseUnitQueryForm.getPageSize());
-        List<BaseUnit> baseUnitList = this.baseUnitDao.queryAll(baseUnitQueryForm);
-        return new PageInfo<>(baseUnitList);
+    public List<BaseUnit> selectAll() {
+        return this.baseUnitDao.queryAll();
     }
 }
