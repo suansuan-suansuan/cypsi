@@ -33,6 +33,12 @@ public class PuorderSericeImpl implements PuorderSerice {
     }
 
     @Override
+    public List<CypsiPuorder> selectAllWJgg() {
+        log.debug("查询所有");
+        return cypsiPuorderDao.selectAllWJgg();
+    }
+
+    @Override
     public List<CypsiPuorder> selectAllSJ(String Starttime, String Endtime) {
         return cypsiPuorderDao.selectAllSJ(Starttime, Endtime);
     }
@@ -80,5 +86,10 @@ public class PuorderSericeImpl implements PuorderSerice {
         log.debug("修改到了");
         cypsiPuorderDao.updatePuo(cypsiPuorder);
         return cypsiPuorder;
+    }
+
+    @Override
+    public void insertPuS(CypsiPuorder saleOrder) {
+        cypsiPuorderDao.insertPu(saleOrder);
     }
 }

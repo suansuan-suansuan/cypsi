@@ -26,6 +26,9 @@ public interface CypsiPuorderDao {
 
     List<CypsiPuorder> selectAll();
 
+    List<CypsiPuorder> selectAllWJgg();
+
+
     List<CypsiPuorder> selectAllSJ(@Param("Starttime") String Starttime, @Param("Endtime") String Endtime);
 
     /**

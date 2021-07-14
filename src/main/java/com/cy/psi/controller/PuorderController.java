@@ -32,6 +32,15 @@ public class PuorderController {
     }
 
 
+    @GetMapping("/selectAllWJgg")
+    public PageInfo<CypsiPuorder> poses1(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize) {
+        PageHelper.startPage(currentPage,pagesize);
+        List<CypsiPuorder> entityPage=puorderSerice.selectAllWJgg();
+        PageInfo<CypsiPuorder> BookVoPageInfo1=new PageInfo<>(entityPage);
+        return  BookVoPageInfo1;
+    }
+
+
     @GetMapping("selectAllSJ")
     public PageInfo<CypsiPuorder> selectAllSJ(@RequestParam("currentPage") int currentPage,
                                               @RequestParam("pagesize") int pagesize,

@@ -15,7 +15,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    vendor_id, vendor_number, vendor_name, fund_account, u_id, contact_name,
+    vendor_id, vendor_number, vendor_name, fund_account, u_id,  contact_name,
     contact_address, contact_number, remarks
   </sql>
 
@@ -67,6 +67,7 @@
       <if test="uId != null and uId != ''">
         or u_id like CONCAT('%',#{uId},'%')
       </if>
+
       <if test="contactName != null and contactName != ''">
         or contact_name like CONCAT('%',#{contactName},'%')
       </if>
@@ -103,6 +104,7 @@
       <if test="uId != null and uId != ''">
         and u_id = #{uId}
       </if>
+
       <if test="contactName != null and contactName != ''">
         and contact_name = #{contactName}
       </if>
@@ -119,15 +121,68 @@
   </select>
 
   <!--新增所有列-->
-  <insert id="insert" keyColumn="vendor_id" keyProperty="vendorId" parameterType="com.cy.psi.entity.BaseVendor" useGeneratedKeys="true">
-    insert into base_vendor (vendor_number, vendor_name, fund_account,
-      u_id, contact_name, contact_address,
-      contact_number, remarks, product_number
-      )
-    values (#{vendorNumber,jdbcType=VARCHAR}, #{vendorName,jdbcType=VARCHAR}, #{fundAccount,jdbcType=VARCHAR},
-      #{uId,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, #{contactAddress,jdbcType=VARCHAR},
-      #{contactNumber,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{productNumber,jdbcType=VARCHAR}
-      )
+  <insert id="insert">
+    insert into cypsi.base_vendor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
+      <if test="vendorNumber != null">
+        vendor_number,
+      </if>
+      <if test="vendorName != null">
+        vendor_name,
+      </if>
+      <if test="fundAccount != null">
+        fund_account,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+
+      <if test="contactName != null">
+        contact_name,
+      </if>
+      <if test="contactAddress != null">
+        contact_address,
+      </if>
+      <if test="contactNumber != null">
+        contact_number,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
+      <if test="vendorNumber != null">
+        #{vendorNumber},
+      </if>
+      <if test="vendorName != null">
+        #{vendorName},
+      </if>
+      <if test="fundAccount != null">
+        #{fundAccount},
+      </if>
+      <if test="uId != null">
+        #{uId},
+      </if>
+      <if test="accountsPayable != null">
+        #{accountsPayable},
+      </if>
+      <if test="contactName != null">
+        #{contactName},
+      </if>
+      <if test="contactAddress != null">
+        #{contactAddress},
+      </if>
+      <if test="contactNumber != null">
+        #{contactNumber},
+      </if>
+      <if test="remarks != null">
+        #{remarks},
+      </if>
+    </trim>
+
   </insert>
 
   <!--通过主键修改数据-->
@@ -146,6 +201,7 @@
       <if test="uId != null">
         u_id = #{uId},
       </if>
+
       <if test="contactName != null">
         contact_name = #{contactName},
       </if>

@@ -135,4 +135,13 @@
       sale_money = #{saleMoney,jdbcType=DECIMAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
+<!--  <insert id="insertBatch">-->
+<!--    insert into sale_order_details(sale_order_id, product_id, product_num, depot_id, sale_unit_price,-->
+<!--    sale_money)-->
+<!--    values-->
+<!--    <foreach collection="entities" item="entity" separator=",">-->
+<!--      (#{entity.saleOrderId}, #{entity.productId}, #{entity.productNum}, #{entity.depotId}, #{entity.saleUnitPrice},-->
+<!--      #{entity.saleMoney})-->
+<!--    </foreach>-->
+<!--  </insert>-->
 </mapper>

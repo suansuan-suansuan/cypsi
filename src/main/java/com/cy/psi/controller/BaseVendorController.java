@@ -13,7 +13,8 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@CrossOrigin("BaseVendor")
+@CrossOrigin
+@RequestMapping("BaseVendor")
 public class BaseVendorController {
     @Resource
     private BaseVendorService baseVendorService;
