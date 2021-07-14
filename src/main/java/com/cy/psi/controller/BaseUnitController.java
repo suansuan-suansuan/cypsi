@@ -27,17 +27,10 @@ public class BaseUnitController {
      */
     @Resource
     private BaseUnitService baseUnitService;
-    
-    /**
-     * 查询所有数据
-     *
-     * @param baseUnitQueryForm 实例对象
-     * @return 实例对象
-     */
-    @GetMapping("/baseUnit")
-    public PageInfo<BaseUnit> queryAll(BaseUnitQueryForm baseUnitQueryForm) {
 
-        return this.baseUnitService.queryAll(baseUnitQueryForm);
+    @GetMapping("/select")
+    public List<BaseUnit> selectAll(){
+        return this.baseUnitService.selectAll();
     }
     
 }

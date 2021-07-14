@@ -17,12 +17,9 @@ import java.util.List;
 public interface BaseUnitDao {
 
     /**
-     * 查询所有数据
-     *
-     * @param baseUnitQueryForm 实例对象
-     * @return 实例对象
+     * 下拉查询所有
+     * @return
      */
-    List<BaseUnit> queryAll(BaseUnitQueryForm baseUnitQueryForm);
-
+    List<BaseUnit> queryAll();
 }
 

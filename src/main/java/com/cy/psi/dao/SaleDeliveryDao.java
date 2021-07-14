@@ -72,11 +72,6 @@ public interface SaleDeliveryDao {
      */
     List<Map<String,Object>> listStatisticalOrder(Map map);
 
-    /**
-     *查询前十畅销商品
-     * @return
-     */
-    List<Map<String,Object>> listStatisticalProduct();
 
     /**
      * 销售毛利明细表
@@ -85,6 +80,10 @@ public interface SaleDeliveryDao {
      */
     List<Map<String,Object>> listSalesGross(Map map);
 
-
+    /**
+     * 查询收付款
+     * @return
+     */
+    List<Map<String,Object>> CollectionAndPayment();
 
 }

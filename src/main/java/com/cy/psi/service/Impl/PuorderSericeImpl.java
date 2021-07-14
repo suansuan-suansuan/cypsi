@@ -68,7 +68,7 @@ public class PuorderSericeImpl implements PuorderSerice {
      * @return
      */
     @Override
-    public PageInfo<Map<String, Object>> PurchaseOrder(Map map) {
+    public PageInfo<Map<String, Object>> findPurchaseOrder(Map map) {
         PageHelper.startPage((int) map.get("page"), (int) map.get("pageSize"));
         List<Map<String, Object>> maps = cypsiPuorderDao.PurchaseOrder(map);
         PageInfo<Map<String, Object>> mapPageInfo = new PageInfo<>(maps);

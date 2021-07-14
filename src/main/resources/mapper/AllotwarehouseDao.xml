@@ -45,7 +45,6 @@
         <result property="costPrice" column="cost_price" jdbcType="NUMERIC"/>
         <result property="purchaseUnitPrice" column="purchase_unit_price" jdbcType="NUMERIC"/>
         <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
-        <result property="expirationTime" column="expiration_time" jdbcType="TIMESTAMP"/>
         <result property="state" column="state" jdbcType="INTEGER"/>
         <result property="vendorNumber" column="vendor_number" jdbcType="VARCHAR"/>
     </resultMap>
@@ -86,7 +85,7 @@
 <!--    新增调拨单-->
     <insert id="insertAllotwarehouse" parameterType="com.cy.psi.entity.Allotwarehouse" useGeneratedKeys="true" keyProperty="channelid">
         insert into cypsi.Allotwarehouse(serial_number,documentMaker,transferred_to_the_warehouse,bring_up_the_warehouse,channelid)
-        values (#{serialNumber},#{documentmaker},#{transferredtothewarehouse},#{bringupthewarehouse},#{channelid})
+        values ('TSYB1626376010738','唐子',#{transferredtothewarehouse},#{bringupthewarehouse},#{channelid})
     </insert>
 <!--出库-->
     <resultMap id="ChuMap" type="com.cy.psi.entity.SaleDelivery">
@@ -107,8 +106,8 @@
     </resultMap>
     <!--  调拨新增调出库单-->
     <insert id="insertSaleDelivery" parameterType="com.cy.psi.entity.SaleDelivery" >
-        insert into cypsi.sale_delivery(remarks,delivery_order_id)
-        values (#{remarks},#{deliveryOrderId})
+        insert into cypsi.sale_delivery(delivery_order_id,salesmen,receivables,remarks)
+        values ('XSCK1626376010738','管理元',5,'单据备注')
     </insert>
 <!--    入库-->
     <resultMap id="RutMap" type="com.cy.psi.entity.Goods">
@@ -139,6 +138,7 @@
     <update id="DelAllotwarehouse" parameterType="com.cy.psi.entity.Allotwarehouse">
         update cypsi.Allotwarehouse set TimeLiness=#{timeLiness} where channelid=#{channelid}
      </update>
+
 
 
 </mapper>

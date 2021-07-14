@@ -31,7 +31,7 @@ public interface PuorderSerice {
      * @param map
      * @return
      */
-    PageInfo<Map<String, Object>> PurchaseOrder(Map map);
+    PageInfo<Map<String, Object>> findPurchaseOrder(Map map);
 
 
     CypsiPuorder updatePuo(CypsiPuorder cypsiPuorder);

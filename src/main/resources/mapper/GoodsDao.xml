@@ -178,4 +178,6 @@
         update cypsi.Goods set TimeLiness=#{timeLiness} where Goods_id=#{goodsId}
      </update>
 
+
+
 </mapper>
