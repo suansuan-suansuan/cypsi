@@ -10,7 +10,7 @@ import lombok.Data;
  * @author 
  */
 @Data
-public class SysMenu implements Serializable {
+public class SysMenu  {
     /**
      * 菜单id
      */

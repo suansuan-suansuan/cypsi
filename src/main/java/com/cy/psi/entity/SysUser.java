@@ -1,7 +1,5 @@
 package com.cy.psi.entity;
 
-import java.io.Serializable;
-
 import com.cy.psi.vo.SysUserReqVo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SysUser implements Serializable {
+public class SysUser {
     /**
      * 用户id
      */
@@ -56,5 +54,5 @@ public class SysUser implements Serializable {
         this.isdisabled=sysUserReqVo.getIsdisabled();
     }
 
-    
+
 }

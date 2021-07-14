@@ -4,14 +4,18 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * sys_role
  * @author 
  */
 @Data
-public class SysRole implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class SysRole {
     /**
      * 角色id
      */
