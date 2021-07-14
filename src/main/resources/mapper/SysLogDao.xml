@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.SysLogDao">
+
+    <resultMap id="logMap" type="com.cy.psi.vo.SysLogVo">
+        <id column="log_id" property="logId" javaType="String"></id>
+        <result column="create_time" property="createTime" javaType="java.sql.Timestamp"></result>
+        <result column="operation" property="operation" javaType="String"></result>
+        <result column="ipaddress" property="ipaddress" javaType="String"></result>
+        <result column="change_info" property="changeInfo" javaType="String"></result>
+        <result column="operation_result" property="operationResult" javaType="String"></result>
+        <association property="user" javaType="com.cy.psi.entity.SysUser">
+            <id column="u_id" property="uId" javaType="String"></id>
+            <result column="u_name" property="uName" javaType="String"></result>
+        </association>
+    </resultMap>
+
+    <insert id="addSysLog" parameterType="com.cy.psi.entity.Log">
+        insert into sys_log values (#{logId},#{createTime},#{uId},#{operation},#{ipaddress}
+        ,#{changeInfo},#{operationResult})
+    </insert>
+
+    <select id="findAllLog" resultMap="logMap">
+        select l.*,u.u_name from sys_log l,sys_user u
+        where l.u_id=u.u_id
+    </select>
+</mapper>

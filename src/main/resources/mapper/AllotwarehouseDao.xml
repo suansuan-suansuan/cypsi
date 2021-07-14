@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.AllotwarehouseDao">
+
+    <resultMap type="com.cy.psi.entity.Allotwarehouse" id="AllotwarehouseMap">
+        <id property="channelid" column="channelid" jdbcType="INTEGER"/>
+        <result property="serialNumber" column="serial_number" jdbcType="VARCHAR"/>
+        <result property="documentationDate" column="documentation_date" jdbcType="TIMESTAMP"/>
+        <result property="transferredtothewarehouse" column="transferred_to_the_warehouse" jdbcType="VARCHAR"/>
+        <result property="bringupthewarehouse" column="bring_up_the_warehouse" jdbcType="VARCHAR"/>
+        <result property="documentmaker" column="documentMaker" jdbcType="VARCHAR"/>
+        <result property="operator" column="operator" jdbcType="VARCHAR"/>
+        <result property="approval" column="approval" jdbcType="INTEGER"/>
+        <result property="auditor" column="auditor" jdbcType="VARCHAR"/>
+        <result property="auditData" column="audit_data" jdbcType="TIMESTAMP"/>
+        <result property="auditSign" column="audit_sign" jdbcType="VARCHAR"/>
+        <result property="timeliness" column="TimeLiness" jdbcType="INTEGER"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <association property="basedepot" javaType="com.cy.psi.entity.BaseDepot">
+            <id property="depotId" column="depot_id" jdbcType="INTEGER"/>
+            <result property="depotName" column="depot_name" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+<!--仓库-->
+    <resultMap type="com.cy.psi.entity.BaseDepot" id="BaseDepotMap">
+        <id property="depotId" column="depot_id" jdbcType="INTEGER"/>
+        <result property="depotName" column="depot_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+<!--查询仓库-->
+    <select id="selectCangku" resultMap="BaseDepotMap">
+        select * from cypsi.base_depot
+        order by depot_id
+    </select>
+
+<!--产品-->
+    <resultMap type="com.cy.psi.entity.BaseProduct" id="BaseProductMap">
+        <id property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="productNumber" column="product_number" jdbcType="VARCHAR"/>
+        <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+        <result property="unitId" column="unit_id" jdbcType="INTEGER"/>
+        <result property="productSpec" column="product_spec" jdbcType="VARCHAR"/>
+        <result property="purchaseMoney" column="purchase_money" jdbcType="NUMERIC"/>
+        <result property="costPrice" column="cost_price" jdbcType="NUMERIC"/>
+        <result property="purchaseUnitPrice" column="purchase_unit_price" jdbcType="NUMERIC"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="vendorNumber" column="vendor_number" jdbcType="VARCHAR"/>
+    </resultMap>
+
+<!--    查询产品-->
+    <select id="selectProduct" resultMap="BaseProductMap">
+        select * from cypsi.base_product
+        order by product_id
+    </select>
+
+
+    <!--连查询调拨单 -->
+    <select id="selectAllotwarehouse" resultMap="AllotwarehouseMap">
+     select * from cypsi.Allotwarehouse a
+      left join cypsi.base_depot b on a.depot_id=b.depot_id
+      where a.TimeLiness=0
+      order by a.channelid
+    </select>
+    <!--高级查询-->
+    <select id="selectBylikeAllotwarehouse" resultMap="AllotwarehouseMap">
+        select * from cypsi.Allotwarehouse a
+        left join cypsi.base_depot b on a.depot_id=b.depot_id
+        <where>
+            <if test="serialNumber!=null || serialNumber!=''">
+                and a.serial_number like concat('%',#{serialNumber},'%')
+            </if>
+            <if test="documentmaker!=null and documentmaker!=''">
+                and a.documentMaker like concat('%',#{documentmaker},'%')
+            </if>
+            <if test="depotName!=null || depotName!=''">
+                and b.depot_name like concat('%',#{depotName},'%')
+            </if>
+        </where>
+        and a.TimeLiness = 0
+        order by a.channelid
+    </select>
+
+<!--    新增调拨单-->
+    <insert id="insertAllotwarehouse" parameterType="com.cy.psi.entity.Allotwarehouse" useGeneratedKeys="true" keyProperty="channelid">
+        insert into cypsi.Allotwarehouse(serial_number,documentMaker,transferred_to_the_warehouse,bring_up_the_warehouse,channelid)
+        values ('TSYB1626376010738','唐子',#{transferredtothewarehouse},#{bringupthewarehouse},#{channelid})
+    </insert>
+<!--出库-->
+    <resultMap id="ChuMap" type="com.cy.psi.entity.SaleDelivery">
+        <id column="delivery_order_id" jdbcType="VARCHAR" property="deliveryOrderId"/>
+        <result column="delivery_order_time" jdbcType="TIMESTAMP" property="deliveryOrderTime"/>
+        <result column="customer" jdbcType="VARCHAR" property="customer"/>
+        <result column="salesmen" jdbcType="VARCHAR" property="salesmen"/>
+        <result column="receivables" jdbcType="DECIMAL" property="receivables"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="approver" jdbcType="VARCHAR" property="approver"/>
+        <result column="found_time" jdbcType="TIMESTAMP" property="foundTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="approval_time" jdbcType="TIMESTAMP" property="approvalTime"/>
+        <result column="approval_state" jdbcType="INTEGER" property="approvalState"/>
+        <result column="delivery_state" jdbcType="INTEGER" property="deliveryState"/>
+        <result column="order_state" jdbcType="INTEGER" property="orderState"/>
+        <result column="sale_order_Id" jdbcType="VARCHAR" property="saleOrderId"/>
+    </resultMap>
+    <!--  调拨新增调出库单-->
+    <insert id="insertSaleDelivery" parameterType="com.cy.psi.entity.SaleDelivery" >
+        insert into cypsi.sale_delivery(delivery_order_id,salesmen,receivables,remarks)
+        values ('XSCK1626376010738','管理元',5,'单据备注')
+    </insert>
+<!--    入库-->
+    <resultMap id="RutMap" type="com.cy.psi.entity.Goods">
+        <id column="Goods_id" jdbcType="INTEGER" property="goodsId" />
+        <result column="Puorder_Timestamp" jdbcType="TIMESTAMP" property="puorderTimestamp" />
+        <result column="Approval" jdbcType="INTEGER" property="approval" />
+        <result column="Goods_Zt" jdbcType="INTEGER" property="goodsZt" />
+        <result column="AppTime" jdbcType="TIMESTAMP" property="apptime" />
+        <result column="Goods_state" jdbcType="VARCHAR" property="goodsState" />
+        <result column="Explain" jdbcType="VARCHAR" property="explain" />
+        <result column="depot_id" jdbcType="INTEGER" property="depotId" />
+        <result column="Puorder_id" jdbcType="INTEGER" property="puorderId" />
+        <result column="TimeLiness" jdbcType="INTEGER" property="timeLiness" />
+    </resultMap>
+
+    <!-- 调拨新增调入库单-->
+    <insert id="insertGoods" parameterType="com.cy.psi.entity.Goods" useGeneratedKeys="true" keyProperty="goodsId">
+        insert into cypsi.Goods(Puorder_id,depot_id)
+        values (#{puorderId},#{depotId})
+    </insert>
+
+    <!--审核  调拨单-->
+    <update id="AllotwarehouseAudit" parameterType="com.cy.psi.entity.Allotwarehouse">
+    update cypsi.Allotwarehouse  set approval=#{approval} where channelid=#{channelid}
+  </update>
+
+    <!--逻辑删除 -->
+    <update id="DelAllotwarehouse" parameterType="com.cy.psi.entity.Allotwarehouse">
+        update cypsi.Allotwarehouse set TimeLiness=#{timeLiness} where channelid=#{channelid}
+     </update>
+
+
+
+</mapper>
+

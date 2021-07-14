@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.CapitalReceiptAccountDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.CapitalReceiptAccount">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="capital_receipt_id" jdbcType="VARCHAR" property="capitalReceiptId" />
+    <result column="settlement_type" jdbcType="VARCHAR" property="settlementType" />
+    <result column="fund_account" jdbcType="VARCHAR" property="fundAccount" />
+    <result column="this_money" jdbcType="VARCHAR" property="thisMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, capital_receipt_id, settlement_type, fund_account, this_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from capital_receipt_account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="queryById" resultType="com.cy.psi.entity.CapitalReceiptAccount">
+      select
+        id, receipt_id, fund_account, settlement_type, this_money
+      from capital_receipt_account
+      where receipt_id = #{capitalReceiptId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from capital_receipt_account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cy.psi.entity.CapitalReceiptAccount" useGeneratedKeys="true">
+    insert into capital_receipt_account (capital_receipt_id, settlement_type, 
+      fund_account, this_money)
+    values (#{capitalReceiptId,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, 
+      #{fundAccount,jdbcType=VARCHAR}, #{thisMoney,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cy.psi.entity.CapitalReceiptAccount" useGeneratedKeys="true">
+    insert into capital_receipt_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="capitalReceiptId != null">
+        capital_receipt_id,
+      </if>
+      <if test="settlementType != null">
+        settlement_type,
+      </if>
+      <if test="fundAccount != null">
+        fund_account,
+      </if>
+      <if test="thisMoney != null">
+        this_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="capitalReceiptId != null">
+        #{capitalReceiptId,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementType != null">
+        #{settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="fundAccount != null">
+        #{fundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="thisMoney != null">
+        #{thisMoney,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.CapitalReceiptAccount">
+    update capital_receipt_account
+    <set>
+      <if test="capitalReceiptId != null">
+        capital_receipt_id = #{capitalReceiptId,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementType != null">
+        settlement_type = #{settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="fundAccount != null">
+        fund_account = #{fundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="thisMoney != null">
+        this_money = #{thisMoney,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.CapitalReceiptAccount">
+    update capital_receipt_account
+    set capital_receipt_id = #{capitalReceiptId,jdbcType=VARCHAR},
+      settlement_type = #{settlementType,jdbcType=VARCHAR},
+      fund_account = #{fundAccount,jdbcType=VARCHAR},
+      this_money = #{thisMoney,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

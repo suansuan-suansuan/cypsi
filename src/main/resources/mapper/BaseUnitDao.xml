@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.BaseUnitDao">
+
+    <resultMap type="com.cy.psi.entity.BaseUnit" id="BaseUnitMap">
+        <result property="unitId" column="unit_id" jdbcType="INTEGER"/>
+        <result property="unitName" column="unit_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="BaseUnitCol">
+        unit_id, unit_name
+    </sql>
+
+    <!--查询所有-->
+    <select id="queryAll" resultMap="BaseUnitMap">
+        select
+        <include refid="BaseUnitCol"></include>
+        from cypsi.base_unit
+    </select>
+</mapper>
+

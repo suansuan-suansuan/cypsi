@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.CapitalReceiptBillDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.CapitalReceiptBill">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="capital_receipt_id" jdbcType="VARCHAR" property="capitalReceiptId" />
+    <result column="settlement_type" jdbcType="VARCHAR" property="settlementType" />
+    <result column="this_money" jdbcType="VARCHAR" property="thisMoney" />
+    <result column="customer" jdbcType="VARCHAR" property="customer" />
+    <result column="payee" jdbcType="VARCHAR" property="payee" />
+    <result column="approver" jdbcType="VARCHAR" property="approver" />
+    <result column="found_time" jdbcType="VARCHAR" property="foundTime" />
+    <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
+    <result column="approval_state" jdbcType="VARCHAR" property="approvalState" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="sale_order_id" jdbcType="VARCHAR" property="saleOrderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, capital_receipt_id, settlement_type, this_money, customer, payee, founder, approver, 
+    found_time, update_time, approval_state, remarks,sale_order_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from capital_receipt_bill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="relation" resultType="com.cy.psi.entity.CapitalReceiptBill">
+      select receipt_id from capital_receipt_bill
+      where sale_order_id = #{id}
+    </select>
+  <select id="queryById" resultType="com.cy.psi.entity.CapitalReceiptBill">
+    select * from capital_receipt_bill
+    where capital_receipt_id = #{capitalReceiptId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from capital_receipt_bill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cy.psi.entity.CapitalReceiptBill" useGeneratedKeys="true">
+    insert into capital_receipt_bill (capital_receipt_id, settlement_type, 
+      this_money, customer, payee, 
+      founder, approver, found_time, 
+      update_time, approval_state, remarks
+      )
+    values (#{capitalReceiptId,jdbcType=VARCHAR}, #{settlementType,jdbcType=VARCHAR}, 
+      #{thisMoney,jdbcType=VARCHAR}, #{customer,jdbcType=VARCHAR}, #{payee,jdbcType=VARCHAR}, 
+      #{founder,jdbcType=VARCHAR}, #{approver,jdbcType=VARCHAR}, #{foundTime,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=VARCHAR}, #{approvalState,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cy.psi.entity.CapitalReceiptBill" useGeneratedKeys="true">
+    insert into capital_receipt_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="capitalReceiptId != null">
+        capital_receipt_id,
+      </if>
+      <if test="settlementType != null">
+        settlement_type,
+      </if>
+      <if test="thisMoney != null">
+        this_money,
+      </if>
+      <if test="customer != null">
+        customer,
+      </if>
+      <if test="payee != null">
+        payee,
+      </if>
+      <if test="founder != null">
+        founder,
+      </if>
+      <if test="approver != null">
+        approver,
+      </if>
+      <if test="foundTime != null">
+        found_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="approvalState != null">
+        approval_state,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="capitalReceiptId != null">
+        #{capitalReceiptId,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementType != null">
+        #{settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="thisMoney != null">
+        #{thisMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null">
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="payee != null">
+        #{payee,jdbcType=VARCHAR},
+      </if>
+      <if test="founder != null">
+        #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="approver != null">
+        #{approver,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null">
+        #{foundTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalState != null">
+        #{approvalState,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+    <insert id="insertBatch">
+      insert into capital_receipt_bill(capital_receipt_id, settlement_type, this_money, customer, payee,
+      approver, found_time, update_time,approval_state,remarks,sale_order_id)
+      values
+        (#{entity.capitalReceiptId}, #{entity.settlementType}, #{entity.thisMoney}, #{entity.customer},
+        #{entity.payee}, #{entity.approver}, #{entity.foundTime}, #{entity.updateTime}, #{entity.approvalState}, #{entity.remarks},#{entity.saleOrderId})
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.CapitalReceiptBill">
+    update capital_receipt_bill
+    <set>
+      <if test="capitalReceiptId != null">
+        capital_receipt_id = #{capitalReceiptId,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementType != null">
+        settlement_type = #{settlementType,jdbcType=VARCHAR},
+      </if>
+      <if test="thisMoney != null">
+        this_money = #{thisMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null">
+        customer = #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="payee != null">
+        payee = #{payee,jdbcType=VARCHAR},
+      </if>
+      <if test="founder != null">
+        founder = #{founder,jdbcType=VARCHAR},
+      </if>
+      <if test="approver != null">
+        approver = #{approver,jdbcType=VARCHAR},
+      </if>
+      <if test="foundTime != null">
+        found_time = #{foundTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalState != null">
+        approval_state = #{approvalState,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.CapitalReceiptBill">
+    update capital_receipt_bill
+    set capital_receipt_id = #{capitalReceiptId,jdbcType=VARCHAR},
+      settlement_type = #{settlementType,jdbcType=VARCHAR},
+      this_money = #{thisMoney,jdbcType=VARCHAR},
+      customer = #{customer,jdbcType=VARCHAR},
+      payee = #{payee,jdbcType=VARCHAR},
+      founder = #{founder,jdbcType=VARCHAR},
+      approver = #{approver,jdbcType=VARCHAR},
+      found_time = #{foundTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      approval_state = #{approvalState,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

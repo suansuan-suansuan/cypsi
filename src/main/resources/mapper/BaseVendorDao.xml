@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.BaseVendorDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.BaseVendor">
+    <id column="vendor_id" jdbcType="VARCHAR" property="vendorId" />
+    <result column="vendor_number" jdbcType="VARCHAR" property="vendorNumber" />
+    <result column="vendor_name" jdbcType="VARCHAR" property="vendorName" />
+    <result column="fund_account" jdbcType="VARCHAR" property="fundAccount" />
+    <result column="u_id" jdbcType="VARCHAR" property="uId" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+    <result column="contact_address" jdbcType="VARCHAR" property="contactAddress" />
+    <result column="contact_number" jdbcType="VARCHAR" property="contactNumber" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="product_number" jdbcType="VARCHAR" property="productNumber" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    vendor_id, vendor_number, vendor_name, fund_account, u_id, contact_name,
+    contact_address, contact_number, remarks
+  </sql>
+
+  <select id="selectAll" parameterType="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from base_vendor
+  </select>
+
+  <select id="selectAll88" parameterType="list" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from base_vendor
+  </select>
+
+  <!--查询单个-->
+  <select id="queryById" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from cypsi.base_vendor
+    where vendor_id = #{vendorId}
+  </select>
+
+  <!--查询所有-->
+  <select id="queryAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from cypsi.base_vendor
+  </select>
+
+  <!--通过实体作为或者条件查询-->
+  <select id="queryOrByPojo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from cypsi.base_vendor
+    <where>
+      <if test="vendorId != null and vendorId != ''">
+        or vendor_id like CONCAT('%',#{vendorId},'%')
+      </if>
+      <if test="vendorNumber != null and vendorNumber != ''">
+        or vendor_number like CONCAT('%',#{vendorNumber},'%')
+      </if>
+      <if test="vendorName != null and vendorName != ''">
+        or vendor_name like CONCAT('%',#{vendorName},'%')
+      </if>
+      <if test="fundAccount != null and fundAccount != ''">
+        or fund_account like CONCAT('%',#{fundAccount},'%')
+      </if>
+      <if test="uId != null and uId != ''">
+        or u_id like CONCAT('%',#{uId},'%')
+      </if>
+      <if test="contactName != null and contactName != ''">
+        or contact_name like CONCAT('%',#{contactName},'%')
+      </if>
+      <if test="contactAddress != null and contactAddress != ''">
+        or contact_address like CONCAT('%',#{contactAddress},'%')
+      </if>
+      <if test="contactNumber != null and contactNumber != ''">
+        or contact_number like CONCAT('%',#{contactNumber},'%')
+      </if>
+      <if test="remarks != null and remarks != ''">
+        or remarks like CONCAT('%',#{remarks},'%')
+      </if>
+    </where>
+  </select>
+
+  <!--通过实体作为并且条件查询-->
+  <select id="queryAndByPojo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from cypsi.base_vendor
+    <where>
+      <if test="vendorId != null and vendorId != ''">
+        and vendor_id = #{vendorId}
+      </if>
+      <if test="vendorNumber != null and vendorNumber != ''">
+        and vendor_number = #{vendorNumber}
+      </if>
+      <if test="vendorName != null and vendorName != ''">
+        and vendor_name = #{vendorName}
+      </if>
+      <if test="fundAccount != null and fundAccount != ''">
+        and fund_account = #{fundAccount}
+      </if>
+      <if test="uId != null and uId != ''">
+        and u_id = #{uId}
+      </if>
+      <if test="contactName != null and contactName != ''">
+        and contact_name = #{contactName}
+      </if>
+      <if test="contactAddress != null and contactAddress != ''">
+        and contact_address = #{contactAddress}
+      </if>
+      <if test="contactNumber != null and contactNumber != ''">
+        and contact_number = #{contactNumber}
+      </if>
+      <if test="remarks != null and remarks != ''">
+        and remarks = #{remarks}
+      </if>
+    </where>
+  </select>
+
+  <!--新增所有列-->
+  <insert id="insert" keyColumn="vendor_id" keyProperty="vendorId" parameterType="com.cy.psi.entity.BaseVendor" useGeneratedKeys="true">
+    insert into base_vendor (vendor_number, vendor_name, fund_account,
+      u_id, contact_name, contact_address,
+      contact_number, remarks, product_number
+      )
+    values (#{vendorNumber,jdbcType=VARCHAR}, #{vendorName,jdbcType=VARCHAR}, #{fundAccount,jdbcType=VARCHAR},
+      #{uId,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, #{contactAddress,jdbcType=VARCHAR},
+      #{contactNumber,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{productNumber,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <!--通过主键修改数据-->
+  <update id="update">
+    update cypsi.base_vendor
+    <set>
+      <if test="vendorNumber != null">
+        vendor_number = #{vendorNumber},
+      </if>
+      <if test="vendorName != null">
+        vendor_name = #{vendorName},
+      </if>
+      <if test="fundAccount != null">
+        fund_account = #{fundAccount},
+      </if>
+      <if test="uId != null">
+        u_id = #{uId},
+      </if>
+      <if test="contactName != null">
+        contact_name = #{contactName},
+      </if>
+      <if test="contactAddress != null">
+        contact_address = #{contactAddress},
+      </if>
+      <if test="contactNumber != null">
+        contact_number = #{contactNumber},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks},
+      </if>
+    </set>
+    where vendor_id = #{vendorId}
+  </update>
+
+  <!--通过主键删除数据-->
+  <delete id="deleteById">
+        delete from cypsi.base_vendor where vendor_id = #{vendorId}
+    </delete>
+
+  <!--通过主键列表批量删除数据-->
+  <delete id="deleteBatch">
+    delete from cypsi.base_vendor where vendor_id in
+    <foreach collection="list" item="id" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+</mapper>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.psi.dao.SaleDeliveryDetailsDao">
+  <resultMap id="BaseResultMap" type="com.cy.psi.entity.SaleDeliveryDetails">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="delivery_order_id" jdbcType="VARCHAR" property="deliveryOrderId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="product_num" jdbcType="INTEGER" property="productNum" />
+    <result column="depot_id" jdbcType="VARCHAR" property="depotId" />
+    <result column="sale_unit_price" jdbcType="DECIMAL" property="saleUnitPrice" />
+    <result column="sale_money" jdbcType="DECIMAL" property="saleMoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, delivery_order_id, product_id, product_num, depot_id, sale_unit_price, sale_money
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sale_delivery_details
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="queryById" resultMap="BaseResultMap">
+    select *
+    from sale_delivery_details
+    where delivery_order_id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sale_delivery_details
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.cy.psi.entity.SaleDeliveryDetails" useGeneratedKeys="true">
+    insert into sale_delivery_details (delivery_order_id, product_id, product_num,
+                                       depot_id, sale_unit_price, sale_money
+      )
+    values (#{deliveryOrderId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}, #{productNum,jdbcType=INTEGER}, 
+      #{depotId,jdbcType=VARCHAR}, #{saleUnitPrice,jdbcType=DECIMAL}, #{saleMoney,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.cy.psi.entity.SaleDeliveryDetails" useGeneratedKeys="true">
+    insert into sale_delivery_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deliveryOrderId != null">
+        delivery_order_id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productNum != null">
+        product_num,
+      </if>
+      <if test="depotId != null">
+        depot_id,
+      </if>
+      <if test="saleUnitPrice != null">
+        sale_unit_price,
+      </if>
+      <if test="saleMoney != null">
+        sale_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deliveryOrderId != null">
+        #{deliveryOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null">
+        #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null">
+        #{depotId,jdbcType=VARCHAR},
+      </if>
+      <if test="saleUnitPrice != null">
+        #{saleUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleMoney != null">
+        #{saleMoney,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatch">
+    insert into sale_delivery_details(delivery_order_id, product_id, product_num, depot_id, sale_unit_price,
+    sale_money)
+    values
+    <foreach collection="entities" item="entity" separator=",">
+      (#{entity.deliveryOrderId}, #{entity.productId}, #{entity.productNum}, #{entity.depotId}, #{entity.saleUnitPrice},
+      #{entity.saleMoney})
+    </foreach>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cy.psi.entity.SaleDeliveryDetails">
+    update sale_delivery_details
+    <set>
+      <if test="deliveryOrderId != null">
+        delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productNum != null">
+        product_num = #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="depotId != null">
+        depot_id = #{depotId,jdbcType=VARCHAR},
+      </if>
+      <if test="saleUnitPrice != null">
+        sale_unit_price = #{saleUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="saleMoney != null">
+        sale_money = #{saleMoney,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cy.psi.entity.SaleDeliveryDetails">
+    update sale_delivery_details
+    set delivery_order_id = #{deliveryOrderId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      product_num = #{productNum,jdbcType=INTEGER},
+        depot_id = #{depotId,jdbcType=VARCHAR},
+      sale_unit_price = #{saleUnitPrice,jdbcType=DECIMAL},
+      sale_money = #{saleMoney,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
